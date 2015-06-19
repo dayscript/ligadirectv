@@ -1,0 +1,9 @@
+; $Id$
+name = ligadtv
+description = Module custom for liga directv de baloncesto
+dependencies[] = views
+package = liga directv de baloncesto
+version = 0.01
+core = 7.x
+files[] = ligadtv.module
+files[] = ligadtv.pages.inc
