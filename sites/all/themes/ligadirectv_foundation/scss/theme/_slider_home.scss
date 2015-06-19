@@ -1,0 +1,95 @@
+.highlight{
+  background: #001333 !important;
+  border:0 !important;
+  .block-ligadtv{
+    background: #001333;
+    .slidorion{
+      left:45%;
+      width: 970px;
+      height: 374px;
+      background: transparent;
+      padding: 15px;
+      box-shadow: none;
+      border:0;
+      .slider {
+        width: 68%;
+        height: 100%;
+        position: relative;
+        float: left;
+        overflow: hidden;
+        .slide{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          .bgSlider{
+            width: 639px;
+            position: relative;
+            top: -200px;
+            height: 200px;
+            padding-top: 20px;
+            padding-left: 20px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 1) 100%);
+            .sltitle{
+              color: white;
+              float: left;
+              font-size: 45px;
+              text-align: center;
+              width: 100%;
+            }
+            .sldes{
+              color: white;
+              float: left;
+              font-size: 18px;
+              text-align: left;
+              p{
+                color:white;
+              }
+            }
+          }
+        }
+      }
+      .accordion{
+        width: 32%;
+        font-family: Verdana;
+        /* background: #eee; */
+        position: relative;
+        z-index: 999;
+        overflow: hidden;
+        float: left;
+        .header{
+          padding: 8px 14px;
+          font-size: 12px;
+          font-weight: bold;
+          color: white;
+          border-bottom: 2px solid #FF9000 !important;
+          height: 57.5px;
+          background: #001333 !important;
+          text-transform: uppercase;
+          >:after{
+            content: '>>';
+            display: block;
+            position: relative;
+            color: #FF9000;
+            font-size: 20px;
+            left: 258px;
+            top: -15px;
+          }
+        }
+        .content{
+          height: 0px;
+          font-weight: normal;
+          font-size: 12px;
+          line-height: 20px;
+          margin: 0;
+          padding: 0px;
+          border: none;
+          overflow: auto;
+        }
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,76 @@
+body{
+  background-color: #001E46;
+  background-image: url(../img/Fondo.jpg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  .top-bar{
+    background:none;
+    .logo{
+      margin-left: 16.5%;
+      margin-bottom:2.7%;
+    }
+    .social{
+      margin-top:8%;
+      margin-bottom:4%;
+      a{
+        display: inline-block;
+      }
+    }
+  }
+  .l-header-region{
+    .block-system-main-menu{
+      float: left;
+      color: white;
+      border-top: 2px solid #FF9000;
+      border-bottom: 2px solid #FF9000;
+      padding:0;
+      .menu{
+        background-color: #0068AA;
+        height: 38px;
+        width: 100%;
+        margin: 2px 0;
+        padding-top: 10px;
+        padding-bottom:30px;
+        li{
+          display:inline;
+          border-right: 2px solid #FFFFFF;
+          color: #FFFFFF;
+          float: left;
+          font-family: 'futura_ltbook';
+          font-size: 17px;
+          line-height: 23px;
+          padding: 0 15px;
+          >:hover{
+            background-color: #FF9000;
+            color: black;
+            a{
+              background-color: #FF9000;
+              color: black;
+            }
+          }
+          a{
+            color: white;
+            text-transform: uppercase;
+          }
+        }
+        li.last {
+          border: none;
+        }
+      }
+    }
+  }
+
+  .main{
+    .highlight {
+      //display: inline-block;
+    }
+  }
+  .row{
+      max-width: 64.5rem!important;
+  }
+}
+.content-2{
+  border-top: 2px solid #FF9000;
+  padding-top: 15px;
+  margin-top: 20px;
+}

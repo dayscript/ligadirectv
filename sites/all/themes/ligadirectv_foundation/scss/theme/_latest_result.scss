@@ -1,0 +1,96 @@
+.latest-result{
+  margin-left: 20px;
+  float: left;
+  height: auto;
+  margin-top: 10px;
+  width: 320px;
+  padding: 0px;
+  background-color: rgba(0,0,0,0.2);
+  .headc21{
+    width: 300px;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #FF9000;
+    color: white;
+    height: 30px;
+    margin-top: 12px;
+    margin-left: 10px;
+    h3{
+      float: left;
+      font-family: 'futura_ltbook';
+      font-size:17px;
+      color:white;
+    }
+  }
+  .ccrsInfo{
+    //float: left;
+    .rsDate {
+      width: 100%;
+      text-align: center;
+      color: #FF9000;
+      font-size: 18px;
+    }
+  }
+  .ccLinkResults {
+    background-color: #0068AA;
+    height: 23px;
+    border-radius: 3px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 8px auto;
+    display: block;
+    width: 100px;
+    color: white !important;
+     a {
+      color: white;
+      text-align: center;
+    }
+  }
+  .resulMini {
+    width: 130px;
+    height: auto;
+    margin: 0 5px;
+    .resulNumber {
+      font-size: 36px;
+      color: white;
+      width: 57px;
+      text-align: center;
+    }
+    .resulRy {
+      font-size: 20px;
+      color: #FF9000;
+      margin: 9px 4px 0px;
+    }
+    .resulNumber {
+      font-size: 36px;
+      color: white;
+      width: 57px;
+      text-align: center;
+    }
+  }
+  .orbit-container{
+    padding:5px!important;
+    height: 88px;
+    ul{
+        height: 260px;
+        li{
+          .ccrsInfo{
+            padding: 0px 35px;
+            display: inline-block;
+            div{
+            float: left;
+            display: inline-block;
+          }
+          }
+        }
+    }
+    .orbit-slide-number,.orbit-timer.paused{
+      display:none;
+      .orbit-progress{
+        display:none;
+      }
+    }
+  }
+
+}
+
