@@ -85,6 +85,14 @@ function ligadtv_block_info() {
     'info'  => t('Sponsors Home'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['dpb']  = array(
+    'info'  => t('DPB'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['laliga']  = array(
+    'info'  => t('LA LIGA'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 /**
@@ -194,6 +202,18 @@ function ligadtv_block_view($delta = '') {
                           '#items' => array(),
                 );
       break;
+      case 'dpb':
+        $block['content']     = array(
+                          '#theme'  => 'dpb',
+                          '#items'  => array(),
+        );
+      break;
+      case 'laliga':
+        $block['content']     = array(
+                          '#theme'  => 'laliga',
+                          '#items'  => array(),
+        );
+      break;
     }
   return $block;
 }
@@ -277,6 +297,18 @@ function ligadtv_theme(){
         ),
   'sponsors_home'     => array(
             'template'  => 'theme/sponsors_home',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'dpb'               => array(
+            'template'  => 'theme/dpb',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'laliga'             =>array(
+            'template'  => 'theme/laliga',
             'variables' => array(
                 'items' => array(),
               ),

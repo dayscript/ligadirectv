@@ -158,12 +158,16 @@
       <div class="content-2 columns large-12">
         <?php print render($page['content-2']); ?>
       </div>
-      <div class="content-3 columns large-12">
-        <?php print render($page['content-3']); ?>
-      </div>
-      <div class="content-4 columns large-12">
-        <?php print render($page['content-4']); ?>
-      </div>
+      <?php if ($page['content-3']): ?>
+        <div class="content-3 columns large-12">
+          <?php print render($page['content-3']); ?>
+        </div>
+      <?php endif; ?>
+      <?php if ($page['content-4']): ?>
+        <div class="content-4 columns large-12">
+          <?php print render($page['content-4']); ?>
+        </div>
+      <?php endif; ?>
     </div>
     <!--/.l-main region -->
 
