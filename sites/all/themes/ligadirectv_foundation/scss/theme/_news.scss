@@ -1,0 +1,74 @@
+.page-news{
+  h1.title{
+    text-align: center;
+    line-height: 35px;
+    font-family: 'futura_ltbook';
+    font-size: 20px;
+    width: 1000px;
+    margin: 0 auto;
+    background-color: #FF9000;
+    color: black;
+    height: 35px;
+  }
+  .view-news{
+    .view-content{
+      .item-list{
+        ul{
+          li{
+            margin: 0;
+            width: 320px;
+            height: 400px;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px 10px 5px;
+            float: left;
+            margin-bottom: 20px;
+            margin-left: 19px;
+            span.title-new{
+              width: 100%;
+              a{
+                height: 53px;
+                border-bottom: 2px solid #FF9000;
+                color: white;
+                font-family: 'futura_ltbook';
+                font-size: 20px;
+              }
+            }
+            .body-new{
+              p{
+                color:white;
+              }
+            }
+            .dateCNoti {
+              width: 100%;
+              margin-top: 10px;
+              height: 30px;
+              .date-new{
+                float: left;
+                color: #FF9000;
+                margin-top: 5px;
+              }
+              .like-new{
+                float: left;
+              }
+              .view-new{
+                float: left;
+                background-color: #0068AA;
+                color: white;
+                padding: 4px;
+                border-radius: 5px;
+                a{
+                  color: white;
+                  font-family: 'futura_ltbook';
+                }
+              }
+            }
+          }
+          .views-row-first, .views-row-4, .views-row-7,
+          .views-row-10{
+            margin-left: 0px;
+          }
+        }
+      }
+    }
+  }
+}
