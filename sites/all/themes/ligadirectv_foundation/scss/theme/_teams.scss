@@ -1,0 +1,67 @@
+.page-teams{
+  .title{
+    width: 1000px;
+    margin: 0 auto;
+    background-color: #FF9000;
+    color: black;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-family: 'futura_ltbook';
+    font-size: 20px;
+  }
+  .view-teams{
+    .view-content{
+      .views-row{
+        margin: 0;
+        background-color: rgba(0, 0, 0, 0.2);
+        width: 320px;
+        height: 272px;
+        margin-top: 20px;
+        margin-left: 20px;
+        float: left;
+        .views-field-field-image{
+          height: 200px;
+          width: 200px;
+          margin: 0 auto;
+          .field-content{
+            text-align:center;
+          }
+        }
+        .views-field-title{
+          border-bottom: 2px solid #FF9000;
+          text-align:center;
+          span{
+            a{
+              width: 100%;
+              text-align: center;
+              font-family: 'futura_ltbook';
+              font-size: 20px;
+              color: white;
+              margin-bottom: 2px;
+            }
+          }
+        }
+        .views-field-nid{
+          span{
+            a {
+              text-transform: uppercase;
+              background-color: #0068AA;
+              color: white;
+              border-radius: 5px;
+              padding: 2px;
+              position: relative;
+              top: 8px;
+              left: 108px;
+              font-size: 14px;
+              padding: 3px 10px;
+            }
+          }
+        }
+      }
+      .views-row-1,.views-row-4,.views-row-7,.views-row-10{
+        margin-left: 0px;
+      }
+    }
+  }
+}
