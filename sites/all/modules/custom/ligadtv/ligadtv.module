@@ -28,6 +28,14 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
   );
+  $menu['matchs']= array(
+    'title'            => t('Matchs'),
+    'description'      => t('Matchs'),
+    'page callback'    => '_matchs',
+    'access arguments' => array('access content'),
+    'file'             => 'ligadtv.pages.inc',
+    'type'             => MENU_CALLBACK,
+  );
   return $menu;
 }
 
@@ -309,6 +317,12 @@ function ligadtv_theme(){
         ),
   'laliga'             =>array(
             'template'  => 'theme/laliga',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'matchs'             => array(
+            'template'  => 'theme/matchs',
             'variables' => array(
                 'items' => array(),
               ),
@@ -638,5 +652,43 @@ function getLeaderMediaAsistencias2($sql,$load=false){
     fclose($fp);
   $file=drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
+}
+/**
+ * [_consult_matchs description]
+ * @return [type] [description]
+ */
+function _consult_matchs($phase){
+  $arraydatos = array();
+  $query = db_select('node', 'n');
+  $query->leftjoin('field_data_field_channel', 'ch', 'n.nid = ch.entity_id');
+  $query->leftjoin('field_data_field_team_one', 't1', 'n.nid = t1.entity_id');
+  $query->leftjoin('field_data_field_team_tow', 't2', 'n.nid = t2.entity_id');
+  $query->leftjoin('field_data_field_date', 'd', 'n.nid = d.entity_id');
+  $query->leftjoin('field_data_field_site', 's', 'n.nid = s.entity_id');
+  $query->leftJoin('field_data_field_phase', 'p', 'n.nid = s.entity_id');
+  $query->fields('n', array('title', 'nid'))
+        ->fields('t1', array('field_team_one_target_id'))
+        ->fields('t2', array('field_team_tow_target_id'))
+        ->fields('ch', array('field_channel_target_id'))
+        ->fields('d', array('field_date_value'))
+        ->fields('s', array('field_site_tid'))
+        ->fields('p', array('field_phase_tid'))
+        ->condition('n.type', 'match')
+        ->condition('p.field_phase_tid', $phase)
+        ->orderBy('n.created', 'DESC');
+  $result = $query->execute();
+  while ($row = $result->fetchAssoc()) {
+    $arraydatos[] = array(
+          "title"     => $row["title"],
+          "nid"       => $row["nid"],
+          "channel"   => $row['field_channel_target_id'],
+          "t1"        => $row["field_team_one_target_id"],
+          "t2"        => $row["field_team_tow_target_id"],
+          "date"      => $row["field_date_value"],
+          "site"      => $row["field_site_tid"],
+          "phase"     => $row["field_phase_tid"],
+        );
+  }
+  return $arraydatos;
 }
 ?>

@@ -1,0 +1,144 @@
+.page-matchs{
+  .title{
+    width: 100%;
+    margin: 0 auto;
+    background-color: #FF9000;
+    color: black;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-family: 'futura_ltbook';
+    font-size: 20px;
+  }
+  ul.tabs{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    float: left;
+    color: white;
+    padding-left: 130px;
+    padding-right: 130px;
+    padding-bottom: 15px;
+    padding-top:2px;
+    p {
+      text-align: center;
+      font-size: 18px;
+      line-height: 18px;
+      margin-top: 10px;
+      color: white;
+      font-family: 'futura_ltbook';
+      font-size: 20px;
+      margin-bottom: 0px;
+    }
+    li{
+      color: black;
+      padding: 0px 8px;
+      background-color: #FF9000;
+      font-size: 20px;
+      float: left;
+      margin: 2px;
+      text-align: center;
+      min-width: 30px;
+      a{
+        background-color: #FF9000 !important;
+        padding:0px;
+        font-family: 'futura_ltbook';
+      }
+    }
+    li.active{
+      a{
+        color:white;
+        font-family: 'futura_ltbook';
+        padding:0px;
+      }
+    }
+  }
+  .tabs-content{
+    .matchs{
+      background-color: rgba(0, 0, 0, 0.2);
+      width: 100%;
+      float: left;
+      margin-top: 30px;
+      .ccResBox {
+        width: 300px;
+        margin: 10px 11px;
+        float: left;
+        border: solid #0068AA 1px;
+        padding:0px;
+        .crbheader {
+          width: 100%;
+          float: left;
+          height: 34px;
+          color: black;
+          text-align: center;
+          font-size: 20px;
+          background: #FF9000;
+          line-height: 34px;
+          font-family: 'futura_ltbook';
+        }
+        .vermas {
+          float: right;
+          color: #FF9000;
+          margin-top: 4px;
+          text-align: right;
+          height: 20px;
+          margin-right: 4px;
+        }
+        .crbTeam {
+          width: 100%;
+          height: 46px;
+          float: left;
+          text-align: center;
+          line-height: 46px;
+          margin: 5px auto;
+          .ico1 {
+            display: block;
+            float: left;
+            width: 46px;
+            height: 46px;
+            margin: 0 8px;
+            img {
+              width: 46px;
+              height: 46px;
+            }
+          }
+          .crbname {
+            float: left;
+            width: 230px;
+            text-align: left;
+            font-size: 20px;
+            color: white;
+          }
+        }
+        .crbVs {
+          color: white;
+          float: left;
+          width: 95%;
+          padding-right: 5%;
+          text-align: right;
+          margin-top: 10px;
+          .crLine {
+            width: 90%;
+            position: relative;
+            border-bottom: 2px solid white;
+            margin-bottom: -10px;
+          }
+        }
+        .crBlueC {
+          width: 100%;
+          text-align: center;
+          color: white;
+          font-size: 20px;
+          background-color: #0068AA;
+          float: left;
+          border-top: 2px solid white;
+          margin-top: 20px;
+          p{
+            margin-bottom: 0;
+            font-family: 'futura_ltbook';
+            font-size:20px;
+          }
+        }
+      }
+    }
+  }
+}

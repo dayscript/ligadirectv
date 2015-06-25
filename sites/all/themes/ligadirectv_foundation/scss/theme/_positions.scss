@@ -1,0 +1,89 @@
+.page-node-48{
+  .ccEstadisticas {
+    width: 100%;
+    max-width: 1003px;
+    margin: 0 auto;
+    .space20 {
+      margin: 20px auto;
+      width: 100%;
+      clear: both;
+    }
+    .navEstadisticas {
+      max-width: 1003px;
+      width: 100%;
+      margin: 0 auto;
+      a{
+        .linkEstadisticas {
+          width: 50%;
+          float: left;
+          height: 35px;
+          background-color: #0068AA;
+          text-align: center;
+          margin: 0 0px;
+          line-height: 35px;
+          color: white;
+          position: relative;
+          left: 1px;
+          cursor: pointer;
+        }
+        .linkEstadisticas.active {
+          background-color: #FF9000;
+          color: black;
+        }
+      }
+    }
+    .hrNaranjaFull {
+      max-width: 1000px;
+      width: 100%;
+      height: 2px;
+      background-color: #FF9000;
+      margin: 10px auto;
+      float: left;
+    }
+    .titleGprt {
+      width: 100%;
+      text-align: center;
+      color: white;
+      margin: 10px auto;
+      clear: both;
+      color:white;
+      height: 30px;
+    }
+    .tableNomina {
+      width: 100%;
+      max-width: 976px;
+      margin: 0 auto;
+      background:none;
+      .bigTable {
+        width: 100%;
+        border: 1px solid #0068AA;
+        background:none;
+        border-top: 4px solid #0068AA;
+        thead{
+          tr{
+            td {
+              background-color: #0068AA;
+              height: 21px;
+              border-right: 1px solid white;
+              text-align: center;
+              color: white;
+            }
+          }
+        }
+        tbody{
+          tr{
+            background:none;
+            td {
+              color: white;
+              text-align: center;
+              line-height: 21px;
+              height: 21px;
+              border-left: 1px solid white;
+              background:none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

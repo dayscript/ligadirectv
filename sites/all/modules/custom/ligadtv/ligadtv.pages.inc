@@ -1,8 +1,24 @@
 <?php
+/**
+ * [_video_home_config description]
+ * @return [type] [description]
+ */
   function _video_home_config(){
     $form = drupal_get_form('_video_home_form');
     return theme('home_form', array('form'=>$form));
   }
+/**
+ * [_matchs description]
+ * @return [type] [description]
+ */
+function _matchs(){
+  $vocabulary = taxonomy_vocabulary_machine_name_load('phase');
+  $phase = taxonomy_get_tree($vocabulary->vid);
+  foreach ($phase as $key => $value) {
+    $matchs[$value->tid] = _consult_matchs($value->tid);
+  }
+  return theme('matchs', array('items'=>$matchs));
+}
   /**
   * Implements hook_form
   **/
