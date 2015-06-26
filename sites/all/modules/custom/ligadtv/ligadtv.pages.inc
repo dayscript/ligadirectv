@@ -19,6 +19,11 @@ function _matchs(){
   }
   return theme('matchs', array('items'=>$matchs));
 }
+function _statistics(){
+  $games = getRes();
+  return theme('statistics', array('items'=>$games));
+}
+
   /**
   * Implements hook_form
   **/
