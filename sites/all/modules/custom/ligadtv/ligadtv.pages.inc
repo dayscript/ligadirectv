@@ -12,16 +12,41 @@
  * @return [type] [description]
  */
 function _matchs(){
-  $vocabulary = taxonomy_vocabulary_machine_name_load('phase');
-  $phase = taxonomy_get_tree($vocabulary->vid);
-  foreach ($phase as $key => $value) {
-    $matchs[$value->tid] = _consult_matchs($value->tid);
-  }
-  return theme('matchs', array('items'=>$matchs));
+  $matchs = _list_matchs();
+  $rounds = _get_rounds();
+  return theme('matchs', array('matchs'=>$matchs, 'rounds'=> $rounds));
 }
+/**
+ * [_statistics description]
+ * @return [type] [description]
+ */
 function _statistics(){
   $games = getRes();
   return theme('statistics', array('items'=>$games));
+}
+
+function _statistics_table($query, $unit){
+  $data = getLeaderPoints();
+  $data = $data['response']['data'];
+  $data = array_sort($data,$query,SORT_DESC);
+
+  return theme('statisticsTable', array('items'=>$data, 'unit'=>$unit, 'query'=>$query));
+}
+/**
+ * Function return info in page teams
+ * @return theme tpl
+ */
+function _teams(){
+  $teams = _get_teams();
+  return theme('teams', array('items'=>$teams));
+}
+/**
+ * function return info team especific
+ * @return [type] [description]
+ */
+function _detail_teams($name, $id){
+  $teams = _get_detail_teams($name, $id);
+  return theme('detail_teams', array('items'=>$teams));
 }
 
   /**
@@ -43,7 +68,7 @@ function _statistics(){
   }
 
   /**
-   *
+   * Implements hook_submit
    */
   function _video_home_form_submit($for, &$form_state){
     variable_set('video_home', $form_state['values']['video_home']);

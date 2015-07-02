@@ -44,6 +44,32 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
   );
+  $menu['statistics/%/%']= array(
+    'title'            => t('Statistics Table'),
+    'description'      => t('Statistics Table'),
+    'page callback'    => '_statistics_table',
+    'page arguments'   => array(1, 2),
+    'access arguments' => array('access content'),
+    'file'             => 'ligadtv.pages.inc',
+    'type'             => MENU_CALLBACK,
+  );
+  $menu['teams']= array(
+    'title'            => t('Teams'),
+    'description'      => t('Teams list'),
+    'page callback'    => '_teams',
+    'access arguments' => array('access content'),
+    'file'             => 'ligadtv.pages.inc',
+    'type'             => MENU_CALLBACK,
+  );
+  $menu['teams/%/%']= array(
+    'title'            => t('Team detail'),
+    'description'      => t('Teams detail'),
+    'page arguments'   => array(1, 2),
+    'page callback'    => '_detail_teams',
+    'access arguments' => array('access content'),
+    'file'             => 'ligadtv.pages.inc',
+    'type'             => MENU_CALLBACK,
+  );
   return $menu;
 }
 
@@ -107,6 +133,10 @@ function ligadtv_block_info() {
   );
   $blocks['laliga']  = array(
     'info'  => t('LA LIGA'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['topheader']  = array(
+    'info'  => t('TOP HEADER'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   return $blocks;
@@ -230,6 +260,13 @@ function ligadtv_block_view($delta = '') {
                           '#items'  => array(),
         );
       break;
+      case 'topheader':
+        $games = getRes();
+        $block['content']     = array(
+                          '#theme'  => 'topheader',
+                          '#items'  => $games,
+        );
+      break;
     }
   return $block;
 }
@@ -335,8 +372,32 @@ function ligadtv_theme(){
                 'items' => array(),
               ),
         ),
-  'statistics'             => array(
+  'statistics'         => array(
             'template'  => 'theme/statistics',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'statisticsTable'    => array(
+            'template'  => 'theme/statisticsTable',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'teams'             => array(
+            'template'  => 'theme/teams',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'detail_teams'      => array(
+            'template'  => 'theme/detail_teams',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'topheader'=> array(
+            'template'  => 'theme/topheader',
             'variables' => array(
                 'items' => array(),
               ),
@@ -378,6 +439,47 @@ function _get_content_custom($type, $quantity){
   }
   return $arraydatos;
 }
+/**
+ * Functions obtain INFO TEAMS
+ * @return [JSON]
+ */
+function _get_teams(){
+  $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=500&ak=' . ak;
+  $json = file_get_contents($uri);
+  $data = json_decode($json, TRUE);
+  return $data;
+}
+/**
+ * Function obtain detail team
+ * @param  [type] $name [description]
+ * @param  [type] $id   [description]
+ * @return [type]       [description]
+ */
+function _get_detail_teams($name, $id){
+  $uri  = baseSp . '/v1/basketball/clubs/' . $id . '?ak=' . ak;
+  $json = file_get_contents($uri);
+  $data = json_decode($json, TRUE);
+  return $data;
+}
+/**
+ * [_list_matchs description]
+ * @return [type] [description]
+ */
+function _list_matchs(){
+  $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/matches?format=json&limit=50000&ak=' . ak;
+  $json = file_get_contents($uri);
+  $data = json_decode($json, TRUE);
+  return $data;
+}
+
+function _get_rounds(){
+  $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/rounds?format=json&limit=24&ak=' . ak;
+  $json = file_get_contents($uri);
+  $data = json_decode($json, TRUE);
+  return $data;
+}
+####################################################################################################################### Back ##################################################################################################################
+
 /**
  * [getStandingData description]
  * @param  [type]  $sql  [description]
@@ -624,7 +726,7 @@ EOF;
                 {$stFinal}
                 </tbody>
             </table>
-            <a href="/estadisticasTable?query={$info}&unit={$nameInfo}" class="verTodos">VER LISTA COMPLETA >></a>
+            <a href="/statistics/{$info}/{$nameInfo}" class="verTodos">VER LISTA COMPLETA >></a>
         </div>
 EOF;
   $returnData['table'] = $table;
@@ -893,7 +995,7 @@ function getLeaderCasnasta2(){
   $name= 'sTwoPointersMade.json';
   $idQuery  = 18;
   $sLeaQuery = 'leaders/sTwoPointersMade';
-  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
   $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'.$name,'w');
@@ -962,6 +1064,7 @@ function getLeaderBallFouls(){
   $name= 'sTurnovers.json';
   $idQuery  = 22;
   $sLeaQuery = 'leaders/sTurnovers';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
   $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'.$name,'w');
@@ -1004,6 +1107,59 @@ function getLeaderBlocksReceived(){
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
 }
+
+function getLeaderSteals($sql,$load=false){
+  $name= 'sSteals.json';
+  $idQuery  = 25;
+  $sLeaQuery = 'leaders/sSteals';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak='.ak.'&limit=500';
+  $json = file_get_contents($query);
+  $data = json_decode($json, TRUE);
+  $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'.$name,'w');
+  fwrite($fp, json_encode($data));
+  fclose($fp);
+  $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
+  return json_decode(file_get_contents($file), true);
+}
+/**
+ * [array_sort description]
+ * @param  [type] $array [description]
+ * @param  [type] $on    [description]
+ * @param  [type] $order [description]
+ * @return [type]        [description]
+ */
+function array_sort($array, $on, $order=SORT_ASC){
+    $new_array = array();
+    $sortable_array = array();
+
+    if (count($array) > 0) {
+        foreach ($array as $k => $v) {
+            if (is_array($v)) {
+                foreach ($v as $k2 => $v2) {
+                    if ($k2 == $on) {
+                        $sortable_array[$k] = $v2;
+                    }
+                }
+            } else {
+                $sortable_array[$k] = $v;
+            }
+        }
+        switch ($order) {
+            case SORT_ASC:
+                asort($sortable_array);
+            break;
+            case SORT_DESC:
+                arsort($sortable_array);
+            break;
+        }
+        foreach ($sortable_array as $k => $v) {
+            $new_array[$k] = $array[$k];
+        }
+    }
+    return $new_array;
+}
+
+
 /**
  * [getLeaderMediaAsistencias2 description]
  * @return [type] [description]

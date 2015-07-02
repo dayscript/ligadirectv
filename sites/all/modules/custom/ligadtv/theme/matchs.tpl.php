@@ -1,21 +1,15 @@
-<?php
-    global $base_url;
-    $team1 = !empty($items['transmition'][0]['t1']) ? node_load($items['transmition'][0]['t1']) : '';
-    $team2 = !empty($items['transmition'][0]['t1']) ? node_load($items['transmition'][0]['t2']) : '';
-    $channel = !empty($items['transmition'][0]['channel']) ? node_load($items['transmition'][0]['channel']) : '';
-?>
+<?php print_r($rounds);?>
 <ul class="tabs" data-tab role="tablist">
-  <p>Fase de Grupos</p>
-  <?php foreach ($items as $key => $value) { ?>
-    <?php if($key == 2 ):?>
-      <li class="tab-title active" role="presentational"><a href="#panel2-<?php print $key;?>" role="tab" tabindex="0" aria-selected="true" controls="panel2-<?php print $key;?>"><?php print taxonomy_term_load($key)->name;?></a></li>
+  <?php foreach ($rounds['response']['data'] as $key => $value) {?>
+    <?php if($key == 0 ):?>
+      <li class="tab-title active" role="presentational"><a href="#panel2-<?php print $key;?>" role="tab" tabindex="0" aria-selected="true" controls="panel2-<?php print $key;?>"><?php print $value['roundNumber'];?></a></li>
     <?php else:?>
-      <li class="tab-title" role="presentational"><a href="#panel2-<?php print $key;?>" role="tab" tabindex="0" aria-selected="true" controls="panel2-<?php print $key;?>"><?php print taxonomy_term_load($key)->name;?></a></li>
+      <li class="tab-title" role="presentational"><a href="#panel2-<?php print $key;?>" role="tab" tabindex="0" aria-selected="true" controls="panel2-<?php print $key;?>"><?php print $value['roundNumber'];?></a></li>
     <?php endif ?>
   <?php }?>
 </ul>
-<div class="tabs-content">
-  <?php foreach ($items as $key => $value) {?>
+<!--<div class="tabs-content">
+  <?php foreach ($matchs as $key => $value) {?>
     <?php if($key == 2): ?>
       <section role="tabpanel" aria-hidden="false" class="content active matchs" id="panel2-<?php print $key;?>">
         <?php foreach ($value as $key2 => $values) {?>
@@ -111,3 +105,4 @@
     </section>
   <?php }?>
 </div>
+-->

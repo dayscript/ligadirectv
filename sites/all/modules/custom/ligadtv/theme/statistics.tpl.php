@@ -1,283 +1,184 @@
-<div class="infoTopHeader noPhone">
-    <?php
-        $cont = 0;
-        foreach ($items[0] as $key => $value) {
-            if ($value['matchStatus'] == 'COMPLETE') {
-                $cont++;
-                if ($cont < 6) {
-                    $stadio = isset($value['venue']) ? $value['venue']['venueName'] : '';
-                    $date   = date( 'd-m-Y', strtotime( $value['matchTime'] ));
-                    $hora   = date( 'H:i', strtotime( $value['matchTime'] ));
-                    $teamloc=$teams[$value['competitors'][0]['clubId']];
-                    $teamVis=$teams[$value['competitors'][1]['clubId']];
-                    $teamlocD=$value['competitors'][0];
-                    $teamVisD=$value['competitors'][1];
-                    if($value['competitors'][1]['isHomeCompetitor']==1){
-                        $teamloc=$teams[$value['competitors'][1]['clubId']];
-                        $teamVis=$teams[$value['competitors'][0]['clubId']];
-                        $teamlocD=$value['competitors'][1];
-                        $teamVisD=$value['competitors'][0];
-                    }
-                    // print_r($teamloc);
-                    $date = date('d-m-Y', strtotime($value['matchTime']));
-                    echo '<div class="c1GameHome">
-                        <div class="cGameHome">
-                            <img width="25px" src="'.$teamloc['images']['logo']['T1']['url'].'">
-                            <p>'.$teamlocD['teamCode'].' '.$teamlocD['scoreString'].'</p>
-                        </div>
-                        <div class="cGameHome">
-                            <img width="25px" src="'.$teamVis['images']['logo']['T1']['url'].'">
-                            <p>'.$teamVisD['teamCode'].' '.$teamVisD['scoreString'].'</p>
-                        </div>
-                        <div class="cdateVerHome">
-                            '.$date.'
-                            <a href="#">Ver mas></a>
-                        </div>
-                    </div>';
-
-                }
-            }
-        }
-    ?>
-    <img class="img01" src="img/logo_dpb.png">
-    <img class="img02" src="img/logo_fiba.png">
-</div>
-<div class="ccEstadisticas">
-  <div class="space20"></div>
-    <div class="title">
-        <h1>
-            ESTADÍSTICAS
-        </h1>
-    </div>
-    <div class="space20"></div>
-    <div class="navEstadisticas noPhone">
-    <a href="estadisticas.php">
-        <div class="linkEstadisticas active">
-            LÍDERES INDIVIDUALES
+<?php
+    $points         = getLeaderPoints();
+    $mediaPointHtml = drawLeader($points,$players,$teams,'sReboundsTotalAverage','REBM');
+    $pointsReb      = getLeaderPointsRebotes();
+    $pointsRebHtml  = drawLeader($pointsReb,$players,$teams,'sReboundsTotalAverage','REBM');
+    $pointsAsisten  = getLeaderMediaAsistencias2();
+    $pointsAsistenH = drawLeader($pointsAsisten,$players,$teams,'sReboundsTotalAverage','REBM');
+    $pointsTL       = getLeaderTlPorcentaje();
+    $pointsTLHTML   = drawLeader($pointsTL,$players,$teams,'sFreeThrowsPercentage','TL');
+    $points3        = getLeader3Porcentaje();
+    $points3HTML    = drawLeader($points3,$players,$teams,'sFreeThrowsPercentage','TL');
+    $points2        = getLeader2Porcentaje();
+    $points2HTML    = drawLeader($points2,$players,$teams,'sFreeThrowsPercentage','TL');
+    $pointsSUM      = getLeaderPuntos();
+    $pointsSUMHTML  = drawLeader($pointsSUM,$players,$teams,'sReboundsTotal','RT');
+    $pointsREBTOTAL = getLeaderPointsSecondChance();
+    $pointsREBTOTALH= drawLeader($pointsREBTOTAL,$players,$teams,'sReboundsTotal','RT');
+    $pointsAsistenc = getLeaderAssists();
+    $pointsAsistencH= drawLeader($pointsAsistenc,$players,$teams,'sAssists','AS');
+    $pointsREBOFE   = getLeaderReboundsOffensive();
+    $pointsREBOFEHT = drawLeader($pointsREBOFE,$players,$teams,'sReboundsOffensive','RO');
+    $pointsREDEF    = getLeaderReboundsDevensive();
+    $pointsREDEFHTM = drawLeader($pointsREDEF,$players,$teams,'sReboundsDefensive','RD');
+    $pointsTAPON    = getLeaderTapones();
+    $pointsTAPONHTM = drawLeader($points,$players,$teams,'sBlocks','TAP');
+    $pointsTL       = getLeaderTlConvert();
+    $pointsTLHTML   = drawLeader($pointsTL,$players,$teams,'sTrueShootingAttempts','TLC');
+    $pointsREC      = getLeaderSteals();
+    $pointsRECHTML  = drawLeader($pointsREC,$players,$teams,'sSteals','REC');
+    $pointsCANAST2  = getLeaderCasnasta2();
+    $pointsCANAST2HT= drawLeader($pointsCANAST2,$players,$teams,'sTwoPointersMade','T2C');
+    $pointsCANAST3  = getLeaderCasnasta3();
+    $pointsCANAST3HT= drawLeader($pointsCANAST3,$players,$teams,'sThreePointersMade','T3C');
+    $pointsFALT     = getLeaderFoulPer();
+    $pointsFALTHTML = drawLeader($pointsFALT,$players,$teams,'sFoulsPersonal','FP');
+    $pointsFALP     = getLeaderFoulPer();
+    $pointsFALPHTM  = drawLeader($pointsFALP,$players,$teams,'sFoulsPersonal','FP');
+    $pointsEFIC     = getLeaderWins();
+    $pointsEFICHTM  = drawLeader($pointsEFIC,$players,$teams,'sEfficiency','EF');
+    $pointsMETAPO   = getLeaderBlocksReceived();
+    $pointsMETAPOHT = drawLeader($pointsMETAPO,$players,$teams,'sBlocksAverage','MT');
+    $pointsBP       = getLeaderBallFouls();
+    $pointsBPHTML   = drawLeader($pointsBP,$players,$teams,'sTurnovers','BP');
+?>
+<div class="large-12 columns">
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>MEDIA DE PUNTOS</h3>
         </div>
-    </a>
-    <a href="estadisticas-posiciones.php">
-        <div class="linkEstadisticas">
-            TABLA DE POSICIONES
+        <?php print $mediaPointHtml['header']; print $mediaPointHtml['table'];?>
+    </div>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>MEDIA REBOTES</h3>
         </div>
-    </a>
-</div>
-<div class="space20"></div>
-<div class="hrNaranjaFull"></div>
-<div class="cc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>MEDIA DE PUNTOS</h3>
+        <?php print $pointsRebHtml['header']; print $pointsRebHtml['table'];?>
     </div>
-    <?php
-        $points=getLeaderPoints();
-        print drawLeader($points,$players,$teams,'sPointsAverage','MP');
-    ?>
-</div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>MEDIA REBOTES</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>MEDIA ASISTENCIAS</h3>
+        </div>
+        <?php print $pointsAsistenH['header']; print $pointsAsistenH['table'];?>
     </div>
-    <?php
-        $points=getLeaderPointsRebotes();
-        print drawLeader($points,$players,$teams,'sReboundsTotalAverage','REBM');
-    ?>
 </div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>MEDIA ASISTENCIAS</h3>
+<div class="large-12 columns">
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>TL PORCENTAJE</h3>
+        </div>
+        <?php print $pointsTLHTML['header']; print $pointsTLHTML['table'];?>
     </div>
-    <?php
-        $points=getLeaderMediaAsistencias2();
-        print drawLeader($points,$players,$teams,'sAssistsAverage','MAS');
-    ?>
-</div>
-<div class="space20"></div>
-<div class="cc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>TL PORCENTAJE</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>3 PORCENTAJE</h3>
+        </div>
+        <?php print $points3HTML['header']; print $points3HTML['table'];?>
     </div>
-    <?php
-        $points=getLeaderTlPorcentaje();
-        print drawLeader($points,$players,$teams,'sFreeThrowsPercentage','TL');
-    ?>
-</div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>3 PORCENTAJE</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>2 PORCENTAJE</h3>
+        </div>
+        <?php print $points2HTML['header']; print $points2HTML['table'];?>
     </div>
-    <?php
-        $points=getLeader3Porcentaje();
-        print drawLeader($points,$players,$teams,'sFreeThrowsPercentage','T3');
-    ?>
 </div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>2 PORCENTAJE</h3>
+<div class="large-12 columns">
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>PUNTOS</h3>
+        </div>
+        <?php print $pointsSUMHTML['header']; print $pointsSUMHTML['table'];?>
     </div>
-    <?php
-        $points=getLeader2Porcentaje();
-        print drawLeader($points,$players,$teams,'sTwoPointersPercentage','T2');
-    ?>
-</div>
-<div class="space20"></div>
-<div class="cc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>PUNTOS</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>REBOTES TOTALES</h3>
+        </div>
+        <?php print $pointsREBTOTALH['header']; print $pointsREBTOTALH['table'];?>
     </div>
-    <?php
-        $points=getLeaderPuntos();
-        print drawLeader($points,$players,$teams,'sPoints','PT');
-    ?>
-</div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>REBOTES TOTALES</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>ASISTENCIAS</h3>
+        </div>
+        <?php print $pointsAsistencH['header']; print $pointsAsistencH['table'];?>
     </div>
-    <?php
-        $points=getLeaderPointsSecondChance();
-        print drawLeader($points,$players,$teams,'sReboundsTotal','RT');
-    ?>
 </div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>ASISTENCIAS</h3>
+<div class="large-12 columns">
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>REBOTES DEFENSIVOS</h3>
+        </div>
+        <?php print $pointsREBOFEHT['header']; print $pointsREBOFEHT['table'];?>
     </div>
-    <?php
-        $points=getLeaderAssists();
-        print drawLeader($points,$players,$teams,'sAssists','AS');
-    ?>
-</div>
-<div class="space20"></div>
-<div class="cc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>REBOTES OFENSIVOS</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>REBOTES DEFENSIVOS</h3>
+        </div>
+        <?php print $pointsREDEFHTM['header']; print $pointsREDEFHTM['table'];?>
     </div>
-    <?php
-        $points=getLeaderReboundsOffensive();
-        drawLeader($points,$players,$teams,'sReboundsOffensive','RO');
-    ?>
-</div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>REBOTES DEFENSIVOS</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>TAPONES</h3>
+        </div>
+        <?php print $pointsTAPONHTM['header']; print $pointsTAPONHTM['table'];?>
     </div>
-    <?php
-        $points=getLeaderReboundsDevensive();
-        print drawLeader($points,$players,$teams,'sReboundsDefensive','RD');
-    ?>
 </div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>TAPONES</h3>
+<div class="large-12 columns">
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>TL CONVERTIDOS</h3>
+        </div>
+        <?php print $pointsTLHTML['header']; print $pointsTLHTML['table'];?>
     </div>
-    <?php
-        $points=getLeaderTapones();
-        print drawLeader($points,$players,$teams,'sBlocks','TAP');
-    ?>
-</div>
-<div class="space20"></div>
-<div class="cc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>TL CONVERTIDOS</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>RECUPERÓ</h3>
+        </div>
+        <?php print $pointsRECHTML['header']; print $pointsRECHTML['table'];?>
     </div>
-    <?php
-        $points=getLeaderTlConvert();
-        print drawLeader($points,$players,$teams,'sTrueShootingAttempts','TLC');
-    ?>
-</div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>RECUPERÓ</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>CANASTA DE 2</h3>
+        </div>
+        <?php print $pointsCANAST2HT['header']; print $pointsCANAST2HT['table'];?>
     </div>
-    <?php
-        $points=getLeaderSteals();
-        print drawLeader($points,$players,$teams,'sSteals','REC');
-    ?>
 </div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>CANASTA DE 2</h3>
+<div class="large-12 columns">
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>CANASTA DE 3</h3>
+        </div>
+        <?php print $pointsCANAST3HT['header']; print $pointsCANAST3HT['table'];?>
     </div>
-    <?php
-        $points=getLeaderCasnasta2();
-        print drawLeader($points,$players,$teams,'sTwoPointersMade','T2C');
-    ?>
-</div>
-<div class="space20"></div>
-<div class="cc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>CANASTA DE 3</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>Faltas personales</h3>
+        </div>
+        <?php print $pointsFALTHTML['header']; print $pointsFALTHTML['table'];?>
     </div>
-    <?php
-        $points=getLeaderCasnasta3();
-        print drawLeader($points,$players,$teams,'sThreePointersMade','T3C');
-    ?>
-</div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>Faltas personales</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>Media de robos</h3>
+        </div>
+        <?php print $pointsFALPHTM['header']; print $pointsFALPHTM['table'];?>
     </div>
-    <?php
-        $points=getLeaderFoulPer();
-        print drawLeader($points,$players,$teams,'sFoulsPersonal','FP');
-    ?>
 </div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>Media de robos</h3>
+<div class="large-12 columns">
+   <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>Eficiencia</h3>
+        </div>
+        <?php print $pointsEFICHTM['header']; print $pointsEFICHTM['table'];?>
     </div>
-    <?php
-        $points=getLeaderPointsSec();
-        print drawLeader($points,$players,$teams,'sPointsSecondChance','MR');
-    ?>
-</div>
-
-<div class="space20"></div>
-
-<div class="cc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>Eficiencia</h3>
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>Media de tapones</h3>
+        </div>
+        <?php print $pointsMETAPOHT['header']; print $pointsMETAPOHT['table'];?>
     </div>
-    <?php
-        $points=getLeaderWins();
-        print drawLeader($points,$players,$teams,'sEfficiency','EF');
-    ?>
-</div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>Media de tapones</h3>
-    </div>
-    <?php
-        $points=getLeaderBlocksReceived();
-        print drawLeader($points,$players,$teams,'sBlocksAverage','MT');
-    ?>
-</div>
-<div class="cc21 mc21 ccTablePlayers">
-    <div class="headc21">
-        <h3>Balones perdidos</h3>
-    </div>
-    <?php
-        $points=getLeaderBallFouls();
-        print drawLeader($points,$players,$teams,'sTurnovers','BP');
-    ?>
-</div>
-
-<div class="space20"></div>
-<div class="space20"></div>
-<div class="hrNaranjaFull"></div>
-<div class="cc22 desk">
-    <div class="space20"></div>
-    <div class="hrNaranjaFull"></div>
-    <div class="space20"></div>
-    <div class="desk">
-        <img class="directv" src="img/sponsor_directv.png">
-        <img class="borderImgTop molten" src="img/sponsor_molten.png">
-        <img class="borderImgTop lan" src="img/sponsor_lan.png">
-        <img class="borderImgTop win" src="img/sponsor_win.png">
-        <img class="borderImgTop tuboleta" src="img/sponsor_tuboleta.png">
-        <img class="borderImgBot fiba" src="img/sponsor_fiba.png">
-        <img class="borderImgBot abasu" src="img/sponsor_abasu.png">
-        <img class="borderImgBot fcb" src="img/sponsor_fcb.png">
-        <img class="borderImgBot go" src="img/sponsor_go.png">
+    <div class="large-4 columns ccTablePlayers">
+        <div class="headc21">
+            <h3>Balones perdidos</h3>
+        </div>
+        <?php print $pointsBPHTML['header']; print $pointsBPHTML['table'];?>
     </div>
 </div>
