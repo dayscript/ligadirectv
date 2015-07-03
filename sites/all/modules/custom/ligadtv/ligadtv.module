@@ -6,9 +6,9 @@
  * @var liga
  * @var baseSp
  */
-$ak     = '73fee4973791892d5cd9fa0f8411da51';
-$actual = '5';
-$liga  = '1312';
+$ak     = variable_get('ak');//'73fee4973791892d5cd9fa0f8411da51';
+$actual = variable_get('actual'); //'5';
+$liga   = variable_get('liga');//'1312';
 $baseSp   = 'https://api.wh.sportingpulseinternational.com';
 define("ak", $ak);
 define("actual",$actual);  // liga
@@ -20,14 +20,23 @@ $query= baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&fo
  */
 function ligadtv_menu(){
   $menu = array();
-  $menu['admin/config/video-home'] = array(
+  $menu['admin/config/ligadtv'] = array(
+    'title'            => t('Liga Directv'),
+    'description'      => t('Form config video home'),
+    'page callback'    => '_ligadtv_config',
+    'access arguments' => array('access content'),
+    'file'             => 'ligadtv.pages.inc',
+    'type'             => MENU_NORMAL_ITEM,
+  );
+  $menu['admin/config/ligadtv/video-home'] = array(
     'title'            => t('Video Home'),
     'description'      => t('Form config video home'),
     'page callback'    => '_video_home_config',
     'access arguments' => array('access content'),
     'file'             => 'ligadtv.pages.inc',
-    'type'             => MENU_CALLBACK,
+    'type'             => MENU_NORMAL_ITEM,
   );
+
   $menu['matchs']= array(
     'title'            => t('Matchs'),
     'description'      => t('Matchs'),
@@ -70,6 +79,14 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
   );
+  $menu['positions']= array(
+    'title'            => t('Positions'),
+    'description'      => t('Positions'),
+    'page callback'    => '_positions',
+    'access arguments' => array('access content'),
+    'file'             => 'ligadtv.pages.inc',
+    'type'             => MENU_CALLBACK,
+  );
   return $menu;
 }
 
@@ -107,10 +124,6 @@ function ligadtv_block_info() {
     'info'  => t('Video Home'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
-  $blocks['transmition'] = array(
-    'info'  => t('Transmition'),
-    'cache' => DRUPAL_CACHE_GLOBAL,
-  );
   $blocks['points_media'] = array(
     'info'  => t('Points media'),
     'cache' => DRUPAL_CACHE_GLOBAL,
@@ -143,11 +156,6 @@ function ligadtv_block_info() {
 }
 /**
  * Implementation of hook_block_view().
- */
-/**
- * Implementation of hook_block_view().
- * @param  string $delta [description]
- * @return [type]        [description]
  */
 function ligadtv_block_view($delta = '') {
     $block = array();
@@ -210,13 +218,6 @@ function ligadtv_block_view($delta = '') {
                   '#theme' => 'video_home',
                   '#items' => array(),
           );
-      break;
-      case 'transmition':
-        $transmition = transmition();
-        $block['content'] = array(
-                  '#theme' => 'transmition',
-                  '#items' => array("transmition"=> $transmition),
-        );
       break;
       case 'points_media':
         $points = getLeaderPoints();
@@ -318,14 +319,14 @@ function ligadtv_theme(){
                 'items' => array(),
               ),
         ),
-  'video_home'     => array(
-            'template'  => 'theme/video_home',
+  'ligadtv_config'     => array(
+            'template'  => 'theme/ligadtv_config',
             'variables' => array(
                 'items' => array(),
               ),
         ),
-  'transmition'     => array(
-            'template'  => 'theme/transmition',
+  'video_home'     => array(
+            'template'  => 'theme/video_home',
             'variables' => array(
                 'items' => array(),
               ),
@@ -398,6 +399,12 @@ function ligadtv_theme(){
         ),
   'topheader'=> array(
             'template'  => 'theme/topheader',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'positions'=> array(
+            'template'  => 'theme/positions',
             'variables' => array(
                 'items' => array(),
               ),
@@ -535,10 +542,21 @@ function getStanding(){
  */
 function getCal(){
   $data    = getCalData();
-  $data    =$data['response']['data'];
-  $dataTemp=$data;
-  $size    =count($data);
-  for ($i=0; $i < $size; $i++) {
+  $data    = $data['response']['data'];
+  $dataTemp= $data;
+  $size    = count($data);
+  foreach ($data as $key => $value) {
+    $dateEnd = explode(' ',$value['matchTime']);
+    $dateEnd = strtotime($dateEnd[0]);
+    $dateStart= strtotime(date('Y-m-d'));
+    if($dateEnd > $dateStart){
+      $venue[] = $value['venue']['venueName'];
+      $teams[] = array('team-1'=>array('name'=> $value['competitors'][0]['teamName'], 'logo'=>$value['competitors'][0]['logo']['M1']['url']),
+        'team-2'=>array('name'=> $value['competitors'][1]['teamName'], 'logo'=>$value['competitors'][1]['logo']['M1']['url']));
+    }
+  }
+  $data = array('venue'=> $venue, 'teams'=>$teams);
+  /*for ($i=0; $i < $size; $i++) {
     $mayor['matchNumber']=999;
     $pos                 =-1;
     for ($i2 = 0; $i2 < count($dataTemp); $i2++) {
@@ -550,7 +568,7 @@ function getCal(){
     $data[$i]=$mayor;
     unset($dataTemp[$pos]);
     $dataTemp = array_values($dataTemp);
-  }
+  }*/
   return $data;
 }
 /**
@@ -594,40 +612,6 @@ function getRes(){
     $dataTemp = array_values($dataTemp);
   }
   return $data;
-}
-/**
- * [transmition description]
- * @return [type] [description]
- */
-function transmition(){
-  $arraydatos = array();
-  $query = db_select('node', 'n');
-  $query->leftjoin('field_data_field_channel', 'ch', 'n.nid = ch.entity_id');
-  $query->leftjoin('field_data_field_team_one', 't1', 'n.nid = t1.entity_id');
-  $query->leftjoin('field_data_field_team_tow', 't2', 'n.nid = t2.entity_id');
-  $query->leftjoin('field_data_field_date', 'd', 'n.nid = d.entity_id');
-  $query->leftjoin('field_data_field_site', 's', 'n.nid = s.entity_id');
-  $query->fields('n', array('title'))
-        ->fields('t1', array('field_team_one_target_id'))
-        ->fields('t2', array('field_team_tow_target_id'))
-        ->fields('ch', array('field_channel_target_id'))
-        ->fields('d', array('field_date_value'))
-        ->fields('s', array('field_site_tid'))
-        ->where('d.field_date_value > now()')
-        ->condition('n.type', 'match')
-        ->orderBy('n.created', 'DESC');
-  $result = $query->execute();
-  while ($row = $result->fetchAssoc()) {
-    $arraydatos[] = array(
-          "title"     => $row["title"],
-          "channel"   => $row['field_channel_target_id'],
-          "t1"        => $row["field_team_one_target_id"],
-          "t2"        => $row["field_team_tow_target_id"],
-          "date"      => $row["field_date_value"],
-          "site"      => $row["field_site_tid"],
-        );
-  }
-  return $arraydatos;
 }
 /**
  * [getLeaderPoints description]

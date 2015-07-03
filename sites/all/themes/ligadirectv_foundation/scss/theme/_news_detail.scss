@@ -1,0 +1,40 @@
+.node-type-article{
+  #page-title{
+    width: 1000px;
+    margin: 0 auto;
+    background-color: #FF9000;
+    color: black;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-family: 'futura_ltbook';
+    font-size: 20px;
+  }
+  .node-article{
+    width: 635px;
+    margin-top: 40px;
+    background-color: rgba(0, 0, 0, 0.2);
+    .body.field{
+      text-align: justify;
+      margin-top: 18px;
+      width: 635px;
+      color: white;
+      font-family: 'futura_ltbook';
+      font-size: 20px;
+    }
+    .image{
+      img{
+        padding-bottom: 35px;
+        border-bottom: 2px solid #FF9000;
+      }
+    }
+    .posted{
+      span{
+        color:#FF9000;
+        .username{
+          color:#FF9000;
+        }
+      }
+    }
+  }
+}

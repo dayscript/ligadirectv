@@ -21,13 +21,45 @@
       color:white;
     }
   }
-  .ccrsInfo{
-    //float: left;
-    .rsDate {
-      width: 100%;
-      text-align: center;
-      color: #FF9000;
-      font-size: 18px;
+  .infocc21{
+    table{
+      tbody{
+        tr{
+          td{
+            .ccrsInfo{
+              //float: left;
+              .rsDate {
+                width: 100%;
+                text-align: center;
+                color: #FF9000;
+                font-size: 18px;
+              }
+              .resulMini {
+                width: 130px;
+                height: auto;
+                margin: 0 5px;
+                .resulNumber {
+                  font-size: 36px;
+                  color: white;
+                  width: 57px;
+                  text-align: center;
+                }
+                .resulRy {
+                  font-size: 20px;
+                  color: #FF9000;
+                  margin: 9px 4px 0px;
+                }
+                .resulNumber {
+                  font-size: 36px;
+                  color: white;
+                  width: 57px;
+                  text-align: center;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   .ccLinkResults {
@@ -46,51 +78,5 @@
       text-align: center;
     }
   }
-  .resulMini {
-    width: 130px;
-    height: auto;
-    margin: 0 5px;
-    .resulNumber {
-      font-size: 36px;
-      color: white;
-      width: 57px;
-      text-align: center;
-    }
-    .resulRy {
-      font-size: 20px;
-      color: #FF9000;
-      margin: 9px 4px 0px;
-    }
-    .resulNumber {
-      font-size: 36px;
-      color: white;
-      width: 57px;
-      text-align: center;
-    }
-  }
-  .orbit-container{
-    padding:5px!important;
-    height: 88px;
-    ul{
-        height: 260px;
-        li{
-          .ccrsInfo{
-            padding: 0px 35px;
-            display: inline-block;
-            div{
-            float: left;
-            display: inline-block;
-          }
-          }
-        }
-    }
-    .orbit-slide-number,.orbit-timer.paused{
-      display:none;
-      .orbit-progress{
-        display:none;
-      }
-    }
-  }
-
 }
 

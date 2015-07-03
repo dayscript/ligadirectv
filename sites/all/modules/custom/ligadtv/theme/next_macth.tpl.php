@@ -2,10 +2,18 @@
 <div class="cc21 mc21 next_macth">
     <div class="headc21">
         <h3>PRÓXIMOS PARTIDOS</h3>
-        <a href="partidos">Calendario ></a>
+        <a href="matchs">Calendario ></a>
     </div>
-    <div class="cc21ListPartidos">
-        <?php
+    <?php if(!empty($items['0']['venue'])): ?>
+        <div class="cc21ListPartidos">
+            <?php dpm($items);?>
+        </div>
+    <?php else:?>
+        <div class="cc21ListPartidos">
+            No hay partidos aun programados
+        </div>
+    <?php endif?>
+        <!--<?php
             $cont = 0;
             foreach ($items[0] as $key => $value) { ?>
                 <?php if($value['matchStatus'] == 'SCHEDULED'):?>
@@ -36,9 +44,8 @@
                        <?php endif ?>
                     <?php endif ?>
                 <?php endif ?>
-        <?php }?>
-    </div>
+        <?php }?>-->
     <div class="c21Imglogo">
-        <img src="<?php print drupal_get_path('module', 'ligadtv') . '/'?>img/logo_directv_calendario.png">
+        <img src="/<?php print drupal_get_path('module', 'ligadtv') . '/'?>img/logo_directv_calendario.png">
     </div>
 </div>

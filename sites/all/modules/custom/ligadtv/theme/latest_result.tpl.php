@@ -3,12 +3,10 @@
     <div class="headc21">
         <h3>ÚLTIMOS RESULTADOS</h3>
     </div>
-    <ul class="orbit-content mc21" data-orbit data-options="animation:slide;
-                  pause_on_hover:true;
-                  animation_speed:500;
-                  navigation_arrows:true;
-                  bullets:false;">
-        <?php foreach ($items[0] as $key => $value) { ?>
+    <div class="infocc21">
+        <table>
+            <tbody>
+                <?php foreach ($items[0] as $key => $value) { ?>
             <?php if ($value['matchStatus'] == 'COMPLETE'):?>
                 <?php $cont++;?>
                 <?php if ($cont < 6): ?>
@@ -31,25 +29,29 @@
                     <?php endif;
                         $date = date('d-m-Y', strtotime($value['matchTime']));
                     ?>
-                    <li data-orbit-slide="headline-<?php print $key; ?>">
-                        <div class="ccrsInfo">
-                            <div class="ico1"><img width="50px" src="<?php print $teamlocD['images']['logo']['T1']['url'];?>"></div>
-                                <div class="resulMini">
-                                    <div class="resulNumber"><?php print $teamlocD['scoreString'];?></div>
-                                    <div class="resulRy">-</div>
-                                    <div class="resulNumber"><?php print $teamVisD['scoreString'];?></div>
-                                </div>
-                                <div class="ico2"><img width="50px" src="<?php print $teamVisD['images']['logo']['T1']['url']; ?>"></div>
-                                <div class="rsDate">
-                                    <?php print $date . ' ' .$hora; ?>
-                                </div>
-                        </div>
-                    </li>
+                    <tr>
+                        <td class="headline-<?php print $key; ?>">
+                            <div class="ccrsInfo">
+                                <div class="ico1"><img width="50px" src="<?php print $teamlocD['images']['logo']['T1']['url'];?>"></div>
+                                    <div class="resulMini">
+                                        <div class="resulNumber"><?php print $teamlocD['scoreString'];?></div>
+                                        <div class="resulRy">-</div>
+                                        <div class="resulNumber"><?php print $teamVisD['scoreString'];?></div>
+                                    </div>
+                                    <div class="ico2"><img width="50px" src="<?php print $teamVisD['images']['logo']['T1']['url']; ?>"></div>
+                                    <div class="rsDate">
+                                        <?php print $date . ' ' .$hora; ?>
+                                    </div>
+                            </div>
+                        </td>
+                    </tr>
                 <?php endif; ?>
             <?php endif; ?>
         <?php }?>
-    </ul>
+            </tbody>
+        </table>
+    </div>
     <div class="ccLinkResults">
-        <a href="/calendario">Ver Todos ></a>
+        <a href="/calendar">Ver Todos ></a>
     </div>
 </div>
