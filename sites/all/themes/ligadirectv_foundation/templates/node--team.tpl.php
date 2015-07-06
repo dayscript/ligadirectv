@@ -37,7 +37,15 @@
   </ul>
   <div class="tabs-content">
     <div class="content active" id="news">
-      <p>This is the first panel of the basic tab example. You can place all sorts of content here including a grid.</p>
+      <?php
+        $view = views_get_view('news_team');
+        $view->set_display('news_team');
+        $view->set_arguments($content['field_external_id']['#items'][0]['#value']);
+        // change the amount of items to show
+        $view->pre_execute();
+        $view->execute();
+        print $view->render();
+      ?>
     </div>
     <div class="content" id="nomina">
       <?php
@@ -56,3 +64,4 @@
   </div>
   <?php print render($content['body']);?>
 </article>
+<?php dpm($content);?>
