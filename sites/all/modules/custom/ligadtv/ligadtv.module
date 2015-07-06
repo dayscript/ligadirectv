@@ -62,19 +62,11 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
   );
-  $menu['teams']= array(
-    'title'            => t('Teams'),
-    'description'      => t('Teams list'),
-    'page callback'    => '_teams',
-    'access arguments' => array('access content'),
-    'file'             => 'ligadtv.pages.inc',
-    'type'             => MENU_CALLBACK,
-  );
-  $menu['teams/%/%']= array(
+  $menu['player/%']= array(
     'title'            => t('Team detail'),
     'description'      => t('Teams detail'),
     'page arguments'   => array(1, 2),
-    'page callback'    => '_detail_teams',
+    'page callback'    => '_detail_player',
     'access arguments' => array('access content'),
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
@@ -150,6 +142,10 @@ function ligadtv_block_info() {
   );
   $blocks['topheader']  = array(
     'info'  => t('TOP HEADER'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['payroll'] = array(
+    'info'  => t('PAYROLL'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   return $blocks;
@@ -266,6 +262,15 @@ function ligadtv_block_view($delta = '') {
         $block['content']     = array(
                           '#theme'  => 'topheader',
                           '#items'  => $games,
+        );
+      break;
+      case 'payroll':
+        $nid = arg(1);
+        $node = node_load($nid);
+        $payroll = team_payroll($node->field_external_id['und'][0]['value']);
+        $block['content']     = array(
+                          '#theme'  => 'payroll',
+                          '#items'  => $payroll['response']['data'],
         );
       break;
     }
@@ -409,8 +414,73 @@ function ligadtv_theme(){
                 'items' => array(),
               ),
         ),
+  'payroll' => array(
+            'template'  => 'theme/payroll',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
     );
 }
+
+function ligadtv_cron(){
+   // Default to an hourly interval. Of course, cron has to be running at least
+  // hourly for this to work.
+  $interval = variable_get('cron_ligadtv_interval', 60 * 60);
+  // We usually don't want to act every time cron runs (which could be every
+  // minute) so keep a time for the next run in a variable.
+  if (time() >= variable_get('cron_ligadtv_next_execution', 0)) {
+    // This is a silly example of a cron job.
+    // It just makes it obvious that the job has run without
+    // making any changes to your database.
+
+    $teams = _get_teams();
+    if (!empty($teams)) {
+      $data = $teams['response']['data'];
+      foreach ($data as $key => $value) {
+        global $user;
+        if(team_exist((int)$value['teamId'])== TRUE){
+
+        }else{
+          $node = new stdClass();
+          $node->title = $value['teamName'];
+          $node->type = "team";
+          node_object_prepare($node); // Sets some defaults. Invokes hook_prepare() and hook_node_prepare().
+          $node->language = LANGUAGE_NONE; // Or e.g. 'en' if locale is enabled
+          $node->uid = $user->uid;
+          $node->status = 1; //(1 or 0): published or not
+          $node->promote = 0; //(1 or 0): promoted to front page
+          $node->comment = 1; // 0 = comments disabled, 1 = read only, 2 = read/write
+
+          // Image
+          $image  = file_get_contents($value['images']['logo']['T1']['url']);
+          $file = file_save_data($image, 'public://' . $value['teamName'] . 'druplicon.png',FILE_EXISTS_REPLACE);
+          $node->field_image[LANGUAGE_NONE]['0']['fid'] = $file->fid;
+
+          // Entity reference field
+          // Let's add some CCK/Fields API field.
+          $node->field_external_id[$node->language][0]['value'] = (int)$value['teamId'];
+          // If your custom field has a format, don't forget to define it here
+          $node->field_external_id‎[$node->language][0]['format'] = 'plain_text';
+          // And etc. you can add as much fields here as your content type has. The sky is the limit... and the server specs, of course ;)
+
+          // 'node' is default,
+          // Other possible values are "user" and  "taxonomy_term"
+
+          $node = node_submit($node); // Prepare node for saving
+          node_save($node);
+        }
+      }
+    }
+
+    watchdog('cron_ligadtv', 'cron_ligadtv ran');
+    if (!empty($GLOBALS['cron_ligadtv_show_status_message'])) {
+      drupal_set_message(t('cron_ligadtv executed at %time', array('%time' => date_iso8601(time(0)))));
+    }
+    variable_set('cron_ligadtv_next_execution', time() + $interval);
+  }
+}
+
 /**
  * Functions custom by @edwindayscript
  */
@@ -462,8 +532,10 @@ function _get_teams(){
  * @param  [type] $id   [description]
  * @return [type]       [description]
  */
-function _get_detail_teams($name, $id){
+function _get_detail_teams($id){
   $uri  = baseSp . '/v1/basketball/clubs/' . $id . '?ak=' . ak;
+  print_r($uri);
+  die();
   $json = file_get_contents($uri);
   $data = json_decode($json, TRUE);
   return $data;
@@ -1144,22 +1216,33 @@ function array_sort($array, $on, $order=SORT_ASC){
 }
 
 
-/**
- * [getLeaderMediaAsistencias2 description]
- * @return [type] [description]
- */
-/**function getLeaderMediaAsistencias2(){
-  $name= 'sAssistsAverage.json';
-  $idQuery  = 26;
-  $sLeaQuery = 'leaders/sAssistsAverage';
-  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=500';
-    $json = file_get_contents($query);
-    $data = json_decode($json, TRUE);
-    $fp = fopen('data/'.$name,'w');
-      fwrite($fp, json_encode($data));
-      fclose($fp);
-  $file="data/".$name;
-  return json_decode(file_get_contents($file), true);
-}**/
+//validate if node exists
+function team_exist($id){
+  $query = db_select('node', 'n');
+  $query->condition('type', 'team')
+        ->join('field_data_field_external_id', 'ide')
+        ->fields('n', array('title'))
+        ->condition('ide.field_external_id_value', $id);
+  $result = $query->execute();
+  while ($row = $result->fetchAssoc()) {
+    $arraydatos[] = array(
+          "title" => $row["title"],
+        );
+  }
+  if(!empty($arraydatos)){
+    return TRUE;
+  }else{
+    return FALSE;
+  }
+}
+
+function team_payroll($id){
+  $name= 'payroll.json';
+  $idQuery  = 25;
+  $query= baseSp . '/v1/basketball/teams/' . $id . '/persons?format=json&ak=' . ak;
+  $json = file_get_contents($query);
+  $data = json_decode($json, TRUE);
+  return $data;
+}
 
 ?>

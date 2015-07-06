@@ -81,14 +81,6 @@ function _positions(){
   return theme('positions', array('items'=>$items, 'groupB'=>$groupB));
 }
 /**
- * Function return info in page teams
- * @return theme tpl
- */
-function _teams(){
-  $teams = _get_teams();
-  return theme('teams', array('items'=>$teams));
-}
-/**
  * function return info team especific
  * @return [type] [description]
  */
