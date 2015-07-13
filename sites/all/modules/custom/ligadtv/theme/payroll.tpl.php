@@ -4,7 +4,7 @@
       <div class="indCC listPlayers">
       <a href="/player/<?php print $value['personId'];?>">
         <img src="<?php print $value['images']['photo']['S1']['url'];?>">
-        <?php print ($value['firstName'] . ' ' . $value['familyName']);?>
+        <div class="name-player"><?php print ($value['firstName'] . ' ' . $value['familyName']);?></div>
       </a>
     </div>
     <?php } ?>

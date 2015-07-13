@@ -148,6 +148,14 @@ function ligadtv_block_info() {
     'info'  => t('PAYROLL'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['news_team'] = array(
+    'info'  => t('NEWS TEAM'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['calendar_team'] = array(
+    'info'  => t('CALENDAR TEAM'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 /**
@@ -271,6 +279,23 @@ function ligadtv_block_view($delta = '') {
         $block['content']     = array(
                           '#theme'  => 'payroll',
                           '#items'  => $payroll['response']['data'],
+        );
+      break;
+      case 'news_team':
+        $nid = arg(1);
+        $new = _get_news($nid);
+        $block['content']     = array(
+                          '#theme'  => 'news_team',
+                          '#items'  => $new,
+        );
+      break;
+      case 'calendar_team':
+        $nid = arg(1);
+        $node = node_load($nid);
+        $calendar = getCalComplete();
+        $block['content']     = array(
+                          '#theme'  => 'calendar_team',
+                          '#items'  => array('calendar'=>  $calendar , 'node'=>$node),
         );
       break;
     }
@@ -416,6 +441,18 @@ function ligadtv_theme(){
         ),
   'payroll' => array(
             'template'  => 'theme/payroll',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'news_team'=> array(
+            'template'  => 'theme/news_team',
+            'variables' => array(
+                'items' => array(),
+              ),
+        ),
+  'calendar_team'=> array(
+            'template'  => 'theme/calendar_team',
             'variables' => array(
                 'items' => array(),
               ),
@@ -628,21 +665,18 @@ function getCal(){
     }
   }
   $data = array('venue'=> $venue, 'teams'=>$teams);
-  /*for ($i=0; $i < $size; $i++) {
-    $mayor['matchNumber']=999;
-    $pos                 =-1;
-    for ($i2 = 0; $i2 < count($dataTemp); $i2++) {
-      if($dataTemp[$i2]['matchNumber'] < $mayor['matchNumber']){
-        $mayor=$dataTemp[$i2];
-        $pos=$i2;
-      }
-    }
-    $data[$i]=$mayor;
-    unset($dataTemp[$pos]);
-    $dataTemp = array_values($dataTemp);
-  }*/
   return $data;
 }
+/**
+ * [getCalComplete description]
+ * @return [type] [description]
+ */
+function getCalComplete(){
+  $data    = getCalData();
+  $data    = $data['response']['data'];
+  return $data;
+}
+
 /**
  * [getCalData description]
  * @return [type] [description]
@@ -653,7 +687,7 @@ function getCalData(){
   $query    = baseSp . '/v1/basketball/competitions/' . liga . '/matches?format=json&limit=50000&ak=' . ak . '';
   $json     = file_get_contents($query);
   $data     = json_decode($json, TRUE);
-  $fp       = fopen(drupal_get_path('module', 'ligadtv') . '/data/'.$name,'w');
+  $fp       = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
   fwrite($fp, json_encode($data));
   fclose($fp);
   $file     = drupal_get_path('module', 'ligadtv') . '/data/' . $name;
@@ -1237,7 +1271,6 @@ function team_exist($id){
 }
 
 function team_payroll($id){
-  $name= 'payroll.json';
   $idQuery  = 25;
   $query= baseSp . '/v1/basketball/teams/' . $id . '/persons?format=json&ak=' . ak;
   $json = file_get_contents($query);
@@ -1245,4 +1278,28 @@ function team_payroll($id){
   return $data;
 }
 
+function _get_news($nid){
+  $query = db_select('node', 'n');
+  $query->join('field_data_field_image', 'img', 'n.nid = img.entity_id');
+  $query->join('field_data_field_team', 'tea', 'n.nid = tea.entity_id');
+  $query->join('field_data_body', 'b', 'n.nid = b.entity_id');
+  $query->fields('n', array('title', 'nid'))
+        ->condition('type', 'article')
+        ->fields('img', array('field_image_fid'))
+        ->fields('b', array('body_value'))
+        ->condition('tea.field_team_target_id', $nid);
+  $result = $query->execute();
+  while ($row = $result->fetchAssoc()) {
+    $arraydatos[] = array(
+          "title" => $row["title"],
+          "body"  => substr($row["body_value"], 0 , 184),
+          "img"   =>  theme('image_style', array('style_name' => 'slidorion_home', 'path' => file_load($row["field_image_fid"])->uri, 'getsize' => FALSE, 'attributes' => array())),
+        );
+  }
+  if(!empty($arraydatos)){
+    return $arraydatos;
+  }else{
+    return '';
+  }
+}
 ?>

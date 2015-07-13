@@ -6,7 +6,7 @@
     </div>
     <?php if(!empty($items['0']['venue'])): ?>
         <div class="cc21ListPartidos">
-            <?php dpm($items);?>
+            <?php //dpm($items);?>
         </div>
     <?php else:?>
         <div class="cc21ListPartidos">
