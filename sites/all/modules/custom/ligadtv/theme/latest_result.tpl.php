@@ -52,6 +52,6 @@
         </table>
     </div>
     <div class="ccLinkResults">
-        <a href="/calendar">Ver Todos ></a>
+        <a href="/matchs">Ver Todos ></a>
     </div>
 </div>
