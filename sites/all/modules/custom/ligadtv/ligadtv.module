@@ -477,7 +477,7 @@ function ligadtv_cron(){
       foreach ($data as $key => $value) {
         global $user;
         if(team_exist((int)$value['teamId'])== TRUE){
-
+          drupal_set_message(t('Exist node ' . $value['teamId']));
         }else{
           $node = new stdClass();
           $node->title = $value['teamName'];
