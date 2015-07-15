@@ -87,3 +87,54 @@
     }
   }
 }
+
+.page-positions{
+  .title{
+    display:none;
+  }
+  .titleGprt {
+    width: 100%;
+    text-align: center;
+    color: white;
+    margin: 10px auto;
+    clear: both;
+    height: 30px;
+  }
+  .tableNomina {
+    width: 100%;
+    max-width: 976px;
+    margin: 0 auto;
+    background-color: transparent;
+    .bigTable {
+      width: 100%;
+      border: 1px solid #0068AA;
+      border-top: 4px solid #0068AA;
+      background-color: transparent;
+      thead{
+        tr{
+          background-color: transparent;
+          td{
+            background-color: #0068AA;
+            height: 21px;
+            border-right: 1px solid white;
+            text-align: center;
+            color: white;
+          }
+        }
+      }
+      tbody{
+        tr{
+          border-bottom: 1px solid white;
+          background-color: transparent;
+          td {
+            color: white;
+            text-align: center;
+            line-height: 21px;
+            height: 21px;
+            border-left: 1px solid white;
+          }
+        }
+      }
+    }
+  }
+}
