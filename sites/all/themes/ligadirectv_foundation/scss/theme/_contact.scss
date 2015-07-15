@@ -1,6 +1,6 @@
 .page-node-49{
   .title{
-    width: 1000px;
+    width: 1015px;
     margin: 0 auto;
     background-color: #FF9000;
     color: black;
@@ -60,6 +60,19 @@
     .grippie{
       background-color: transparent;
       border: 1px solid #FF9000;
+    }
+  }
+  article{
+    .body{
+      p{
+        color:white;
+        border-bottom: 1px solid #FF9000;
+        color: #FFFFFF;
+        font-size: 16px;
+        margin: 0 auto;
+        padding: 15px 8%;
+        text-align: center;
+      }
     }
   }
 }
