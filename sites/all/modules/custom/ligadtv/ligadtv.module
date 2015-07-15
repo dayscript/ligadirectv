@@ -156,6 +156,10 @@ function ligadtv_block_info() {
     'info'  => t('CALENDAR TEAM'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['spotingplus'] = array(
+    'info' => t(),
+    'cache'=> DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 /**
@@ -296,6 +300,12 @@ function ligadtv_block_view($delta = '') {
         $block['content']     = array(
                           '#theme'  => 'calendar_team',
                           '#items'  => array('calendar'=>  $calendar , 'node'=>$node),
+        );
+      break;
+      case 'sportingplus':
+        $block['content']     = array(
+                          '#theme'  => 'sportingplus',
+                          '#items'  => array(),
         );
       break;
     }
@@ -456,6 +466,12 @@ function ligadtv_theme(){
             'variables' => array(
                 'items' => array(),
               ),
+        ),
+  'sportingplus'=> array(
+            'template'  => 'theme/sportingplus',
+            'variables' => array(
+                'items' => array(),
+            ),
         ),
     );
 }

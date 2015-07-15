@@ -10,7 +10,7 @@
         </div>
     <?php else:?>
         <div class="cc21ListPartidos">
-            No hay partidos aun programados
+            <p>No hay partidos aun programados</p>
         </div>
     <?php endif?>
         <!--<?php
