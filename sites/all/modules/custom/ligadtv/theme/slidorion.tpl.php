@@ -21,7 +21,7 @@
   <div class="accordion">
       <?php foreach ($items[0] as $key => $value) { ?>
         <div class="header">
-          <?php print $value['title'];?>
+          <a href="<?php print $value['nid']?>"><?php print $value['title'];?></a>
         </div>
         <div class="content">
           <?php print $value['body'];?>
