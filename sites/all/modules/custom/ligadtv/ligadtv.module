@@ -156,8 +156,8 @@ function ligadtv_block_info() {
     'info'  => t('CALENDAR TEAM'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
-  $blocks['spotingplus'] = array(
-    'info' => t(),
+  $blocks['sportingplus'] = array(
+    'info' => t('SPORTINGPLUS'),
     'cache'=> DRUPAL_CACHE_GLOBAL,
   );
   return $blocks;
