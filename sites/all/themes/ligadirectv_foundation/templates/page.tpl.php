@@ -18,9 +18,9 @@
         </div>
         <!-- Meter redes sociales con get_variable  -->
         <div class="small-12 medium-4 large-3 columns social">
-          <a href="https://twitter.com/@LigaDirectv" target="_blank"><img src="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter2.png'></a>
-          <a href="https://www.facebook.com/LigaDirectv" target="_blank"><img src="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook2.png'></a>
-          <a href="http://www.youtube.com/user/LigaDirectv" target="_blank"><img src="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_youtube.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_youtube2.png'></a>
+          <a href="https://twitter.com/@LigaDirectv" target="_blank"><img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter2.png'></a>
+          <a href="https://www.facebook.com/LigaDirectv" target="_blank"><img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook2.png'></a>
+          <a href="http://www.youtube.com/user/LigaDirectv" target="_blank"><img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_youtube.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_youtube2.png'></a>
         </div>
         <!-- Meter redes sociales con get_variable  -->
         <ul class="title-area">
