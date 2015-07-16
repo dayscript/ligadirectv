@@ -161,7 +161,7 @@ function ligadtv_block_info() {
     'cache'=> DRUPAL_CACHE_GLOBAL,
   );
   $blocks['footer_day'] = array(
-    'info' => t('SPORTINGPLUS'),
+    'info' => t('FOOTER DAY'),
     'cache'=> DRUPAL_CACHE_GLOBAL,
   );
   return $blocks;
@@ -1287,7 +1287,7 @@ function team_exist($id){
   $query = db_select('node', 'n');
   $query->condition('type', 'team')
         ->join('field_data_field_external_id', 'ide')
-        ->fields('n', array('title'))
+        ->fields('n', array('title', 'nid'))
         ->condition('ide.field_external_id_value', $id);
   $result = $query->execute();
   while ($row = $result->fetchAssoc()) {

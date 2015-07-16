@@ -67,6 +67,9 @@
           height: 57.5px;
           background: #001333 !important;
           text-transform: uppercase;
+          a{
+            color:white;
+          }
           >:after{
             content: '>>';
             display: block;
