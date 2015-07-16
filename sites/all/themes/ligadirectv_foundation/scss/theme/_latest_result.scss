@@ -89,10 +89,13 @@
 
 @mixin calc_position(){
   display: inline-block;
+  widows: 100%;
   .ccrsInfo{
+    display:inline-block;
     div{
     float:left;
     }
+    .rsDate{float:none}
   }
 }
 
