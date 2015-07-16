@@ -3,7 +3,7 @@ body{
   background-image: url(../img/Fondo.jpg);
   background-repeat: no-repeat;
   background-position: center top;
-  .row.l-main{
+  .row.l-main, .l-header{
     max-width: 64.5rem;
     display: table;
     margin: 0 auto;
@@ -15,9 +15,10 @@ body{
       margin-bottom:2.7%;
     }
     .social{
-      margin-top:8%;
-      margin-bottom:4%;
-      text-align:right;
+      margin-top: 8%;
+      margin-bottom: 4%;
+      text-align: right;
+      padding-right: 15px;
       a{
         display: inline-block;
       }
