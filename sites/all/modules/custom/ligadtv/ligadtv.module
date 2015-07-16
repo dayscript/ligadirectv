@@ -160,6 +160,10 @@ function ligadtv_block_info() {
     'info' => t('SPORTINGPLUS'),
     'cache'=> DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['footer_day'] = array(
+    'info' => t('SPORTINGPLUS'),
+    'cache'=> DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 /**
@@ -305,6 +309,12 @@ function ligadtv_block_view($delta = '') {
       case 'sportingplus':
         $block['content']     = array(
                           '#theme'  => 'sportingplus',
+                          '#items'  => array(),
+        );
+      break;
+      case 'footer_day':
+        $block['content']     = array(
+                          '#theme'  => 'footer_day',
                           '#items'  => array(),
         );
       break;
@@ -469,6 +479,12 @@ function ligadtv_theme(){
         ),
   'sportingplus'=> array(
             'template'  => 'theme/sportingplus',
+            'variables' => array(
+                'items' => array(),
+            ),
+        ),
+  'footer_day'  => array(
+            'template'  => 'theme/footer_day',
             'variables' => array(
                 'items' => array(),
             ),

@@ -77,3 +77,61 @@ body{
 .block-ligadtv-sportingplus{
   display:inline-block;
 }
+
+.l-footer{
+  background:#001737;
+  border: 0;
+  .footer.columns{
+    .block-ligadtv-footer-day{
+      .large-12.columns{
+        padding:0px;
+        .title-footer.large-12.columns{
+          background: #0068aa;
+          height:49px;
+          border-bottom: 1px solid #ff9000;
+          div{
+            float:left;
+            color:white;
+            font-family: 'futura_ltbook';
+            padding: 15px 0;
+            margin-left: 7px;
+          }
+        }
+        .content-footer.large-12.columns{
+          .columns.large-2{
+            margin-top:15px;
+            border-right: 1px solid #0068aa;
+            border-right-style: dashed;
+            margin-bottom:20px;
+            ul{
+              li{
+                list-style: none;
+                a{
+                  color:white;
+                  font-family: 'futura_ltbook';
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+          .columns.large-4{
+            margin-top:15px;
+            border-right: 1px solid #0068aa;
+            border-right-style: dashed;
+            p{
+              padding: 25px 0;
+              color:white;
+              font-family: 'futura_ltbook';
+              padding-left: 50px;
+            }
+          }
+        }
+        .pie-footer.large-12.columns{
+          color:white;
+          text-align:center;
+          border-top: 1px solid #0068aa;
+        }
+      }
+    }
+  }
+}
