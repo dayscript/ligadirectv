@@ -89,10 +89,39 @@
 
 @mixin calc_position(){
   display: inline-block;
+  width: 100%;
+  margin-top:10px;
   .ccrsInfo{
+    display:table;
+    margin: 0 auto;
+    width: 90%;
+    .ico1{
+      margin: 0 30px;
+      img{
+        width:45px;
+      }
+    }
+    .ico2{
+      margin: 0 30px;
+      img{
+        width: 45px;
+      }
+    }
+    .resulMini{
+      .resulNumber,.resulRy{
+        font-size:28px;
+        color:#fff;
+      }
+    }
     div{
     float:left;
     }
+    .rsDate{
+            width:100%;
+            font-size: 20px;
+            color: #FF9000;
+            text-align:center;
+      }
   }
 }
 
@@ -102,5 +131,6 @@
   .headline-9{@include calc_position();}
   .headline-10{@include calc_position();}
   .headline-11{@include calc_position();}
+  .headline-12{@include calc_position();}
 
 }
