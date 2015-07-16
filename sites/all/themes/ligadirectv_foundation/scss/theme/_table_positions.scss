@@ -111,3 +111,30 @@
         }
   }
 
+section.primera{
+  margin-left: 25px;
+  float: left;
+  width: 32%!important;
+  .ccWidget.facebookWid, .ccWidget{
+    width:100%;
+    iframe{
+      width:100%;
+    }
+  }
+}
+section.block-ligadtv-fb-widget{
+  margin-left: 0px !important;
+}
+section.block-ligadtv-video-home{
+  margin-right: 0;
+  margin-left: 0;
+  float: right;
+  padding:0;
+  .video{
+
+    iframe{
+      width:100%;
+    }
+  }
+}
+
