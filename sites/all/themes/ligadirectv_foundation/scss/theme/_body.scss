@@ -3,9 +3,11 @@ body{
   background-image: url(../img/Fondo.jpg);
   background-repeat: no-repeat;
   background-position: center top;
-  max-width: 64.5rem;
-  display: table;
-  margin: 0 auto;
+  .row.l-main{
+    max-width: 64.5rem;
+    display: table;
+    margin: 0 auto;
+  }
   .top-bar{
     background:none;
     .logo{
