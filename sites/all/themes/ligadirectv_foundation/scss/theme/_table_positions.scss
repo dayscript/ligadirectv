@@ -2,7 +2,7 @@
     height: 2px;
     background-color: #FF9000;
     max-width: 1000px;
-    width: 100%;
+    width: 103%;
   }
 .cc2Home {
   margin-top: 10px;
@@ -10,7 +10,7 @@
   .cc21 {
     float: left;
     /*width: 320px;*/
-    height: auto;
+    height: 550px;
     /* min-height: 380px; */
     background-color: rgba(0, 0, 0, 0.2);
     >:before{
@@ -95,8 +95,8 @@
 }
 
   section.large-4{
-
-        padding: 0;
+        width: 33%;
+         padding: 0;
         .cc2Home{
             display: inline-block;
             width: 100%;

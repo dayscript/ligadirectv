@@ -1,3 +1,9 @@
+.panel.callout{
+  padding:0px;
+
+}
+
+
 .highlight{
   background: #001333 !important;
   border:0 !important;
@@ -58,6 +64,8 @@
         z-index: 999;
         overflow: hidden;
         float: left;
+        background-color: #001333;
+        padding-left: 8px;
         .header{
           padding: 8px 14px;
           font-size: 12px;

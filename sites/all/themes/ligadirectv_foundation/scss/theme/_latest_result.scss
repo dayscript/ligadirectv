@@ -1,7 +1,7 @@
 .latest-result{
   margin-left: 20px;
   float: left;
-  height: auto;
+  height: 550px;
   margin-top: 10px;
   width: 320px;
   padding: 0px;
@@ -29,6 +29,7 @@
         tr{
           background-color: rgba(0,0,0,0.2);
           td{
+            line-height: 0rem;
             .ccrsInfo{
               display:inline-block;
               .rsDate {
@@ -86,3 +87,20 @@
   }
 }
 
+@mixin calc_position(){
+  display: inline-block;
+  .ccrsInfo{
+    div{
+    float:left;
+    }
+  }
+}
+
+.infocc21{
+  .headline-7{@include calc_position();}
+  .headline-8{@include calc_position();}
+  .headline-9{@include calc_position();}
+  .headline-10{@include calc_position();}
+  .headline-11{@include calc_position();}
+
+}
