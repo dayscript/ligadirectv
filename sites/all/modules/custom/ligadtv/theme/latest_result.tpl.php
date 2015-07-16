@@ -4,8 +4,6 @@
         <h3>ÚLTIMOS RESULTADOS</h3>
     </div>
     <div class="infocc21">
-        <table>
-            <tbody>
                 <?php foreach ($items[0] as $key => $value) { ?>
             <?php if ($value['matchStatus'] == 'COMPLETE'):?>
                 <?php $cont++;?>
@@ -29,8 +27,7 @@
                     <?php endif;
                         $date = date('d-m-Y', strtotime($value['matchTime']));
                     ?>
-                    <tr>
-                        <td class="headline-<?php print $key; ?>">
+                        <div class="headline-<?php print $key; ?>">
                             <div class="ccrsInfo">
                                 <div class="ico1"><img width="50px" src="<?php print $teamlocD['images']['logo']['T1']['url'];?>"></div>
                                     <div class="resulMini">
@@ -43,14 +40,11 @@
                                         <?php print $date . ' ' .$hora; ?>
                                     </div>
                             </div>
-                        </td>
-                    </tr>
-                <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
             <?php endif; ?>
         <?php }?>
-            </tbody>
-        </table>
-    </div>
+        </div>
     <div class="ccLinkResults">
         <a href="/matchs">Ver Todos ></a>
     </div>
