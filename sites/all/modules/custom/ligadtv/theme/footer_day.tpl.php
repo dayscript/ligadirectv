@@ -57,7 +57,7 @@
         </p>
     </div>
     <div class="columns large-2">
-
+    <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/logo_DPB_footer.png'>
     </div>
   </div>
   <div class="pie-footer large-12 columns">
