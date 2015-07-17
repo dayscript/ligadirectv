@@ -19,11 +19,11 @@
       ?>
       <div class="c1GameHome">
         <div class="cGameHome">
-            <img width="25px" src="<?php print $teamloc['images']['logo']['T1']['url']?>">
+            <img width="25px" src="<?php print $teamloc['images']['logo']['S1']['url']?>">
             <p><?php print $teamlocD['teamCode'] . ' ' . $teamlocD['scoreString'];?></p>
         </div>
         <div class="cGameHome">
-            <img width="25px" src="<?php print $teamVis['images']['logo']['T1']['url'];?>">
+            <img width="25px" src="<?php print $teamVis['images']['logo']['S1']['url'];?>">
             <p><?php print $teamVisD['teamCode'].' '.$teamVisD['scoreString'];?></p>
         </div>
         <div class="cdateVerHome">
