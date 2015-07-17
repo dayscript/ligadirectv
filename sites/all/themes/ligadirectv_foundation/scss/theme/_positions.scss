@@ -99,6 +99,9 @@
     margin: 10px auto;
     clear: both;
     height: 30px;
+    margin-top: 90px;
+    border-top: 2px solid #FF9000;
+    padding-top:5px;
   }
   .tableNomina {
     width: 100%;
@@ -129,12 +132,35 @@
           td {
             color: white;
             text-align: center;
-            line-height: 21px;
+            line-height: 6px;
             height: 21px;
             border-left: 1px solid white;
+            font-family: 'futura_ltbook' !important;
+            font-size: 100%;
           }
         }
       }
     }
+  }
+}
+.header-pos-es{
+  display:inline-block;
+  padding:0;
+  .tab-falso{
+    width: 50%;
+    float: left;
+    height: 35px;
+    background-color: #0068AA;
+    text-align: center;
+    margin: 0 0px;
+    line-height: 35px;
+    color: white;
+    position: relative;
+    left: 1px;
+    cursor: pointer;
+  }
+  .tab-falso.active{
+    background-color: #FF9000;
+    color: black;
   }
 }
