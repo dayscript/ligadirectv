@@ -1,4 +1,9 @@
 .page-statistics{
+  .large-12{
+    padding:0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
   .block-ligadtv-topheader{
     display:inline-block;
     .c1GameHome {
@@ -49,14 +54,14 @@
   }
   .ccTablePlayers{
     background-color: rgba(0, 0, 0, 0.2);
+    width: 32.333333%!important;
     .headc21 {
       width: 300px;
-      padding-bottom: 2px;
       border-bottom: 2px solid #FF9000;
       color: white;
-      height: 23px;
+      height: 40px;
       margin-top: 12px;
-      margin-left: 10px;
+      font-family: 'futura_ltbook';
       h3{
         color: white;
         font-size: 21px;
@@ -100,11 +105,13 @@
             font-size: 15px;
             text-transform: capitalize;
             color: white;
+            font-weight: bold;
           }
           h5 {
             font-family: 'futura_ltlight';
             font-size: 15px;
             color: white;
+            font-weight: bold;
           }
         }
         .cc1Info {
@@ -134,9 +141,10 @@
       border-top: 1px solid #0068AA;
       float: left;
       margin-top: 10px;
-      margin-left: 10px;
       table{
+        border:none;
         background: transparent;
+        float: right;
         thead {
           background-color: #0068AA;
           color: white;
@@ -145,6 +153,7 @@
             td{
               font-size: 12px;
               text-align: center;
+              font-family: 'futura_ltbook';
             }
           }
         }
@@ -161,12 +170,48 @@
               height: 40px;
               overflow: hidden;
               white-space: nowrap;
-              font-size: 12px;
+              font-size: 13px;
               color: white;
+              font-family: 'futura_ltbook';
             }
           }
         }
       }
+      a{
+        color: #FF9000;
+        width: 100%;
+        text-align: right;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 5px 0px;
+        display: block;
+      }
+    }
+  }
+  .ccTablePlayers.t-center{
+    margin-left:15px;
+  }
+  .navEstadisticas {
+    max-width: 1003px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 15px;
+    .linkEstadisticas {
+      width: 50%;
+      float: left;
+      height: 35px;
+      background-color: #0068AA;
+      text-align: center;
+      margin: 0 0px;
+      line-height: 35px;
+      color: white;
+      position: relative;
+      left: 1px;
+      cursor: pointer;
+    }
+    .linkEstadisticas.active {
+      background-color: #FF9000;
+      color: black;
     }
   }
 }

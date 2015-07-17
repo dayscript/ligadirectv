@@ -43,6 +43,18 @@
     $pointsBPHTML   = drawLeader($pointsBP,$players,$teams,'sTurnovers','BP');
     variable_set('nextExecute', date('Y-m-d', strtotime('+1 week')));
 ?>
+<div class="navEstadisticas noPhone">
+    <a href="/estadisticas">
+        <div class="linkEstadisticas active">
+            LÍDERES INDIVIDUALES
+        </div>
+    </a>
+    <a href="posiciones">
+        <div class="linkEstadisticas">
+            TABLA DE POSICIONES
+        </div>
+    </a>
+</div>
 <div class="large-12 columns">
     <div class="large-4 columns ccTablePlayers">
         <div class="headc21">
@@ -50,7 +62,7 @@
         </div>
         <?php print $mediaPointHtml['header']; print $mediaPointHtml['table'];?>
     </div>
-    <div class="large-4 columns ccTablePlayers">
+    <div class="large-4 columns ccTablePlayers t-center">
         <div class="headc21">
             <h3>MEDIA REBOTES</h3>
         </div>
@@ -70,7 +82,7 @@
         </div>
         <?php print $pointsTLHTML['header']; print $pointsTLHTML['table'];?>
     </div>
-    <div class="large-4 columns ccTablePlayers">
+    <div class="large-4 columns ccTablePlayers t-center">
         <div class="headc21">
             <h3>3 PORCENTAJE</h3>
         </div>
@@ -90,7 +102,7 @@
         </div>
         <?php print $pointsSUMHTML['header']; print $pointsSUMHTML['table'];?>
     </div>
-    <div class="large-4 columns ccTablePlayers">
+    <div class="large-4 columns ccTablePlayers t-center">
         <div class="headc21">
             <h3>REBOTES TOTALES</h3>
         </div>
@@ -110,7 +122,7 @@
         </div>
         <?php print $pointsREBOFEHT['header']; print $pointsREBOFEHT['table'];?>
     </div>
-    <div class="large-4 columns ccTablePlayers">
+    <div class="large-4 columns ccTablePlayers t-center">
         <div class="headc21">
             <h3>REBOTES DEFENSIVOS</h3>
         </div>
@@ -130,7 +142,7 @@
         </div>
         <?php print $pointsTLHTML['header']; print $pointsTLHTML['table'];?>
     </div>
-    <div class="large-4 columns ccTablePlayers">
+    <div class="large-4 columns ccTablePlayers t-center">
         <div class="headc21">
             <h3>RECUPERÓ</h3>
         </div>
@@ -150,7 +162,7 @@
         </div>
         <?php print $pointsCANAST3HT['header']; print $pointsCANAST3HT['table'];?>
     </div>
-    <div class="large-4 columns ccTablePlayers">
+    <div class="large-4 columns ccTablePlayers t-center">
         <div class="headc21">
             <h3>Faltas personales</h3>
         </div>
@@ -170,7 +182,7 @@
         </div>
         <?php print $pointsEFICHTM['header']; print $pointsEFICHTM['table'];?>
     </div>
-    <div class="large-4 columns ccTablePlayers">
+    <div class="large-4 columns ccTablePlayers t-center">
         <div class="headc21">
             <h3>Media de tapones</h3>
         </div>
