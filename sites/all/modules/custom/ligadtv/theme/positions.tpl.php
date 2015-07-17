@@ -1,3 +1,8 @@
+<div class="header-pos-es large-12 columns">
+    <a href="/estadisticas" class="tab-falso">LÍDERES INDIVIDUALES</a>
+    <a href="/posiciones" class="active tab-falso">TABLA DE POSICIONES</a>
+</div>
+
 <div class="titleGprt">GRUPO A</div>
 <div class="tableNomina">
     <table class="bigTable">
