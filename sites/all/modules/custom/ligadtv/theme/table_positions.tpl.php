@@ -59,7 +59,7 @@
                 <?php
                 $cond = false;
                 foreach ($items[0] as $key => $value) { ?>
-                    <?php if($value['poolNumber'] == '1' && $value['roundNumber'] == $items[1]):?>
+                    <?php if($value['poolNumber'] == '2' && $value['roundNumber'] == $items[1]):?>
                         <?php if($cond): ?>
                             <tr class='tdIn'>
                                 <td><?php print $value['clubName']; ?></td>
