@@ -82,6 +82,9 @@ body{
   margin-top: 20px;
   padding-left:0;
   padding-right:0px;
+  .block-ligadtv-tw-widget{
+    margin-left: 23px!important;
+  }
 }
 .block-ligadtv-sportingplus{
   display:inline-block;
@@ -131,6 +134,9 @@ body{
                 }
               }
             }
+          }
+          .columns.large-2:nth-child(4){
+            text-align:center;
           }
           .columns.large-4{
             margin-top:15px;
