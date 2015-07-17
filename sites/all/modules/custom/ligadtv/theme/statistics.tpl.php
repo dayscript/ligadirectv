@@ -41,6 +41,7 @@
     $pointsMETAPOHT = drawLeader($pointsMETAPO,$players,$teams,'sBlocksAverage','MT');
     $pointsBP       = getLeaderBallFouls();
     $pointsBPHTML   = drawLeader($pointsBP,$players,$teams,'sTurnovers','BP');
+    variable_set('nextExecute', date('Y-m-d', strtotime('+1 week')));
 ?>
 <div class="large-12 columns">
     <div class="large-4 columns ccTablePlayers">
