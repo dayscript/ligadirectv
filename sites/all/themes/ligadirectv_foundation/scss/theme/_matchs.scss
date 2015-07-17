@@ -1,6 +1,6 @@
 .page-matchs{
   .title{
-    width: 100%;
+    width:   156%;
     margin: 0 auto;
     background-color: #FF9000;
     color: black;
@@ -9,6 +9,7 @@
     line-height: 35px;
     font-family: 'futura_ltbook';
     font-size: 20px;
+    font-weight: bold;
   }
   ul.tabs{
     width: 100%;
@@ -19,6 +20,7 @@
     padding-right: 130px;
     padding-bottom: 15px;
     padding-top:2px;
+    margin-top: 8px;
     p {
       text-align: center;
       font-size: 18px;
@@ -147,6 +149,5 @@
   .medium-3.sidebar-second.columns.sidebar{
     width: 33% !important;
     margin-right: 15px;
-    margin-top: 0%;
   }
 }

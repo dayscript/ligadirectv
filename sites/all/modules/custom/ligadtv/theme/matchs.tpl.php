@@ -1,3 +1,4 @@
+<?php drupal_set_title('RESULTADOS');?>
 <ul class="tabs" data-tab role="tablist">
   <?php foreach ($rounds['response']['data'] as $key => $value) {?>
     <?php $rounds2[$key] = $value['roundNumber'];?>
