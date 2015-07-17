@@ -9,6 +9,7 @@
     line-height: 35px;
     font-family: 'futura_ltbook';
     font-size: 20px;
+    font-weight: bold;
   }
   .node-article{
     width: 635px;
@@ -36,5 +37,12 @@
         }
       }
     }
+  }
+  aside.medium-3.sidebar-second.columns.sidebar{
+    width: 32% !important;
+    margin-right: 15px;
+  }
+  div.medium-9.main.columns{
+    width: 65%;
   }
 }
