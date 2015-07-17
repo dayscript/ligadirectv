@@ -37,6 +37,11 @@
         }
       }
     }
+    .st_facebook_hcount{
+      .st-facebook-counter{
+          height: auto;
+      }
+    }
   }
   aside.medium-3.sidebar-second.columns.sidebar{
     width: 32% !important;
@@ -79,6 +84,8 @@
             }
           }
           .views-field-body{
+            margin-right: 9px;
+            text-align: left;
             p{
               color:white;
             }
