@@ -170,9 +170,10 @@
               height: 40px;
               overflow: hidden;
               white-space: nowrap;
-              font-size: 13px;
+              font-size: 14px;
               color: white;
-              font-family: 'futura_ltbook';
+              font-family: 'futura_ltbook' !important;
+              padding:0;
             }
           }
         }
@@ -212,6 +213,38 @@
     .linkEstadisticas.active {
       background-color: #FF9000;
       color: black;
+    }
+  }
+  .statisticsTable{
+    width:100%;
+    .bigTable{
+      width: 100%;
+      border: 1px solid #0068AA;
+      border-top: 4px solid #0068AA;
+      background-color: #001e46;
+      thead{
+        td{
+          background-color: #0068AA;
+          height: 21px;
+          border-right: 1px solid white;
+          text-align: center;
+          color: white;
+          padding: 0;
+        }
+      }
+      tbody{
+        tr{
+          border-bottom: 1px solid white;
+          background-color: transparent;
+          td{
+            color: white;
+            text-align: center;
+            line-height: 3px;
+            height: 21px;
+            border-left: 1px solid white;
+          }
+        }
+      }
     }
   }
 }
