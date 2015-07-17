@@ -1,4 +1,29 @@
 .page-news{
+  .title-news{
+    width: 1000px;
+    margin: 0 auto;
+    background-color: #FF9000;
+    color: black;
+    height: 35px;
+    text-align: center;
+    text-align: center;
+    line-height: 35px;
+    font-family: 'futura_ltbook';
+    font-size: 20px;
+    a{
+      height: 18px;
+      color: white;
+      background-color: #0068AA;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      position: relative;
+      width: 140px;
+      float: right;
+      top: -27px;
+      left: -5px;
+    }
+  }
   h1.title{
     text-align: center;
     line-height: 35px;
