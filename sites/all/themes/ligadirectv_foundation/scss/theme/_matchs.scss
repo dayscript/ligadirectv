@@ -1,6 +1,6 @@
 .page-matchs{
   .title{
-    width: 87%;
+    width: 100%;
     margin: 0 auto;
     background-color: #FF9000;
     color: black;
@@ -9,10 +9,9 @@
     line-height: 35px;
     font-family: 'futura_ltbook';
     font-size: 20px;
-    float:left;
   }
   ul.tabs{
-    width: 87%;
+    width: 100%;
     background-color: rgba(0, 0, 0, 0.2);
     float: left;
     color: white;
@@ -56,12 +55,12 @@
   .tabs-content{
     .matchs{
       background-color: rgba(0, 0, 0, 0.2);
-      width: 87%;
+      width: 100%;
       float: left;
       margin-top: 30px;
       .ccResBox {
         width: 300px;
-        margin: 10px 11px;
+        margin: 10px 10px;
         float: left;
         border: solid #0068AA 1px;
         padding:0px;
@@ -141,5 +140,11 @@
         }
       }
     }
+  }
+  .medium-9.main.columns{
+    width:65%;
+  }
+  .medium-3.sidebar-second.columns.sidebar{
+    width: 35% !important;
   }
 }
