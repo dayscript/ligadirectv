@@ -18,7 +18,7 @@
       <?php if(isset($user->field_twitter_user_name)): ?>
         <div class="twitter-username">
           <a href="https://twitter.com/@<?php print render($user->field_twitter_user_name['und'][0]['twitter_username']);?>">
-            <?php print render($user->field_twitter_user_name['und'][0]['twitter_username']);?>
+            @<?php print render($user->field_twitter_user_name['und'][0]['twitter_username']);?>
           </a>
         </div>
       <?php endif ?>
