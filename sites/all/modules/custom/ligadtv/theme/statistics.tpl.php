@@ -49,7 +49,7 @@
             LÍDERES INDIVIDUALES
         </div>
     </a>
-    <a href="posiciones">
+    <a href="/positions">
         <div class="linkEstadisticas">
             TABLA DE POSICIONES
         </div>
