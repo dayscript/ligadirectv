@@ -7,7 +7,7 @@
                 <?php foreach ($items[0] as $key => $value) { ?>
             <?php if ($value['matchStatus'] == 'COMPLETE'):?>
                 <?php $cont++;?>
-                <?php if ($cont < 6): ?>
+                <?php if ($cont < 5): ?>
                     <?php
                         $stadio = isset($value['venue']) ? $value['venue']['venueName'] : '';
                         $date   = date( 'd-m-Y', strtotime( $value['matchTime'] ));
