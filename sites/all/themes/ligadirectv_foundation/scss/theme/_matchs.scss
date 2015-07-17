@@ -1,6 +1,6 @@
 .page-matchs{
   .title{
-    width: 100%;
+    width: 87%;
     margin: 0 auto;
     background-color: #FF9000;
     color: black;
@@ -9,9 +9,10 @@
     line-height: 35px;
     font-family: 'futura_ltbook';
     font-size: 20px;
+    float:left;
   }
   ul.tabs{
-    width: 100%;
+    width: 87%;
     background-color: rgba(0, 0, 0, 0.2);
     float: left;
     color: white;
@@ -55,7 +56,7 @@
   .tabs-content{
     .matchs{
       background-color: rgba(0, 0, 0, 0.2);
-      width: 100%;
+      width: 87%;
       float: left;
       margin-top: 30px;
       .ccResBox {
