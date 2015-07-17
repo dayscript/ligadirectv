@@ -15,7 +15,7 @@ define("ak", $ak);
 define("actual",$actual);  // liga
 define("liga",$liga);  // conmetitions
 define("baseSp", $baseSp);
-$query= baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=50000&ak='. ak .'';
+$query= baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=600&ak='. ak .'';
 /**
  * Implementation of hook_menu().
  */
@@ -591,7 +591,7 @@ function _get_content_custom($type, $quantity){
  * @return [JSON]
  */
 function _get_teams(){
-  $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=500&ak=' . ak;
+  $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=6&ak=' . ak;
   $json = file_get_contents($uri);
   $data = json_decode($json, TRUE);
   return $data;
@@ -615,7 +615,7 @@ function _get_detail_teams($id){
  * @return [type] [description]
  */
 function _list_matchs(){
-  $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/matches?format=json&limit=50000&ak=' . ak;
+  $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/matches?format=json&limit=600&ak=' . ak;
   $json = file_get_contents($uri);
   $data = json_decode($json, TRUE);
   return $data;
@@ -638,14 +638,15 @@ function _get_rounds(){
 function getStandingData(){
   $name= 'standing.json';
   $idQuery  =1;
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=50000&ak=' . ak . '';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=600&ak=' . ak . '';
   // if is old update
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . "/data/" . $name;
   return json_decode(file_get_contents($file), true);
@@ -719,10 +720,10 @@ function getCalComplete(){
 function getCalData(){
   $name     = 'cal.json';
   $idQuery  = 2;
-  $query    = baseSp . '/v1/basketball/competitions/' . liga . '/matches?format=json&limit=50000&ak=' . ak . '';
+  $query    = baseSp . '/v1/basketball/competitions/' . liga . '/matches?format=json&limit=60&ak=' . ak . '';
   $json     = file_get_contents($query);
   $data     = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
@@ -765,13 +766,14 @@ function getRes(){
 function getLeaderPoints(){
   $name= 'sPointsAverage.json';
   $sLeaQuery = 'leaders/sPointsAverage';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode( $json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file=drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -785,7 +787,7 @@ function getLeaderPoints(){
  * @param  string $nameInfo [description]
  * @return [type]           [description]
  */
-function drawLeader($data , $players, $teams, $info='sPoints', $nameInfo='MP'){
+function drawLeader($data, $players, $teams, $info='sPoints', $nameInfo='MP'){
 $data= $data['response'];
 $stFinal='';
 $cont = 0;
@@ -871,13 +873,14 @@ function getLeaderPointsRebotes(){
   $name= 'sReboundsTotalAverage.json';
   $idQuery  = 6;
   $sLeaQuery = 'leaders/sReboundsTotalAverage';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file=drupal_get_path('module', 'ligadtv') . '/data/' .$name;
   return json_decode(file_get_contents($file), true);
@@ -891,13 +894,14 @@ function getLeaderPointsRebotes(){
 function getLeaderMediaAsistencias2($sql,$load=false){
   $name= 'sAssistsAverage.json';
   $sLeaQuery = 'leaders/sAssistsAverage';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -948,13 +952,14 @@ function getLeaderTlPorcentaje(){
   $name= 'sFreeThrowsPercentage.json';
   $idQuery  = 8;
   $sLeaQuery = 'leaders/sFreeThrowsPercentage';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == strtotime(date('Y-m-d'))){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -967,13 +972,14 @@ function getLeader3Porcentaje(){
   $name= 'sFreeThrowsPercentage.json';
   $idQuery  = 10;
   $sLeaQuery = 'leaders/sFreeThrowsPercentage';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -986,13 +992,14 @@ function getLeader2Porcentaje(){
   $name= 'sTwoPointersPercentage.json';
   $idQuery  = 9;
   $sLeaQuery = 'leaders/sTwoPointersPercentage';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1007,13 +1014,14 @@ function getLeaderPuntos(){
   $name= 'sPoints.json';
   $idQuery  = 10;
   $sLeaQuery = 'leaders/sPoints';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1028,13 +1036,14 @@ function getLeaderPointsSecondChance(){
   $name= 'sReboundsTotal.json';
   $idQuery  = 12;
   $sLeaQuery = 'leaders/sReboundsTotal';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file=drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1047,13 +1056,14 @@ function getLeaderAssists(){
   $name= 'sAssists.json';
   $idQuery  = 13;
   $sLeaQuery = 'leaders/sAssists';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1068,13 +1078,14 @@ function getLeaderReboundsOffensive(){
   $name= 'sReboundsOffensive.json';
   $idQuery  = 14;
   $sLeaQuery = 'leaders/sReboundsOffensive';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1087,13 +1098,14 @@ function getLeaderReboundsDevensive(){
   $name= 'sReboundsDefensive.json';
   $idQuery  = 15;
   $sLeaQuery = 'leaders/sReboundsDefensive';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
     $json = file_get_contents($query);
     $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1106,13 +1118,14 @@ function getLeaderTapones(){
   $name= 'sBlocks.json';
   $idQuery  = 16;
   $sLeaQuery = 'leaders/sBlocks';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1127,13 +1140,14 @@ function getLeaderTlConvert(){
   $name= 'sTrueShootingAttempts.json';
   $idQuery  = 17;
   $sLeaQuery = 'leaders/sTrueShootingAttempts';
-  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=500';
+  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1148,13 +1162,14 @@ function getLeaderCasnasta2(){
   $name= 'sTwoPointersMade.json';
   $idQuery  = 18;
   $sLeaQuery = 'leaders/sTwoPointersMade';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
 
@@ -1168,13 +1183,14 @@ function getLeaderCasnasta3(){
   $name= 'sThreePointersMade.json';
   $idQuery  = 19;
   $sLeaQuery = 'leaders/sThreePointersMade';
-  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=500';
+  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1187,13 +1203,14 @@ function getLeaderFoulPer(){
   $name= 'sFoulsPersonal.json';
   $idQuery  = 20;
   $sLeaQuery = 'leaders/sFoulsPersonal';
-  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=500';
+  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file=drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1206,13 +1223,14 @@ function getLeaderPointsSec(){
   $name= 'sStealsAverage.json';
   $idQuery  = 21;
   $sLeaQuery = 'leaders/sStealsAverage';
-  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=500';
+  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1225,13 +1243,14 @@ function getLeaderBallFouls(){
   $name= 'sTurnovers.json';
   $idQuery  = 22;
   $sLeaQuery = 'leaders/sTurnovers';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1244,13 +1263,14 @@ function getLeaderWins(){
   $name= 'sEfficiency.json';
   $idQuery  = 23;
   $sLeaQuery = 'leaders/sEfficiency';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1263,13 +1283,14 @@ function getLeaderBlocksReceived(){
   $name= 'sBlocksAverage.json';
   $idQuery  = 24;
   $sLeaQuery = 'leaders/sBlocksAverage';
-  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=500';
+  $query= baseSp.'/v1/basketball/competitions/'.liga.'/'.$sLeaQuery.'?format=json&ak='.ak.'&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
@@ -1279,13 +1300,14 @@ function getLeaderSteals($sql,$load=false){
   $name= 'sSteals.json';
   $idQuery  = 25;
   $sLeaQuery = 'leaders/sSteals';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak='.ak.'&limit=500';
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak='.ak.'&limit=6';
   $json = file_get_contents($query);
   $data = json_decode($json, TRUE);
-  if(variable_get('nextExecute') == time()){
+  if(variable_get('nextExecute') == date('Y-m-d')){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
+
   }
   $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
