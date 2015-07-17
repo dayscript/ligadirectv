@@ -1,4 +1,4 @@
-<div class="tableNomina">
+<div class="tableNomina statisticsTable">
   <table class="bigTable">
     <thead>
       <tr>
