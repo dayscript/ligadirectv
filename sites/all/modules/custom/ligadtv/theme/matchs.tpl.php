@@ -22,7 +22,7 @@
             <?php if($value == $valueM['roundNumber']):?>
               <div class="ccResBox p1 r5 large-6 columns" style="display: block;">
                 <div class="crbheader">ESTADÍSTICAS DEL PARTIDO &gt;</div>
-                <a class="vermas" href="#">VER MAS &gt;</a>
+                <a class="vermas" href="/matchs/<?php print $valueM['matchId'];?>">VER MAS &gt;</a>
                 <div class="crbTeam">
                       <div class="ico1"><img src="<?php print $valueM['competitors'][0]['images']['logo']['T1']['url'];?>"></div>
                       <div class="crbname"><?php print $valueM['competitors'][0]['teamName'];?></div>
@@ -49,7 +49,7 @@
             <?php if($value == $valueM['roundNumber']):?>
               <div class="ccResBox p1 r5 large-6 columns" style="display: block;">
                 <div class="crbheader">ESTADÍSTICAS DEL PARTIDO &gt;</div>
-                <a class="vermas" href="#">VER MAS &gt;</a>
+                <a class="vermas" href="/matchs/<?php print $valueM['matchId'];?>">VER MAS &gt;</a>
                 <div class="crbTeam">
                       <div class="ico1"><img src="<?php print $valueM['competitors'][0]['images']['logo']['T1']['url'];?>"></div>
                       <div class="crbname"><?php print $valueM['competitors'][0]['teamName'];?></div>

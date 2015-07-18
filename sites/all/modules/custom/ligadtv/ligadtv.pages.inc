@@ -18,8 +18,14 @@ function _ligadtv_config(){
  */
 function _matchs(){
   $matchs = _list_matchs();
+  dpm($matchs);
   $rounds = _get_rounds();
   return theme('matchs', array('matchs'=>$matchs, 'rounds'=> $rounds));
+}
+function _matchs_detail($idMatch){
+  $games = getRes();
+  $cont = 0;
+  return(theme('matchs_detail', array('matchs'=>$games, 'idMatchs'=>$idMatch)));
 }
 /**
  * [_statistics description]
