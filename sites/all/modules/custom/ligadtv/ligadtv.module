@@ -46,6 +46,15 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
   );
+  $menu['matchs/%']= array(
+    'title'            => t('Matchs'),
+    'description'      => t('Matchs'),
+    'page callback'    => '_matchs_detail',
+    'access arguments' => array('access content'),
+    'page arguments'   => array(1),
+    'file'             => 'ligadtv.pages.inc',
+    'type'             => MENU_CALLBACK,
+  );
   $menu['statistics']= array(
     'title'            => t('statistics'),
     'description'      => t('statistics'),
@@ -486,6 +495,12 @@ function ligadtv_theme(){
         ),
   'footer_day'  => array(
             'template'  => 'theme/footer_day',
+            'variables' => array(
+                'items' => array(),
+            ),
+        ),
+  'matchs_detail'=> array(
+            'template'  => 'theme/matchs_detail',
             'variables' => array(
                 'items' => array(),
             ),
