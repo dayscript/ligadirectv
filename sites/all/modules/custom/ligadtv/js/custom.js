@@ -25,8 +25,8 @@ Drupal.behaviors.custom = {
 };
 
 function loadJson (name, id, point) {
-  //var data_file = '/ligadirectv/sites/all/modules/custom/ligadtv/data/' + name; //Descomentar en caso de ser local
-  var data_file = '/sites/all/modules/custom/ligadtv/data/' + name;
+  var data_file = '/ligadirectv/sites/all/modules/custom/ligadtv/data/' + name; //Descomentar en caso de ser local
+  //var data_file = '/sites/all/modules/custom/ligadtv/data/' + name;
   var http_request = new XMLHttpRequest();
   try{
     // Opera 8.0+, Firefox, Chrome, Safari
@@ -64,16 +64,18 @@ function loadJson (name, id, point) {
  * @return {[type]}        [description]
  */
 function drawLeader(leader, point) {
-  console.log(leader);
-  console.log(point);
+  var logo;
   for (var i = 0; i <= 5 ; i++) {
     if(i == 0){
       if(typeof(leader[i].images) != 'undefined'){
-        var data = '<div class="dataPlayer"><div class="leaderImg"><img src="' + leader[i].images.photo.T1.url + '"><div class="titleLidder">Leader</div></div><div class="info"><div class="inInfo"><h4>' + leader[i].firstName + ' ' + leader[i].familyName + '</h4><h5>' + leader[i].teamName + '</h5></div><div class="cc1Info"><div class="cc2Info">' +
-                            leader[i].sPoints + ' ' +point + '</div><img src="' + getLogo(leader[i].linkDetailTeam) + '"></div></div></div><div class="tableLeader"><table><thead><tr><td width="20px">#</td><td width="50px">EQU</td><td width="185px" style="text-align: left;">NOMBRE</td><td width="45px">'+ point + '</td></tr></thead><tbody>';
+        var data = '<div class="dataPlayer"><div class="leaderImg"><img src="' + leader[i].images.photo.T1.url + '"><div class="titleLidder">Leader</div></div><div class="info"><div class="inInfo"><h4>' + leader[i].firstName + '  ' + leader[i].familyName + '</h4><h5>' + leader[i].teamName + '</h5></div><div class="cc1Info"><div class="cc2Info">' +
+                            leader[i].sPoints + '  ' + point + '</div><div id ="'+ leader[i].teamId +'"></div></div></div></div><div class="tableLeader"><table><thead><tr><td width="20px">#</td><td width="50px">EQU</td><td width="185px" style="text-align: left;">NOMBRE</td><td width="45px">'+ point + '</td></tr></thead><tbody>';
+       console.log("header   : "+getLogo(leader[i].teamId));
+       getLogo(leader[i].teamId);
       }else{
-        var data = '<div class="dataPlayer"><div class="leaderImg"><img src=""><div class="titleLidder">Leader</div></div><div class="info"><div class="inInfo"><h4>' + leader[i].firstName + ' ' + leader[i].familyName + '</h4><h5>' + leader[i].teamName + '</h5></div><div class="cc1Info"><div class="cc2Info">' +
-                            leader[i].sPoints + point + '</div><img src="' + getLogo(leader[i].linkDetailTeam) + '"></div></div></div><div class="tableLeader"><table><thead><tr><td width="20px">#</td><td width="50px">EQU</td><td width="185px" style="text-align: left;">NOMBRE</td><td width="45px">'+ point + '</td></tr></thead><tbody>';
+        var data = '<div class="dataPlayer"><div class="leaderImg"><img src=""><div class="titleLidder">Leader</div></div><div class="info"><div class="inInfo"><h4>' + leader[i].firstName + '  ' + leader[i].familyName + '</h4><h5>' + leader[i].teamName + '</h5></div><div class="cc1Info"><div class="cc2Info">' +
+                            leader[i].sPoints + point + '</div><div id = "'+ leader[i].teamId + '"></div></div></div></div><div class="tableLeader"><table><thead><tr><td width="20px">#</td><td width="50px">EQU</td><td width="185px" style="text-align: left;">NOMBRE</td><td width="45px">'+ point + '</td></tr></thead><tbody>';
+        getLogo(leader[i].teamId);
       }
     }else{
       data +='<tr><td>' + i + '</td><td>' + leader[i].teamCode + '</td><td>'+
@@ -85,17 +87,27 @@ function drawLeader(leader, point) {
   return data;
 }
 
-function getLogo(link){
-  var ak = '73fee4973791892d5cd9fa0f8411da51';
-  var data_file = 'http://api.wh.sportingpulseinternational.com' + link + '?format=json&ak=' + ak ;
-  var http_request = new XMLHttpRequest();
-  var jqxhr = jQuery.getJSON(data_file, function() {
-    console.log(jqxhr);
-  }).done(function() {
-      console.log( "second success" );
-    }).fail(function() {
-      console.log( "error" );
-    }).always(function() {
-      console.log( "complete" );
-    });
+function getLogo(idTeam){
+  var idTeam = idTeam ;
+  var data;
+  var data_file = '/sites/all/modules/custom/ligadtv/data/teams.json';
+  jQuery.ajax({
+      url:data_file,
+      dataType: "text",
+      success: function(data) {
+      var json = jQuery.parseJSON(data);
+      jQuery.each(json.response.data,function(){
+          if(this.teamId == idTeam){
+            if( typeof(this.images) != 'undefined'){
+                data = this.images.logo.T1.url;
+                console.log(idTeam);
+                //document.getElementById(idTeam).innerHTML = idTeam + '<img src="' + data + '">';
+                jQuery(".dataPlayer").find("#"+idTeam).empty().append('<img src="'+ data +'">');
+            }else{
+                document.getElementById(idTeam).innerHTML = idTeam;
+            }
+          }
+      });
+      }
+  });
 }

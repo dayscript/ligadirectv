@@ -1453,4 +1453,19 @@ function getEscudo($link){
   $data  = json_decode($json, true);
   return $data['response']['data']['images']['logo']['T1']['url'];
 }
+
+function getTeamData(){
+  $name= 'teams.json';
+  $idQuery  = 3;
+  $query= baseSp.'/v1/basketball/teams?format=json&ak='. ak .'&limit=5000';
+  $json = file_get_contents($query);
+  $data = json_decode($json, TRUE);
+  if(variable_get('nextExecute') == date('Y-m-d')){
+    $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
+    fwrite($fp, json_encode($data));
+    fclose($fp);
+  }
+  $file= drupal_get_path('module', 'ligadtv') . '/dataAvailable()php/' . $name;
+  return json_decode(file_get_contents($file), true);
+}
 ?>
