@@ -47,7 +47,7 @@ function ligadtv_menu(){
     'type'             => MENU_CALLBACK,
   );
   $menu['matchs/%']= array(
-    'title'            => t('Matchs'),
+    'title'            => t('Matchs detail'),
     'description'      => t('Matchs'),
     'page callback'    => '_matchs_detail',
     'access arguments' => array('access content'),
@@ -75,7 +75,7 @@ function ligadtv_menu(){
   $menu['player/%']= array(
     'title'            => t('Team detail'),
     'description'      => t('Teams detail'),
-    'page arguments'   => array(1, 2),
+    'page arguments'   => array(1),
     'page callback'    => '_detail_player',
     'access arguments' => array('access content'),
     'file'             => 'ligadtv.pages.inc',
@@ -501,6 +501,12 @@ function ligadtv_theme(){
         ),
   'matchs_detail'=> array(
             'template'  => 'theme/matchs_detail',
+            'variables' => array(
+                'items' => array(),
+            ),
+        ),
+  'players_detail'=>array(
+          'template'  => 'theme/players_detail',
             'variables' => array(
                 'items' => array(),
             ),
@@ -1417,5 +1423,25 @@ function _get_news($nid){
   }else{
     return '';
   }
+}
+/**
+ * [getStatisticsPersonCompetition description]
+ * @param  [type]  $sql  [description]
+ * @param  boolean $load [description]
+ * @return [type]        [description]
+ */
+function getStatisticsPersonCompetition(){
+  $name     = 'statisticsPersonCompetition.json';
+  $idQuery  = 28;
+  $query    = baseSp.'/v1/basketball/statistics/personcompetition/competitions/'.liga.'?format=json&ak='.ak;
+  $json     = file_get_contents($query);
+  $data     = json_decode($json, TRUE);
+  if(variable_get('nextExecute') == date('Y-m-d')){
+    $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
+    fwrite($fp, json_encode($data));
+    fclose($fp);
+  }
+  $file=drupal_get_path('module', 'ligadtv') . '/data/' . $name;
+  return json_decode(file_get_contents($file), true);
 }
 ?>
