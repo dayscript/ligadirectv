@@ -791,10 +791,9 @@ function getLeaderPoints(){
   $json = file_get_contents($query);
   $data = json_decode( $json, TRUE);
   if(variable_get('nextExecute') == date('Y-m-d')){
-    $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
+    $fp = fopen(drupal_get_path('module', 'ligadtv') . '/ctools_entity_field_extra_content_type_admin_title(subtype, conf, context)/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
-
   }
   $file=drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
