@@ -825,9 +825,8 @@ foreach ($data['data'] as $key => $value) {
     $clubName = substr($clubName, 0, 3);
     $name = substr($name, 0, 24);
     $escudo ='';
-    if(isset($team['images']['logo']['T1']['url']))
-      $escudo = $team['images']['logo']['T1']['url'];
-
+    if(isset($value['linkDetailPrimaryClub']))
+      $escudo = getEscudo($value['linkDetailPrimaryClub']);
     if(isset($value['images']['photo']['T1']))
         $image = $value['images']['photo']['T1']['url'];
 
@@ -1449,5 +1448,11 @@ function getDetailPerson($idPlayer){
   $query    = baseSp .'/v1/basketball/statistics/personcompetition/persons/'. $idPlayer . '?format=json&ak='.ak;
   $json     = file_get_contents($query);
   return json_decode($json, true);
+}
+function getEscudo($link){
+  $query = baseSp . $link . '?format=json&ak='.ak;
+  $json  = file_get_contents($query);
+  $data  = json_decode($json, true);
+  return $data['response']['data']['images']['logo']['T1']['url'];
 }
 ?>
