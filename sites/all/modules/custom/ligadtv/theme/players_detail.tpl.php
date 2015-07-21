@@ -8,8 +8,8 @@
           <img src="<?=$value['images']['photo']['S1']['url']?>">
         </div>
         <div class="sspib">
-          <img src="./img/escudo.png">
-          <img src="./img/logo_directv_calendario.png">
+          <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/escudo.png">
+          <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/logo_directv_calendario.png">
         </div>
         <?php drupal_set_title('NOMINA');?>
         <div class="cinpib">
@@ -32,8 +32,8 @@
         </div>
       </div>
       <div class="ccsponsor34">
-        <img src="/img/pauta1.png">
-        <img src="./img/pauta2.png">
+        <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/pauta1.png">
+        <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/pauta2.png">
       </div>
       <div class="space20"></div>
       <?php $count = $count + 1;?>
