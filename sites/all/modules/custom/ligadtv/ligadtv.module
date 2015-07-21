@@ -1442,6 +1442,12 @@ function getStatisticsPersonCompetition(){
     fclose($fp);
   }
   $file=drupal_get_path('module', 'ligadtv') . '/data/' . $name;
-  return json_decode(file_get_contents($file), true);
+  return json_decode($file, true);
+}
+
+function getDetailPerson($idPlayer){
+  $query    = baseSp .'/v1/basketball/statistics/personcompetition/persons/'. $idPlayer . '?format=json&ak='.ak;
+  $json     = file_get_contents($query);
+  return json_decode($json, true);
 }
 ?>

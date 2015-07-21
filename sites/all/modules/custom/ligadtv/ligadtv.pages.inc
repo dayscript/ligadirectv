@@ -36,7 +36,7 @@ function _statistics(){
 }
 
 function _detail_player($idPlayer){
-  $detail = getStatisticsPersonCompetition();
+  $detail = getDetailPerson($idPlayer);
   return(theme('players_detail', array('player'=>$detail['response']['data'], 'idPlayer'=>$idPlayer)));
 }
 
