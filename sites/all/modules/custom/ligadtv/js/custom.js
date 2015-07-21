@@ -25,8 +25,8 @@ Drupal.behaviors.custom = {
 };
 
 function loadJson (name, id, point) {
-  var data_file = '/ligadirectv/sites/all/modules/custom/ligadtv/data/' + name; //Descomentar en caso de ser local
-  //var data_file = '/sites/all/modules/custom/ligadtv/data/' + name;
+  //var data_file = '/ligadirectv/sites/all/modules/custom/ligadtv/data/' + name; //Descomentar en caso de ser local
+  var data_file = '/sites/all/modules/custom/ligadtv/data/' + name;
   var http_request = new XMLHttpRequest();
   try{
     // Opera 8.0+, Firefox, Chrome, Safari
