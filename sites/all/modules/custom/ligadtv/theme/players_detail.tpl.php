@@ -1,4 +1,5 @@
 <?php $count = 0;?>
+<?php drupal_set_title('NOMINA');?>
 <?php foreach ($player as $key => $value) { ?>
   <?php if($value['personId'] == $idPlayer):?>
     <?php if($count == 0):?>
@@ -10,7 +11,6 @@
           <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/escudo.png">
           <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/logo_directv_calendario.png">
         </div>
-        <?php drupal_set_title('NOMINA');?>
         <div class="cinpib">
           <h3><?=$value['firstName']?> <?=$value['familyName']?></h3>
           <h2><?=$tes['title']?></h2>
