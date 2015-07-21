@@ -25,8 +25,8 @@ Drupal.behaviors.custom = {
 };
 
 function loadJson (name, id, point) {
-  //var data_file = '/ligadirectv/sites/all/modules/custom/ligadtv/data/' + name; //Descomentar en caso de ser local
-  var data_file = '/sites/all/modules/custom/ligadtv/data/' + name;
+  var data_file = '/ligadirectv/sites/all/modules/custom/ligadtv/data/' + name; //Descomentar en caso de ser local
+  //var data_file = '/sites/all/modules/custom/ligadtv/data/' + name;
   var http_request = new XMLHttpRequest();
   try{
     // Opera 8.0+, Firefox, Chrome, Safari
@@ -87,34 +87,15 @@ function drawLeader(leader, point) {
 
 function getLogo(link){
   var ak = '73fee4973791892d5cd9fa0f8411da51';
-  var data_file = 'https://api.wh.sportingpulseinternational.com' + link + '?format=json&ak=' + ak ;
+  var data_file = 'http://api.wh.sportingpulseinternational.com' + link + '?format=json&ak=' + ak ;
   var http_request = new XMLHttpRequest();
-  try{
-    // Opera 8.0+, Firefox, Chrome, Safari
-    http_request = new XMLHttpRequest();
-  }catch (e){
-    // Internet Explorer Browsers
-    try{
-      http_request = new ActiveXObject("Msxml2.XMLHTTP");
-    }catch (e) {
-      try{
-        http_request = new ActiveXObject("Microsoft.XMLHTTP");
-      }catch (e){
-        // Something went wrong
-        alert("Your browser broke!");
-        return false;
-      }
-    }
-  }
-  http_request.onreadystatechange  = function(){
-      if (http_request.readyState == 4  ){
-        // Javascript function JSON.parse to parse JSON data
-        var response = JSON.parse(http_request.responseText);
-        var responseAr = Array.prototype.slice.call(jsonObj.response.data, 0);
-        console.log(responseAr);
-      }
-   }
-   http_request.open("GET", data_file, true);
-   http_request.send();
-
+  var jqxhr = jQuery.getJSON(data_file, function() {
+    console.log(jqxhr);
+  }).done(function() {
+      console.log( "second success" );
+    }).fail(function() {
+      console.log( "error" );
+    }).always(function() {
+      console.log( "complete" );
+    });
 }
