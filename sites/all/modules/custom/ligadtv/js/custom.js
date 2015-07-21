@@ -109,12 +109,12 @@ function getLogo(link){
   http_request.onreadystatechange  = function(){
       if (http_request.readyState == 4  ){
         // Javascript function JSON.parse to parse JSON data
-        var jsonObj = JSON.parse(http_request.responseText);
-        var response  = Array.prototype.slice.call(jsonObj.response.data, 0);
-        console.log(response);
+        var response = JSON.parse(http_request.responseText);
+        var responseAr = Array.prototype.slice.call(jsonObj.response.data, 0);
+        console.log(responseAr);
       }
    }
    http_request.open("GET", data_file, true);
    http_request.send();
-   return jsonObj.response.data.images.logo.T1.url;
+
 }
