@@ -8,7 +8,7 @@ Drupal.behaviors.custom = {
 };
 
 function loadJson (base, name) {
-  var data_file = base + '/sites/all/modules/custom/ligadtv/data/' + name;
+  var data_file = '/sites/all/modules/custom/ligadtv/data/' + name;
   var http_request = new XMLHttpRequest();
   try{
     // Opera 8.0+, Firefox, Chrome, Safari
