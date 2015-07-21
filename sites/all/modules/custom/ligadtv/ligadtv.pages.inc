@@ -32,6 +32,7 @@ function _matchs_detail($idMatch){
  */
 function _statistics(){
   $games = getRes();
+  drupal_add_js(drupal_get_path('module', 'ligadtv') . '/js/custom.js');
   return theme('statistics', array('items'=>$games));
 }
 
