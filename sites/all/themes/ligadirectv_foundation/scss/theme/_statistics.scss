@@ -262,6 +262,9 @@
     font-size:30px;
   }
   .playerInfoBig{
+    margin-top: 13px;
+    border-top: 2px solid #ff9000;
+    padding-top: 10px;
     .pipPic{
       float:left;
     }
@@ -273,5 +276,17 @@
         color:white;
       }
     }
+    .sspib{
+      img:nth-child(1){
+        width: 79px;
+      }
+    }
+  }
+  .ccsponsor34{
+    text-align:center;
+    text-align: center;
+    margin-top: 12px;
+    border-top: 2px solid #ff9000;
+    padding-top: 11px;
   }
 }
