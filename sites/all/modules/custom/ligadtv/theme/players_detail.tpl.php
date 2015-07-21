@@ -1,4 +1,3 @@
-<?php dpm($player);?>
 <?php $count = 0;?>
 <?php foreach ($player as $key => $value) { ?>
   <?php if($value['personId'] == $idPlayer):?>

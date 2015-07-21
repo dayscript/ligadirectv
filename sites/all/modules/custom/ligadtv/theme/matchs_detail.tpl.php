@@ -1,3 +1,4 @@
+<?php dpm($idMatchs);?>
 <div class="gameEstadisticas">
 <?php foreach ($matchs as $key => $value) { ?>
   <?php if($value['matchId']==$idMatchs):?>
