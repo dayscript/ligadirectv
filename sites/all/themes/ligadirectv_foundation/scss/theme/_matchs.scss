@@ -151,3 +151,62 @@
     margin-right: 15px;
   }
 }
+.page-matchs-{
+  .title{
+    width:   100%;
+    margin: 0 auto;
+    background-color: #FF9000;
+    color: black;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-family: 'futura_ltbook';
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .gameEstadisticas{
+    width: 100%;
+    .gmStaTeam {
+      float: left;
+      width: 40%;
+      .ico1 {
+        float: left;
+        margin: 0 10px;
+      }
+      .gmStaname {
+        float: left;
+        color: white;
+        font-size: 20px;
+        width: 175px;
+        margin: 25px 0px;
+        text-align: center;
+      }
+      .gmStaScore {
+        float: left;
+        color: white;
+        font-size: 60px;
+        width: 120px;
+        text-align: center;
+      }
+    }
+    .ccStaInfoC {
+        width: 100%;
+        border-bottom: 2px solid #0068AA;
+        color: #FF9000;
+        padding-bottom: 5px;
+        margin: 0 auto;
+        display:block;
+        p{
+          text-align: center;
+        }
+      }
+    .vs {
+      float: left;
+      width: 20%;
+      text-align: center;
+      color: #FF9000;
+      font-size: 20px;
+      margin: 25px 0px;
+    }
+  }
+}

@@ -248,3 +248,30 @@
     }
   }
 }
+
+.page-player{
+  .title{
+    text-align: center;
+    line-height: 35px;
+    font-family: 'futura_ltbook'!important;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #FF9000;
+    color: black;
+    height: 35px;
+    font-size:30px;
+  }
+  .playerInfoBig{
+    .pipPic{
+      float:left;
+    }
+    .cinpib{
+      display:inline-block;
+      margin-left:19px;
+      color:white;
+      h3{
+        color:white;
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@ function _matchs(){
 function _matchs_detail($idMatch){
   $games = getRes();
   $cont = 0;
-  return(theme('matchs_detail', array('matchs'=>$games, 'idMatchs'=>$idMatch)));
+  return(theme('matchs_detail', array('matchs'=>$games, 'idMatchs'=>$idMatch['response']['data'])));
 }
 /**
  * [_statistics description]
@@ -34,6 +34,11 @@ function _matchs_detail($idMatch){
 function _statistics(){
   $games = getRes();
   return theme('statistics', array('items'=>$games));
+}
+
+function _detail_player($idPlayer){
+  $detail = getStatisticsPersonCompetition();
+  return(theme('players_detail', array('player'=>$detail['response']['data'], 'idPlayer'=>$idPlayer)));
 }
 
 function _statistics_table($query, $unit){
