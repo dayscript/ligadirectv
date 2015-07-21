@@ -31,9 +31,10 @@
                             <div class="ccrsInfo">
                                 <div class="ico1"><img width="50px" src="<?php print $teamlocD['images']['logo']['T1']['url'];?>"></div>
                                     <div class="resulMini">
-                                        <div class="resulNumber"><?php print $teamlocD['scoreString'];?></div>
+                                        <!--<div class="resulNumber"><?php print $teamlocD['scoreString'];?></div>
                                         <div class="resulRy">-</div>
-                                        <div class="resulNumber"><?php print $teamVisD['scoreString'];?></div>
+                                        <div class="resulNumber"><?php print $teamVisD['scoreString'];?></div>-->
+                                        <?php print $teamlocD['scoreString'];?> - <?php print $teamVisD['scoreString'];?>
                                     </div>
                                     <div class="ico2"><img width="50px" src="<?php print $teamVisD['images']['logo']['T1']['url']; ?>"></div>
                                     <div class="rsDate">
