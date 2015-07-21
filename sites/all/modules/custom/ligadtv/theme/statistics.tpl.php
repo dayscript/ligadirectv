@@ -1,5 +1,5 @@
 <?php
-    $points         = getLeaderPoints();
+    /*$points         = getLeaderPoints();
     $mediaPointHtml = drawLeader($points,$players,$teams,'sReboundsTotalAverage','REBM');
     $pointsReb      = getLeaderPointsRebotes();
     $pointsRebHtml  = drawLeader($pointsReb,$players,$teams,'sReboundsTotalAverage','REBM');
@@ -194,4 +194,5 @@
         </div>
         <?php print $pointsBPHTML['header']; print $pointsBPHTML['table'];?>
     </div>
-</div>
+</div>*/
+?>
