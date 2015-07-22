@@ -1,3 +1,6 @@
+<div id="title" class="title">
+  <h1>LA LIGA</h1>
+</div>
 <div class="cComplete">
   <div class="imgLiga">
     <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/DPB.png">

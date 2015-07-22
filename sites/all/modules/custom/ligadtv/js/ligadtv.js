@@ -9,6 +9,9 @@
             controlNav: false,
             controlNavClass: 'nav'
         });
+      $('.linkBack').click(function(){
+        window.history.back();
+      });
     }
   };
 })(jQuery);
