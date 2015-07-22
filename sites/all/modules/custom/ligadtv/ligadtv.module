@@ -178,6 +178,10 @@ function ligadtv_block_info() {
     'info' => t('PAUTA NOTICIA'),
     'cache'=> DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['contacto_pauta'] = array(
+    'info' => t('PAUTA CONTACTO'),
+    'cache'=> DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 /**
@@ -335,6 +339,12 @@ function ligadtv_block_view($delta = '') {
       case 'noticia_pauta':
         $block['content']     = array(
                           '#theme'  => 'noticia_pauta',
+                          '#items'  => array(),
+        );
+      break;
+      case 'contacto_pauta':
+        $block['content']     = array(
+                          '#theme'  => 'contacto_pauta',
                           '#items'  => array(),
         );
       break;
@@ -523,6 +533,12 @@ function ligadtv_theme(){
         ),
   'noticia_pauta'=>array(
           'template'  => 'theme/noticia_pauta',
+            'variables' => array(
+                'items' => array(),
+            ),
+        ),
+  'contacto_pauta'=>array(
+          'template'  => 'theme/contacto_pauta',
             'variables' => array(
                 'items' => array(),
             ),
