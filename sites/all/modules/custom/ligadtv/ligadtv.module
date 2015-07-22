@@ -182,6 +182,10 @@ function ligadtv_block_info() {
     'info' => t('PAUTA CONTACTO'),
     'cache'=> DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['contacto_partidos'] = array(
+    'info' => t('PAUTA PARTIDOS'),
+    'cache'=> DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 /**
@@ -345,6 +349,12 @@ function ligadtv_block_view($delta = '') {
       case 'contacto_pauta':
         $block['content']     = array(
                           '#theme'  => 'contacto_pauta',
+                          '#items'  => array(),
+        );
+      break;
+      case 'contacto_partidos':
+        $block['content']     = array(
+                          '#theme'  => 'contacto_partidos',
                           '#items'  => array(),
         );
       break;
@@ -539,6 +549,12 @@ function ligadtv_theme(){
         ),
   'contacto_pauta'=>array(
           'template'  => 'theme/contacto_pauta',
+            'variables' => array(
+                'items' => array(),
+            ),
+        ),
+  'contacto_partidos'=>array(
+          'template'  => 'theme/contacto_partidos',
             'variables' => array(
                 'items' => array(),
             ),
