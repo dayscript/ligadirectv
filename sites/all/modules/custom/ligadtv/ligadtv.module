@@ -561,7 +561,7 @@ function ligadtv_theme(){
         ),
     );
 }
-
+/*
 function ligadtv_cron(){
    // Default to an hourly interval. Of course, cron has to be running at least
   // hourly for this to work.
@@ -619,7 +619,7 @@ function ligadtv_cron(){
     variable_set('cron_ligadtv_next_execution', time() + $interval);
   }
 }
-
+*/
 /**
  * Functions custom by @edwindayscript
  */
