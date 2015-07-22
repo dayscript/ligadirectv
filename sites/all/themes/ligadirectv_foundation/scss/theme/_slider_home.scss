@@ -10,15 +10,15 @@
   .block-ligadtv{
     background: #001333;
     .slidorion{
-      left:45%;
-      width: 970px;
+      left: 44%;
+      width: 100%;
       height: 374px;
       background: transparent;
       padding: 15px;
       box-shadow: none;
-      border:0;
+      border: 0;
       .slider {
-        width: 68%;
+        width: 67%;
         height: 100%;
         position: relative;
         float: left;
@@ -30,12 +30,12 @@
           width: 100%;
           height: 100%;
           .bgSlider{
-            width: 639px;
+            width: 100%;
             position: relative;
             top: -200px;
             height: 200px;
             padding-top: 20px;
-            padding-left: 20px;
+            padding-left: 15px;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 1) 100%);
             .sltitle{
               color: white;
@@ -43,6 +43,7 @@
               font-size: 45px;
               text-align: center;
               width: 100%;
+              text-transform: uppercase;
             }
             .sldes{
               color: white;
@@ -71,10 +72,11 @@
           font-size: 12px;
           font-weight: bold;
           color: white;
-          border-bottom: 2px solid #FF9000 !important;
-          height: 57.5px;
+          border: none;
+          height: 57px;
           background: #001333 !important;
           text-transform: uppercase;
+          border-bottom: 2px solid #FF9000 !important;
           a{
             color:white;
           }

@@ -23,6 +23,7 @@
       padding-bottom: 20px;
       text-align: justify;
       width: 90%;
+      font-family: 'futura_ltbook';
     }
     h2{
       width: 100%;
@@ -32,6 +33,8 @@
       color: white;
       border-bottom: 1px solid #FF9000;
       text-align: center;
+      font-weight:bold;
+      font-family: 'futura_ltbook';
     }
   }
   aside.medium-3.sidebar-second.columns.sidebar{
@@ -54,6 +57,19 @@
 
 
 .page-node-40{
+  #title.title{
+    h1{
+      width: 100%;
+      margin: 0 auto;
+      background-color: #FF9000;
+      color: black;
+      height: 35px;
+      text-align: center;
+      font-family: 'futura_ltbook'!important;
+      font-weight:bold;
+      font-size:130%;
+    }
+  }
   #page-title{
     width: 100%;
     height: 50px;
@@ -63,10 +79,16 @@
     border-bottom: 1px solid #FF9000;
     text-align: center;
     background:none;
+    font-weight: bold;
+    font-family: 'futura_ltbook'!important;
+    font-weight:bold;
+    font-size:100%;
   }
   .cComplete{
     background-color: rgba(0, 0, 0, 0.2);
     margin-top: 10px;
+    display:inline-block;
+    width: 100%;
     .imgLiga {
       padding: 10px 5px;
       float: left;

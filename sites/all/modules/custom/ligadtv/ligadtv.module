@@ -64,7 +64,7 @@ function ligadtv_menu(){
     'type'             => MENU_CALLBACK,
   );
   $menu['statistics/%/%']= array(
-    'title'            => t('Statistics Table'),
+    'title'            => t('Statistics'),
     'description'      => t('Statistics Table'),
     'page callback'    => '_statistics_table',
     'page arguments'   => array(1, 2),
@@ -845,7 +845,9 @@ foreach ($data['data'] as $key => $value) {
                         <div class="cc2Info">
                             {$points} {$nameInfo}
                         </div>
+                        <div class="img-escudo">
                         <img src="{$escudo}">
+                        </div>
                     </div>
                 </div>
             </div>

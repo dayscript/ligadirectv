@@ -56,6 +56,9 @@
     line-height: 35px;
     font-family: 'futura_ltbook';
     font-size: 20px;
+    text-transform: uppercase;
+    font-weight:bold;
+    margin-bottom: 20px;
   }
   .ccTablePlayers{
     background-color: rgba(0, 0, 0, 0.2);
@@ -201,7 +204,8 @@
     max-width: 1003px;
     width: 100%;
     margin: 0 auto;
-    margin-top: 15px;
+    display:inline-block;
+    margin-top: 0px;
     .linkEstadisticas {
       width: 50%;
       float: left;
@@ -220,8 +224,19 @@
       color: black;
     }
   }
+  .linkBack{
+    width: 100%;
+    text-align: left;
+    color: white;
+    font-size: 100%;
+    font-family: 'futura_ltbook' !important;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ff9000;
+  }
   .statisticsTable{
     width:100%;
+    display: inline-block;
+    margin-top: 10px;
     .bigTable{
       width: 100%;
       border: 1px solid #0068AA;
