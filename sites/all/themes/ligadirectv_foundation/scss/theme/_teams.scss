@@ -1,6 +1,19 @@
 .page-teams, .node-type-team{
+  .rs{
+    span{
+      img{
+        float:left;
+        display: inline-block;
+      }
+      .field-name-field-twitter, .field-name-field-facebook{
+        float:left;
+        display: inline-block;
+        width: 89%;
+      }
+    }
+  }
   .title{
-    width: 1000px;
+    width: 100%;
     margin: 0 auto;
     background-color: #FF9000;
     color: black;
@@ -9,6 +22,7 @@
     line-height: 35px;
     font-family: 'futura_ltbook';
     font-size: 20px;
+    font-weight: bold;
   }
   .small-4.columns{
     margin: 0;
@@ -149,6 +163,7 @@
     border-bottom: 1px solid #FF9000;
     margin-top: 12px;
     margin-bottom: 12px;
+    font-weight:bold;
   }
   .indicator-team{
     margin-bottom:12px!important;
@@ -173,7 +188,12 @@
     }
   }
   .tabs-content{
+    .slide.large-6.columns{
+      width:49% !important;
+    }
     .next-macth, .latest-results{
+      background-color: #001737!important;
+      padding:0px;
       .headrsc21{
         width: 100%;
         height: 37px;
@@ -186,6 +206,7 @@
           text-align: center;
           line-height: 37px;
           color: #00142F;
+          font-weight:bold;
         }
       }
       .cc21ListPartidos{
@@ -216,7 +237,7 @@
       .cc21ListResultados{
         .resultsListTeams {
           width: 100%;
-          border-bottom: solid 1px #0068AA;
+          border-bottom: solid 1px #ff9000;
           height: 45px;
           margin-top: 20px;
           .teamResMn {
@@ -322,6 +343,11 @@
           border: 2px solid #0068AA;
           a{
             color:white;
+            text-align:center;
+            .name-player{
+              width:200px;
+              height:49px;
+            }
           }
         }
       }
@@ -337,7 +363,9 @@
         font-family: 'futura_ltbook';
         margin: 0 auto;
         background-color: #FF9000;
-        color: black
+        color: black;
+        font-weight:bold;
+        text-transform: uppercase;
       }
       p{
         font-size: 18px;
