@@ -1,4 +1,3 @@
-<?php variable_set('nextExecute', date('Y-m-d', strtotime('+1 week')));?>
 <div class="navEstadisticas noPhone">
     <a href="/estadisticas">
         <div class="linkEstadisticas active">

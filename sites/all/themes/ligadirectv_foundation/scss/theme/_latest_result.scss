@@ -131,15 +131,6 @@
   }
 
   .infocc21{
-    .headline-7{@include calc_position();}
-    .headline-8{@include calc_position();}
-    .headline-9{@include calc_position();}
-    .headline-10{@include calc_position();}
-    .headline-11{@include calc_position();}
-    .headline-12{@include calc_position();}
-    .headline-0{@include calc_position();}
-    .headline-1{@include calc_position();}
-    .headline-2{@include calc_position();}
-    .headline-3{@include calc_position();}
+    .headline{@include calc_position();}
   }
 

@@ -27,7 +27,7 @@
                     <?php endif;
                         $date = date('d-m-Y', strtotime($value['matchTime']));
                     ?>
-                        <div class="headline-<?php print $key; ?>">
+                        <div class="headline">
                             <div class="ccrsInfo">
                                 <div class="ico1"><img width="50px" src="<?php print $teamlocD['images']['logo']['T1']['url'];?>"></div>
                                     <div class="resulMini">

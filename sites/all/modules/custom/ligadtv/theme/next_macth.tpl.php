@@ -4,9 +4,21 @@
         <h3>PRÓXIMOS PARTIDOS</h3>
         <a href="matchs">Calendario ></a>
     </div>
-    <?php if(!empty($items['0']['venue'])): ?>
+    <?php if(!empty($items['0']['venue'])): $cont = 0;?>
         <div class="cc21ListPartidos">
-            <?php //dpm($items);?>
+            <?php foreach ($items['0']['venue'] as $key => $value) { ?>
+                <?php $count++;?>
+                <?php if($count < 7):?>
+                    <div class="cc21Partido">
+                        <h4>
+                            <?php print $items[0]['teams'][$key]['team-1']['name']; ?>
+                            vs
+                            <?php print $items[0]['teams'][$key]['team-2']['name']; ?>
+                        </h4>
+                        <h5><?php print $value; ?> - <?php print $items[0]['matchs-time'][$key][0]; ?></h5>
+                    </div>
+                <?php endif?>
+            <?php }?>
         </div>
     <?php else:?>
         <div class="cc21ListPartidos">
