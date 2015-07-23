@@ -572,7 +572,7 @@ function ligadtv_cron(){
     // This is a silly example of a cron job.
     // It just makes it obvious that the job has run without
     // making any changes to your database.
-    $teams = _get_teams();
+    /*$teams = _get_teams();
     if (isset($teams)){
       $data = $teams['response']['data'];
       foreach ($data as $key => $value) {
@@ -609,7 +609,7 @@ function ligadtv_cron(){
           node_save($node);
         }
       }
-    }
+    }*/
     variable_set('cron_last', date('ymd', time()));
     variable_set('nextExecute',date('Y-m-d'));
     getRes();
