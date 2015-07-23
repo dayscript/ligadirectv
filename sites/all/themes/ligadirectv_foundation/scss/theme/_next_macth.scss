@@ -58,6 +58,7 @@
         color: #F5F5F5;
         width: 100%;
         text-align: center;
+        font-weight: bold;
       }
       h5 {
         font-family: 'futura_ltbook';
@@ -65,11 +66,15 @@
         color: #FF9000;
         width: 100%;
         text-align: center;
+        font-weight: bold;
       }
     }
   }
   .c21Imglogo {
     width: 143px;
     margin: 0 auto;
+    img{
+      margin-top:11px;
+    }
   }
 }

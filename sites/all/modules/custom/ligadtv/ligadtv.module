@@ -561,24 +561,23 @@ function ligadtv_theme(){
         ),
     );
 }
-/*
+
 function ligadtv_cron(){
    // Default to an hourly interval. Of course, cron has to be running at least
   // hourly for this to work.
-  $interval = variable_get('cron_ligadtv_interval', 60 * 60);
+  $cron_last = variable_get('cron_last');
   // We usually don't want to act every time cron runs (which could be every
   // minute) so keep a time for the next run in a variable.
-  if (time() >= variable_get('cron_ligadtv_next_execution', 0)) {
+  if (date('ymd', $cron_last) != date('ymd', time())) {
     // This is a silly example of a cron job.
     // It just makes it obvious that the job has run without
     // making any changes to your database.
-
     $teams = _get_teams();
-    if (!empty($teams)) {
+    if (isset($teams)){
       $data = $teams['response']['data'];
       foreach ($data as $key => $value) {
         global $user;
-        if(team_exist((int)$value['teamId'])== TRUE){
+        if(team_exist((int)$value['teamId']) == TRUE){
           drupal_set_message(t('Exist node ' . $value['teamId']));
         }else{
           $node = new stdClass();
@@ -611,15 +610,34 @@ function ligadtv_cron(){
         }
       }
     }
-
+    variable_set('cron_last', date('ymd', time()));
+    variable_set('nextExecute',date('Y-m-d'));
+    getRes();
+    getLeaderPoints();
+    getLeaderPointsRebotes();
+    getLeaderMediaAsistencias2();
+    getLeaderTlPorcentaje();
+    getLeader3Porcentaje();
+    getLeader2Porcentaje();
+    getLeaderPuntos();
+    getLeaderPointsSecondChance();
+    getLeaderAssists();
+    getLeaderReboundsOffensive();
+    getLeaderReboundsDevensive();
+    getLeaderTapones();
+    getLeaderTlConvert();
+    getLeaderSteals();
+    getLeaderCasnasta2();
+    getLeaderCasnasta3();
+    getLeaderFoulPer();
+    getLeaderPointsSec();
+    getLeaderWins();
+    getLeaderBlocksReceived();
+    getLeaderBallFouls();
+    variable_set('nextExecute', date('Y-m-d', strtotime('+1 day')));
     watchdog('cron_ligadtv', 'cron_ligadtv ran');
-    if (!empty($GLOBALS['cron_ligadtv_show_status_message'])) {
-      drupal_set_message(t('cron_ligadtv executed at %time', array('%time' => date_iso8601(time(0)))));
-    }
-    variable_set('cron_ligadtv_next_execution', time() + $interval);
   }
 }
-*/
 /**
  * Functions custom by @edwindayscript
  */
@@ -758,18 +776,18 @@ function getCal(){
   $data    = getCalData();
   $data    = $data['response']['data'];
   $dataTemp= $data;
-  $size    = count($data);
   foreach ($data as $key => $value) {
     $dateEnd = explode(' ',$value['matchTime']);
     $dateEnd = strtotime($dateEnd[0]);
     $dateStart= strtotime(date('Y-m-d'));
     if($dateEnd > $dateStart){
       $venue[] = $value['venue']['venueName'];
-      $teams[] = array('team-1'=>array('name'=> $value['competitors'][0]['teamName'], 'logo'=>$value['competitors'][0]['logo']['M1']['url']),
-        'team-2'=>array('name'=> $value['competitors'][1]['teamName'], 'logo'=>$value['competitors'][1]['logo']['M1']['url']));
+      $teams[] = array('team-1'=>array('name'=> $value['competitors'][0]['clubName'], 'logo'=>$value['competitors'][0]['logo']['M1']['url']),
+        'team-2'=>array('name'=> $value['competitors'][1]['clubName'], 'logo'=>$value['competitors'][1]['logo']['M1']['url']));
+      $matchsTime[] = array($value['matchTime']);
     }
   }
-  $data = array('venue'=> $venue, 'teams'=>$teams);
+  $data = array('venue'=> $venue, 'teams'=>$teams, 'matchs-time'=>$matchsTime);
   return $data;
 }
 /**
