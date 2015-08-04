@@ -51,9 +51,11 @@
     }
     .tableNomina {
       width: 100%;
-      max-width: 976px;
+      max-width: 1002px;
       margin: 0 auto;
       background:none;
+      display: inline-block;
+      padding-top:11px;
       .bigTable {
         width: 100%;
         border: 1px solid #0068AA;
@@ -105,9 +107,11 @@
   }
   .tableNomina {
     width: 100%;
-    max-width: 976px;
+    max-width: 1002px;
     margin: 0 auto;
     background-color: transparent;
+    display: inline-block;
+    padding-top:11px;
     .bigTable {
       width: 100%;
       border: 1px solid #0068AA;

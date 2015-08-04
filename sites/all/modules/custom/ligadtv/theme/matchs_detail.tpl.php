@@ -1,6 +1,7 @@
 <div class="gameEstadisticas">
 <?php foreach ($matchs as $key => $value) { ?>
   <?php if($value['matchId']==$idMatchs):?>
+    <?php dpm($value);?>
     <div class="gmStaTeam">
         <div class="ico1"><img src="<?php print $value['competitors'][0]['images']['logo']['T1']['url'];?>"></div>
         <div class="gmStaname"><?php print $value['competitors'][0]['teamName'];?></div>

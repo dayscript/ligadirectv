@@ -59,7 +59,7 @@ function _positions(){
       }
   }
   foreach ($data as $key => $value) {
-      if ($value['poolNumber'] == '1' && $value['roundNumber'] == $maxRound) {
+      if ($value['roundNumber'] == $maxRound) {
           $items[]= "<tr>
                   <td>" . $cont . "</td>
                   <td>" . $value['clubName'] . "</td>
@@ -73,23 +73,9 @@ function _positions(){
                   <td>" . (($value['won'] * 2) + $value['lost']) . "</td>
               </tr>";
       }
-      if ($value['poolNumber'] == '2' && $value['roundNumber'] == $maxRound) {
-              $groupB[]= "<tr>
-                <td>" .  $cont . "</td>
-                <td>" . $value['clubName'] . "</td>
-                <td>" . $value['played'] . "</td>
-                <td>" . $value['won'] . "</td>
-                <td>" . $value['lost'] . "</td>
-                <td>" . $value['scoredFor'] . "</td>
-                <td>" . $value['scoredAgainst'] . "</td>
-                <td>" . $value['pointDiff'] . "</td>
-                <td>" . $value['last5'] . "</td>
-                <td>" . (($value['won'] * 2) + $value['lost']) . "</td>
-          </tr>";
-      }
       $cont++;
   }
-  return theme('positions', array('items'=>$items, 'groupB'=>$groupB));
+  return theme('positions', array('items'=>$items));
 }
 /**
  * function return info team especific
