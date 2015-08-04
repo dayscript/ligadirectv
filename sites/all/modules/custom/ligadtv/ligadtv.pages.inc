@@ -50,7 +50,7 @@ function _statistics_table($query, $unit){
 }
 
 function _positions(){
-  $data = getStanding($sql);
+  $data = getStanding();
   $cont = 1;
   $maxRound = 0;
   foreach ($data as $key => $value) {

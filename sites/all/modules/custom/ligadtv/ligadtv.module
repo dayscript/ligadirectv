@@ -614,6 +614,7 @@ function ligadtv_cron(){
     variable_set('nextExecute',date('Y-m-d'));
     getRes();
     getLeaderPoints();
+    getStanding();
     getLeaderPointsRebotes();
     getLeaderMediaAsistencias2();
     getLeaderTlPorcentaje();
@@ -733,7 +734,6 @@ function getStandingData(){
     $fp = fopen(drupal_get_path('module', 'ligadtv') . '/data/'. $name,'w');
     fwrite($fp, json_encode($data));
     fclose($fp);
-
   }
   $file= drupal_get_path('module', 'ligadtv') . "/data/" . $name;
   return json_decode(file_get_contents($file), true);
