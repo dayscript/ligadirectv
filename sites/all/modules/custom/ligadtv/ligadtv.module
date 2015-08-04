@@ -659,6 +659,7 @@ function _get_content_custom($type, $quantity){
          ->fields('b', array('body_value'))
          ->fields('img', array('field_image_fid', 'field_image_alt', 'field_image_title'))
          ->condition('n.type', $type)
+         ->condition('n.status', 1)
          ->range(0, $quantity)
          ->orderBy('n.created', 'DESC');
   $result = $query->execute();
