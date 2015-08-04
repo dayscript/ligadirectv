@@ -77,18 +77,19 @@
           }
         }
         .tdIn{
+          background:none;
           td{
             color: white;
             font-family: 'futura_ltbook';
             line-height: 0.25rem;
           }
-        }
-        .naranja{
-          background-color: #FF9000;
-          td{
-            color: black !important;
-            font-family: 'futura_ltbook';
-            line-height: 0.25rem;
+          &.naranja{
+            background-color: #FF9000;
+            td{
+              color: black !important;
+              font-family: 'futura_ltbook';
+              line-height: 0.25rem;
+            }
           }
         }
       }
