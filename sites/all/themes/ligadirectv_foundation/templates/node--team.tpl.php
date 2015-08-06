@@ -73,11 +73,11 @@
           </div>
           <div class="cc21ListPartidos">
             <?php
-              $data = getCal();
+              $data = getCalComplete();
               $cont = 0;
-              if(!empty($data['teams'])){
+              if(!empty($data)){
                 foreach ($data as $key => $value) {
-                  if ($value['matchStatus'] == 'SCHEDULED' && ($value['competitors'][0]['competitorId']==$content['field_external_id']['#items'][0]['value'] || $value['competitors'][1]['competitorId']==$content['field_external_id']['#items'][0]['value'])) {
+                  if ($value['competitors'][0]['competitorId'] == $content['field_external_id']['#items'][0]['value'] || $value['competitors'][1]['competitorId'] == $content['field_external_id']['#items'][0]['value']) {
                         $cont++;
                         if ($cont < 6) {
                             $stadio = isset($value['venue']) ? $value['venue']['venueName'] : '';
