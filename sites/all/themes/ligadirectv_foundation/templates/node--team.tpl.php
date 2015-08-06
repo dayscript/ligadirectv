@@ -27,6 +27,26 @@
         <?php print render($content['field_facebook']);?>
       </span>
     </div>
+    <div class="medium-12 columns logo">
+    <?php
+      $games = getRes();
+      $cont = 0;
+      foreach ($games as $key => $value) {
+                if ($value['matchStatus'] == 'COMPLETE' && ($value['competitors'][0]['competitorId']== $content['field_external_id']['#items'][0]['value'] || $value['competitors'][1]['competitorId']==$content['field_external_id']['#items'][0]['value'])) {
+                    if($value['competitors'][0]['competitorId'] == $content['field_external_id']['#items'][0]['value']){
+                      if($cont == 0){
+                        print ('<img src="'. $value['competitors'][0]['images']['logo']['T1']['url'] . '" >');
+                      }
+                    }elseif ($value['competitors'][1]['competitorId'] == $content['field_external_id']['#items'][0]['value']) {
+                      if($cont == 0){
+                        print ('<img src="'. $value['competitors'][1]['images']['logo']['T1']['url'] . '" >');
+                      }
+                    }
+                    $cont++;
+                }
+            }
+    ?>
+    </div>
   </div>
   <div class="large-12 columns second-title">
     <?php print $title; ?>

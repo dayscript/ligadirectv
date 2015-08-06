@@ -1534,7 +1534,12 @@ function getTeamData(){
     fwrite($fp, json_encode($data));
     fclose($fp);
   }
-  $file= drupal_get_path('module', 'ligadtv') . '/dataAvailable()php/' . $name;
+  $file= drupal_get_path('module', 'ligadtv') . '/data/' . $name;
   return json_decode(file_get_contents($file), true);
+}
+function _matchs_competition($matchsId){
+  $query    = baseSp .'/v1/basketball/matches/' . $matchsId . '/actions?format=json&ak=' . ak ;
+  $json     = file_get_contents($query);
+  return json_decode($json, true);
 }
 ?>

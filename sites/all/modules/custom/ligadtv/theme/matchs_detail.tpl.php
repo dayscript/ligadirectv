@@ -1,11 +1,10 @@
 <div class="gameEstadisticas">
 <?php foreach ($matchs as $key => $value) { ?>
   <?php if($value['matchId']==$idMatchs):?>
-    <?php dpm($value);?>
     <div class="gmStaTeam">
         <div class="ico1"><img src="<?php print $value['competitors'][0]['images']['logo']['T1']['url'];?>"></div>
         <div class="gmStaname"><?php print $value['competitors'][0]['teamName'];?></div>
-        <div class="gmStaScore"><?print $value['competitors'][0]['scoreString'];?></div>
+        <div class="gmStaScore"><?php print $value['competitors'][0]['scoreString'];?></div>
     </div>
     <div class="vs">
     Vs
@@ -26,4 +25,17 @@
     </div>
   <?php endif?>
 <?php } ?>
+    <div class="team-information">
+    <div class="title">Eventos del partido</div>
+    <?php $competitors = _matchs_competition($idMatchs); ?>
+        <?php foreach ($competitors['response']['data'] as $key => $value) {?>
+            <div class="action">
+                <div class="time"><?php print $value['clock'];?></div>
+                <div class="actionType"><?php print t($value['actionType']);?></div>
+                <div class="type"><?php print $value['subType'];?></div>
+                <div class="team-name"><?php print $value['teamName'];?></div>
+                <div class="name"><?php print $value['firstName'];?> <?php print $value['familyName'];?></div>
+            </div>
+        <?php }?>
+    </div>
 </div>

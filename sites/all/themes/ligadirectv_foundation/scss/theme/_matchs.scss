@@ -215,6 +215,28 @@
       font-size: 20px;
       margin: 25px 0px;
     }
+    .team-information{
+      width: 100%;
+      .title{
+        margin: 0 auto;
+        color: white;
+        font-size: 20px;
+        text-align: center;
+        display:inline-block;
+      }
+      .action{
+        color:white;
+        width:100%;
+        display:inline-block;
+        .time, .actionType, .type, .team-name, .name{
+          display: inline-block;
+          float: left;
+          margin-left: 25px;
+          margin-right: 60px;
+          text-align: center
+        }
+      }
+    }
   }
   .titleEsGm {
     margin: 0 auto;
