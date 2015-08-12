@@ -766,6 +766,10 @@ function getStanding(){
     // print($dataTemp);
     unset($dataTemp[$pos]);
     $dataTemp = array_values($dataTemp);
+    $auxName = explode(' ', $data[$i]['teamName']);
+    if(!isset($data[$i]['clubName'])){
+      $data[$i]['clubName'] = $auxName[0];
+    }
   }
   return $data;
 }
