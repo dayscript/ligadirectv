@@ -1,0 +1,77 @@
+.block-ligadtv-transmition{
+  height: 277px;
+  .transmition{
+    margin-left: 20px;
+    float: left;
+    height: 275px;
+    margin-top: 10px;
+    width: 320px;
+    padding: 0px;
+    background-color: rgba(0,0,0,0.2);
+    .headc21 {
+      padding-bottom: 2px;
+      border-bottom: 2px solid #FF9000;
+      color: white;
+      height: 30px;
+      margin-top: 12px;
+      margin-left: 10px;
+      margin-right: 10px;
+      h3 {
+        font-family: 'futura_ltbook';
+        font-size:17px;
+        color:white;
+        text-align: center;
+      }
+    }
+    .ccResultField {
+      width: 100%;
+      height: 80px;
+      img{
+        display: block;
+        margin: 0 auto 10px;
+      }
+      .transccTeams {
+        width: 220px;
+        margin: 5px auto 0px;
+        height: 75px;
+        padding-left: 30px;
+        .vs {
+          font-size: 22px;
+          color: white;
+          width: 60px;
+          text-align: center;
+          margin-top: 17px;
+          float:left;
+        }
+        .team{
+          display: inline-block;
+          float: left;
+          img{
+            float: left;
+            margin-left: 15px;
+            height: 50px;
+            width: 50px;
+            margin: 0 auto 20px;
+          }
+        }
+      }
+      .ccTrnas {
+        width: 100%;
+        position: relative;
+        top: -12px;
+        text-align: center;
+        color: white;
+        font-size: 15px;
+        font-family: 'futura_ltbook';
+        margin-bottom: 0;
+      }
+      .infoTrans {
+        font-size: 17px;
+        color: white;
+        text-align: center;
+        line-height: 17px;
+        margin:0;
+      }
+    }
+  }
+}

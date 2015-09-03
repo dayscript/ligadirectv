@@ -1,0 +1,166 @@
+.content-3{
+  border-top: 2px solid rgba(255, 144, 0, 1);
+  margin-top: 26px;
+  width:100%;
+  padding-left:0;
+  padding-right:0;
+  .block-ligadtv{
+    /*float: left;*/
+    width: 317px;
+    height: auto;
+    margin: 10px 8px;
+    /* min-height: 380px; */
+    background-color: rgba(0, 0, 0, 0.2);
+    padding-left:0;
+    padding-right:0;
+    margin-right:17px;
+    .headc21{
+      width: 300px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid #FF9000;
+      color: white;
+      height: 23px;
+      margin-top: 12px;
+      margin-left: 10px;
+      h3 {
+        float: left;
+        font-family: 'futura_ltbook';
+        font-size:16px;
+        color:white;
+        font-weight:bold;
+      }
+    }
+    .contenedor{
+      padding:0 12px;
+    }
+    .dataPlayer {
+      display:inline-block;
+      width: 300px;
+      height: auto;
+      margin: 10px auto;
+      .leaderImg {
+        width: 90px;
+        height: 109px;
+        float: left;
+        img:nth-child(1) {
+          width: 90px;
+          height: 106px;
+          display: block;
+          float: left;
+        }
+        .titleLidder {
+          width: 90px;
+          background-color: #0068AA;
+          text-align: center;
+          height: 20px;
+          float: left;
+          color: white;
+        }
+      }
+      .info {
+        color: white;
+        float: left;
+        margin-left: 10px;
+        width: 200px;
+        .inInfo {
+          width: 100%;
+          min-height: 84px;
+          float: left;
+          height: auto;
+          h4 {
+            font-family: 'futura_ltlight';
+            font-size: 17px;
+            text-transform: capitalize;
+            color: white;
+            margin:0;
+            font-weight:bold;
+          }
+          h5 {
+            font-family: 'futura_ltlight';
+            font-size: 18px;
+            color: white;
+            font-weight:bold;
+          }
+        }
+        .cc1Info {
+          width: 100%;
+          .cc2Info {
+            width: 120px;
+            height: 28px;
+            background-color: #FF9000;
+            color: white;
+            text-align: center;
+            line-height: 28px;
+            float: left;
+            margin-top:12px;
+          }
+          .img-escudo{
+            display:inline-block;
+            img{
+              width: 40px;
+            }
+          }
+        }
+      }
+    }
+    .tableLeader {
+      width: 300px;
+      margin: 0 auto;
+      padding-top: 2px;
+      border-top: 1px solid #0068AA;
+      float: left;
+      /*margin-top: 10px;*/
+      margin-left: 10px;
+      table{
+        padding: 0;
+        border: none;
+        border-collapse: collapse;
+        background: transparent !important;
+        thead {
+          background-color: #0068AA;
+          color: white;
+           td {
+            font-size: 12px;
+            text-align: center;
+            padding:0;
+            color:#fff;
+            font-family: 'futura_ltlight';
+          }
+        }
+        tbody{
+          background: transparent !important;
+          tr {
+            background-color: rgba(0,0,0,0.2);
+            border-bottom: 1px solid #0068AA;
+            height: 40px;
+            line-height: 40px;
+            color: white;
+            overflow: hidden;
+            td{
+              color: white;
+              font-family: 'futura_ltlight';
+              font-size: 12px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+      .verTodos {
+        color: #FF9000;
+        width: 100%;
+        text-align: right;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 5px 0px;
+        display: block;
+      }
+    }
+  }
+  .block-ligadtv-points-media{
+    margin-left:0;
+  }
+  .block-ligadtv-media-assistance{
+    margin-right:0;
+  }
+
+}

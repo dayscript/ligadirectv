@@ -1,0 +1,80 @@
+.next_macth {
+  margin-left: 15px;
+  float: left;
+  height: 470px;
+  margin-top:10px;
+  width: 320px;
+  padding:0px;
+
+  >:before{
+      display: block;
+      clear: both;
+      content: '';
+    }
+  /* min-height: 380px; */
+  background-color: rgba(0, 0, 0, 0.2);
+  .headc21 {
+    width: 300px;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #FF9000;
+    color: white;
+    height: 30px;
+    margin-top: 12px;
+    margin-left: 10px;
+    h3 {
+      float: left;
+      font-family: 'futura_ltbook';
+      font-size:16px;
+      color:white;
+      font-weight: bold;
+    }
+    a {
+      float: right;
+      background-color: #0068AA;
+      color: white !important;
+      height: 23px;
+      border-radius: 3px;
+      padding: 0 10px;
+      font-size: 14px;
+      line-height: 21px;
+      font-family: 'futura_ltbook';
+    }
+  }
+  .cc21ListPartidos {
+    width: 320px;
+    /* height: 330px; */
+    margin-top: 20px;
+    p{
+        color:white;
+        text-align:center;
+      }
+    .cc21Partido {
+      border-bottom: solid 1px #0068AA;
+      height: 45px;
+      margin-top: 8px;
+      h4 {
+        font-family: 'futura_ltbook';
+        font-size: 14px;
+        color: #F5F5F5;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+      }
+      h5 {
+        font-family: 'futura_ltbook';
+        font-size: 12px;
+        color: #FF9000;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+  }
+  .c21Imglogo {
+    width: 143px;
+    margin: 0 auto;
+    img{
+      margin-top:11px;
+    }
+  }
+}
