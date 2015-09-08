@@ -12,9 +12,9 @@
                 <?php if($count < 7):?>
                     <div class="cc21Partido">
                         <h4>
-                            <?php print $items[0]['teams'][$key]['team-1']['name']; ?>
-                            vs
                             <?php print $items[0]['teams'][$key]['team-2']['name']; ?>
+                            vs
+                            <?php print $items[0]['teams'][$key]['team-1']['name']; ?>
                         </h4>
                         <h5><?php print $value; ?> - <?php print $months[Date("n", strtotime($items[0]['matchs-time'][$key][0]))] . ' ' . Date("d Y - g:i A", strtotime($items[0]['matchs-time'][$key][0])); ?></h5>
                     </div>
