@@ -763,10 +763,15 @@ function _get_detail_teams($id){
  * @return [type] [description]
  */
 function _list_matchs(){
+  $name= 'matchs.json';
   $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/matches?format=json&limit=600&ak=' . ak;
-  $json = file_get_contents($uri);
-  $data = json_decode($json, TRUE);
-  return $data;
+  if(variable_get('nextExecute') == date('Y-m-d')){
+    $json = file_get_contents($uri);
+    $file = drupal_get_path('module', 'ligadtv') . '/data/' . $name;
+    file_put_contents($file, $json);
+  }
+  $file= drupal_get_path('module', 'ligadtv') . "/data/" . $name;
+  return json_decode(file_get_contents($file), true);
 }
 
 function _get_rounds(){
@@ -1149,12 +1154,12 @@ function getLeaderPuntos(){
   $name= 'sPoints.json';
   $idQuery  = 10;
   $sLeaQuery = 'leaders/sPoints';
-  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=6';
-  if(variable_get('nextExecute') == date('Y-m-d')){
+  $query= baseSp . '/v1/basketball/competitions/' . liga . '/' . $sLeaQuery . '?format=json&ak=' . ak . '&limit=200';
+  //if(variable_get('nextExecute') == date('Y-m-d')){
     $json = file_get_contents($query);
     $file = drupal_get_path('module', 'ligadtv') . '/data/' . $name;
     file_put_contents($file, $json);
-  }
+  //}
   $file= drupal_get_path('module', 'ligadtv') . "/data/" . $name;
   return json_decode(file_get_contents($file), true);
 }
@@ -1543,6 +1548,9 @@ function _matchs_competition($matchsId){
 }
 
 
+/****************************************************************************************/
+
+
 function ligadtv_update_players(){
   
   $players = getLeaderPuntos();
@@ -1555,6 +1563,7 @@ function ligadtv_update_players(){
     
     $playerWrapper->author                       = $user;
     $playerWrapper->title                        = $datas[$i]['personName'];
+    $playerWrapper->field_image                  = _images_save( $datas[$i]['images']['photo']['L1']['url'] );
     $playerWrapper->field_personal_id            = $datas[$i]['personId'];
     $playerWrapper->field_team_id                = $datas[$i]['teamId'];
     $playerWrapper->field_points                 = $datas[$i]['sPoints'];
@@ -1579,17 +1588,14 @@ function ligadtv_update_players(){
     
   }
   
-  dpm($playerWrapper->value());
-  
 }
+
 
 function ligadtv_update_teams(){
   
   $teams = getStandingData();
   $datas = $teams['response']['data'];
   $user  = user_load( '1' );
-  
-  
   
   for( $i=0; $i<count($datas); $i++ ){
     
@@ -1609,6 +1615,41 @@ function ligadtv_update_teams(){
     
     $teamWrapper->save();
     
+  }
+  
+}
+
+
+function ligadtv_update_matchs(){
+  
+  $matchs = _list_matchs();
+  $datas  = $matchs['response']['data'];
+  $user   = user_load( '1' );
+ 
+  for( $i=0; $i<count($datas); $i++ ){
+
+    $team1        = _load_teams( $datas[$i]['competitors'][0]['teamId'] );
+    $team2        = _load_teams(  $datas[$i]['competitors'][1]['teamId']  );
+    $matchWrapper = _load_matchs( $datas[$i]['matchId'] );   
+
+    $matchWrapper->author = $user;
+    $matchWrapper->title                = sprintf( '%s vs %s - %s', $datas[$i]['competitors'][0]['teamNickname'], 
+        $datas[$i]['competitors'][1]['teamNickname'], $datas[$i]['matchTime'] );
+    $matchWrapper->field_match_time     = strtotime($datas[$i]['matchTime']);
+    $matchWrapper->field_match_number   = $datas[$i]['matchNumber'];
+    $matchWrapper->field_competition_id = $datas[$i]['competitionId'];
+    $matchWrapper->field_match_id       = $datas[$i]['matchId'];
+    $matchWrapper->field_round          = $datas[$i]['roundNumber'];
+    $matchWrapper->field_venue_name     = $datas[$i]['venue']['venueName'];
+    $matchWrapper->field_team_1         = $team1;
+    $matchWrapper->field_points_team_1  = $datas[$i]['competitors'][0]['scoreString'];
+    $matchWrapper->field_team_id_1      = $datas[$i]['competitors'][0]['teamId'];
+    $matchWrapper->field_team_2         = $team2;
+    $matchWrapper->field_points_team_2  = $datas[$i]['competitors'][1]['scoreString'];
+    $matchWrapper->field_team_id_2      = $datas[$i]['competitors'][1]['teamId'];
+
+    $matchWrapper->save();
+
   }
   
 }
@@ -1645,3 +1686,40 @@ function _load_teams( $teamId ){
   return $entityTeam;
   
 }
+
+
+function  _load_matchs( $matchId ){
+  
+  $query = db_select( 'field_data_field_match_id', 'matchid' )
+      ->fields( 'matchid', array('entity_id') )
+      ->condition('matchid.field_match_id_value', $matchId, '=')
+      ->condition('matchid.bundle', 'matchs', '=')
+      ->execute()
+      ->fetchAll();
+  
+  $match = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'matchs') );
+  $entityMatch =  entity_metadata_wrapper( 'node', $match );
+  
+  return $entityMatch;
+  
+}
+
+
+function _images_save( $urlImages ){
+  
+  $filesPath   = variable_get( 'file_public_path' );
+  $filesTemp   = file_get_contents( $urlImages );
+  $filesImages = file_save_data( $filesTemp, base_path() . $filesPath, FILE_EXISTS_RENAME );
+  
+  return array(
+      'fid'      => 'upload',
+      'title'    => basename( $filesImages ),
+      'filename' => basename( $filesImages ),
+      'filepath' => $filesImages,
+      'filesize' => filesize( $filesImages ),
+  );
+  
+}
+
+
+
