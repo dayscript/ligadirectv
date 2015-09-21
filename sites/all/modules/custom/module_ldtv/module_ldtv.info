@@ -1,0 +1,6 @@
+name = Liga Direct TV - Module
+description = synchronize web services with content type drupal.
+dependencies[] = views
+package = liga directv de baloncesto
+core = 7.x
+files[] = module_ldtv.module

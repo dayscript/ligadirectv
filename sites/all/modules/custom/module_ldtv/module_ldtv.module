@@ -1,0 +1,359 @@
+<?php
+
+  /**
+   * 
+   * Implement HOOK_init().
+   * 
+   * Define the values to conect with web services.
+   * 
+   */
+
+  function module_ldtv_init(){
+
+    define('ak', '73fee4973791892d5cd9fa0f8411da51');
+    define('actual', '5');  // liga
+    define('liga', '1312');  // conmetitions
+    define('baseSp', 'https://api.wh.sportingpulseinternational.com');
+
+  }
+
+  /**
+   * 
+   * Implement HOOK_CRON().
+   * 
+   * Run the updates of teams, player and matchs to upload the information of league.
+   * Automatic cron configured with ultimate cron module 
+   * 
+   * @see https://www.drupal.org/project/ultimate_cron.
+   * 
+   */
+
+  function module_ldtv_cron(){
+
+    module_ldtv_update_teams();
+    module_ldtv_update_players();
+    module_ldtv_update_matchs();
+
+  }
+
+  /**
+   * 
+   * MODULE_LDTV_UPDATE_PLAYER()
+   * 
+   * Read the json sPointsAverage.json and updates the information of each player.
+   * 
+   * @see _get_leader_points().
+   * @see _images_save().
+   * @see _load_teams().
+   * @see _load_player().
+   * 
+   */
+
+
+  function module_ldtv_update_players(){
+
+    $players = _get_leader_points();
+    $datas   = $players['response']['data'];
+    $user    = user_load( '1' );
+
+    for( $i=0; $i<count($datas); $i++ ){
+
+      $team          = _load_teams( $datas[$i]['teamId'] );
+      $playerWrapper = _load_player( $datas[$i]['personId'] );
+
+      $playerWrapper->author                       = $user;
+      $playerWrapper->title                        = $datas[$i]['personName'];
+      $playerWrapper->field_personal_id            = $datas[$i]['personId'];
+      $playerWrapper->field_team_id                = $datas[$i]['teamId'];
+      $playerWrapper->field_points                 = $datas[$i]['sPoints'];
+      $playerWrapper->field_points_average         = $datas[$i]['sPointsAverage'];
+      $playerWrapper->field_rebounds_total_average = $datas[$i]['sReboundsTotalAverage'];
+      $playerWrapper->field_assists_average        = $datas[$i]['sAssistsAverage'];
+      $playerWrapper->field_rebounds_total         = $datas[$i]['sReboundsTotal'];
+      $playerWrapper->field_assists                = $datas[$i]['sAssists'];
+      $playerWrapper->field_free_throws_made       = $datas[$i]['sFreeThrowsMade'];
+      $playerWrapper->field_rebounds_offensive     = $datas[$i]['sReboundsOffensivePercentage'];
+      $playerWrapper->field_rebounds_defensive     = $datas[$i]['sReboundsDefensivePercentage'];
+      $playerWrapper->field_blocks                 = $datas[$i]['sBlocks'];
+      $playerWrapper->field_two_pointer_made       = $datas[$i]['sTwoPointersMade'];
+      $playerWrapper->field_three_pointer_made     = $datas[$i]['sThreePointersMade'];
+      $playerWrapper->field_fouls_personal         = $datas[$i]['sFoulsPersonal'];
+      $playerWrapper->field_steals_average         = $datas[$i]['sStealsAverage'];
+      $playerWrapper->field_efficiency             = $datas[$i]['sEfficiency'];
+      $playerWrapper->field_blocks_average         = $datas[$i]['sBlocksAverage'];
+      $playerWrapper->field_turnovers              = $datas[$i]['sTurnovers'];
+
+      $playerWrapper->field_team->set( _load_teams($datas[$i]['teamId']) );
+
+      if ( !empty($datas[$i]['images']['photo']['L1']['url']) ){
+        $playerWrapper->field_image->file->set( _images_save($datas[$i]['personId'], $datas[$i]['images']['photo']['L1']['url']) );
+      }
+
+      $playerWrapper->save();
+
+    }
+
+  }
+
+  /**
+   * 
+   * MODULE_LDTV_UPDATE_TEAMS().
+   * 
+   * Create and update all teams of league reading standing.json file.
+   * 
+   * @see _get_standing_data().
+   * @see _load_teams().
+   * 
+   */
+
+  function module_ldtv_update_teams(){
+
+    $teams = _get_standing_data();
+    $datas = $teams['response']['data'];
+    $user  = user_load( '1' );
+
+    for( $i=0; $i<count($datas); $i++ ){
+
+      $teamWrapper = _load_teams( $datas[$i]['teamId'] );
+
+      $teamWrapper->author               = $user;
+      $teamWrapper->title                = $datas[$i]['teamName'];
+      $teamWrapper->field_team_id        = $datas[$i]['teamId'];
+      $teamWrapper->field_played         = $datas[$i]['played'];
+      $teamWrapper->field_scored_for     = $datas[$i]['scoredFor'];
+      $teamWrapper->field_won            = $datas[$i]['won'];
+      $teamWrapper->field_lost           = $datas[$i]['lost'];
+      $teamWrapper->field_scored_against = $datas[$i]['scoredAgainst'];
+      $teamWrapper->field_point_diff     = $datas[$i]['pointDiff'];
+      $teamWrapper->field_last_5         = $datas[$i]['last5'];
+      $teamWrapper->field_points         = $datas[$i]['standingPoints'];
+
+      $teamWrapper->save();
+
+    }
+
+  }
+
+  /**
+   * 
+   * MODULE_LDTV_UPDATE_MATCHS().
+   * 
+   * Create and update all matchs of the league reading matchs.json file.
+   * 
+   * @see _get_list_matchs().
+   * @see _load_teams().
+   * @see _load_matchs().
+   * 
+   */
+
+
+  function module_ldtv_update_matchs(){
+
+    $matchs = _get_list_matchs();
+    $datas  = $matchs['response']['data'];
+    $user   = user_load( '1' );
+
+    for( $i=0; $i<count($datas); $i++ ){
+
+      $team1        = _load_teams( $datas[$i]['competitors'][0]['teamId'] );
+      $team2        = _load_teams(  $datas[$i]['competitors'][1]['teamId']  );
+      $matchWrapper = _load_matchs( $datas[$i]['matchId'] );   
+
+      $matchWrapper->author = $user;
+      $matchWrapper->title                = sprintf( '%s vs %s - %s', $datas[$i]['competitors'][0]['teamNickname'], 
+          $datas[$i]['competitors'][1]['teamNickname'], $datas[$i]['matchTime'] );
+      $matchWrapper->field_match_time     = strtotime($datas[$i]['matchTime']);
+      $matchWrapper->field_match_number   = $datas[$i]['matchNumber'];
+      $matchWrapper->field_competition_id = $datas[$i]['competitionId'];
+      $matchWrapper->field_match_id       = $datas[$i]['matchId'];
+      $matchWrapper->field_round          = $datas[$i]['roundNumber'];
+      $matchWrapper->field_venue_name     = $datas[$i]['venue']['venueName'];
+      $matchWrapper->field_team_1         = $team1;
+      $matchWrapper->field_points_team_1  = $datas[$i]['competitors'][0]['scoreString'];
+      $matchWrapper->field_team_id_1      = $datas[$i]['competitors'][0]['teamId'];
+      $matchWrapper->field_team_2         = $team2;
+      $matchWrapper->field_points_team_2  = $datas[$i]['competitors'][1]['scoreString'];
+      $matchWrapper->field_team_id_2      = $datas[$i]['competitors'][1]['teamId'];
+
+      $matchWrapper->save();
+
+    }
+
+  }
+
+  /**
+   * _LOAD_PLAYER().
+   * 
+   * Search to the player if player doesn't exist it's created and sent.
+   * 
+   * @param int $personId ID from player that identify in the web services.
+   * @return Object $entityPlayer containt all information from player 
+   *  
+   */
+
+  function _load_player( $personId ){
+
+    $query = db_select( 'field_data_field_personal_id', 'p' )
+        ->fields( 'p', array('entity_id') )
+        ->condition('p.field_personal_id_value', $personId, '=')
+        ->execute()
+        ->fetchAll();
+
+    $player       = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'players') );
+    $entityPlayer = entity_metadata_wrapper( 'node', $player );
+
+    return $entityPlayer;
+
+  }
+
+  /**
+   * _LOAD_TEAMS().
+   * 
+   * Search to the Teams if doesn't exist it's created and sent.
+   * 
+   * @param int $teamId ID team that identify in the web services.
+   * @return Object $entityTeam containt all information from team. 
+   *  
+   */
+  
+  
+  function _load_teams( $teamId ){
+
+    $query = db_select( 'field_data_field_team_id', 'teamid' )
+        ->fields( 'teamid', array('entity_id') )
+        ->condition('teamid.field_team_id_value', $teamId, '=')
+        ->condition('teamid.bundle', 'team', '=')
+        ->execute()
+        ->fetchAll();
+
+    $team = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'team') );
+    $entityTeam =  entity_metadata_wrapper( 'node', $team );
+
+    return $entityTeam;
+
+  }
+
+  
+  /**
+   * _LOAD_MATCHS().
+   * 
+   * Search to the matchs if doesn't exist it's created and sent.
+   * 
+   * @param int $matchId ID match that identify in the web services.
+   * @return Object $entityMatch containt all information from match. 
+   *  
+   */
+  
+
+  function  _load_matchs( $matchId ){
+
+    $query = db_select( 'field_data_field_match_id', 'matchid' )
+        ->fields( 'matchid', array('entity_id') )
+        ->condition('matchid.field_match_id_value', $matchId, '=')
+        ->condition('matchid.bundle', 'matchs', '=')
+        ->execute()
+        ->fetchAll();
+
+    $match = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'matchs') );
+    $entityMatch =  entity_metadata_wrapper( 'node', $match );
+
+    return $entityMatch;
+
+  }
+
+  /**
+   * 
+   * _IMAGES_SAVE().
+   * 
+   * Save player's pictures.
+   * 
+   * @param Int $playerId player's Id.
+   * @param String $urlImages image's url of player.
+   * @return Object $file. 
+   * 
+   */
+
+  function _images_save( $playerId, $urlImages = '' ){
+
+    $dir  = sprintf( 'public://player_%s.jpg', $playerId );
+    $file = file_save_data( file_get_contents($urlImages), $dir );
+
+    return $file;
+
+  }
+
+  /**
+   * 
+   * _GET_LEADER_POINTS().
+   * 
+   * Save and update the information of the stadistics of each player.
+   * 
+   * @return Array json_decode. 
+   * 
+   */
+
+  function _get_leader_points(){
+
+    $name  = 'sPoints.json';
+    $query = baseSp . '/v1/basketball/competitions/' . liga . '/leaders/sPoints?format=json&ak=' . ak . '&limit=200';
+    $json  = file_get_contents($query);
+    $file  = drupal_get_path('module', 'module_ldtv') . '/jsons/' . $name;
+
+    file_put_contents($file, $json);
+
+    $file  = drupal_get_path('module', 'module_ldtv') . "/jsons/" . $name;
+
+    return json_decode( file_get_contents($file), true );
+
+  }
+
+  /**
+   * 
+   * _GET_STANDING_DATA().
+   * 
+   * Save and update the information of  each team.
+   * 
+   * @return Array json_decode. 
+   * 
+   */
+  
+  function _get_standing_data(){
+
+    $name  = 'standing.json';
+    $query = baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=600&ak=' . ak . '';
+    $json  = file_get_contents($query);
+    $file  = drupal_get_path('module', 'module_ldtv') . '/jsons/' . $name;
+
+    file_put_contents($file, $json);
+
+    $file = drupal_get_path('module', 'module_ldtv') . "/jsons/" . $name;
+
+    return json_decode( file_get_contents($file), true );
+
+  }
+
+  /**
+   * 
+   * _GET_LIST_MATCHS().
+   * 
+   * Save and update the information of each match.
+   * 
+   * @return Array json_decode. 
+   * 
+   */
+  
+
+  function _get_list_matchs(){
+
+    $name = 'matchs.json';
+    $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/matches?format=json&limit=600&ak=' . ak;
+    $json = file_get_contents($uri);
+    $file = drupal_get_path('module', 'module_ldtv') . '/jsons/' . $name;
+
+    file_put_contents( $file, $json );
+
+    $file= drupal_get_path('module', 'module_ldtv') . "/jsons/" . $name;
+
+    return json_decode( file_get_contents($file), true );
+
+  }
