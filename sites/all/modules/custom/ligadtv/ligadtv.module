@@ -1557,171 +1557,171 @@ function _matchs_competition($matchsId){
 /****************************************************************************************/
 
 
-function ligadtv_update_players(){
-  
-  $players = getLeaderPuntos();
-  $datas   = $players['response']['data'];
-  $user    = user_load( '1' );
-  
-  for( $i=0; $i<count($datas); $i++ ){
-    
-    $team          = _load_teams( $datas[$i]['teamId'] );
-    $playerWrapper = _load_player( $datas[$i]['personId'] );
-    
-    $playerWrapper->author                       = $user;
-    $playerWrapper->title                        = $datas[$i]['personName'];
-    $playerWrapper->field_personal_id            = $datas[$i]['personId'];
-    $playerWrapper->field_team_id                = $datas[$i]['teamId'];
-    $playerWrapper->field_points                 = $datas[$i]['sPoints'];
-    $playerWrapper->field_points_average         = $datas[$i]['sPointsAverage'];
-    $playerWrapper->field_rebounds_total_average = $datas[$i]['sReboundsTotalAverage'];
-    $playerWrapper->field_assists_average        = $datas[$i]['sAssistsAverage'];
-    $playerWrapper->field_rebounds_total         = $datas[$i]['sReboundsTotal'];
-    $playerWrapper->field_assists                = $datas[$i]['sAssists'];
-    $playerWrapper->field_free_throws_made       = $datas[$i]['sFreeThrowsMade'];
-    $playerWrapper->field_rebounds_offensive     = $datas[$i]['sReboundsOffensivePercentage'];
-    $playerWrapper->field_rebounds_defensive     = $datas[$i]['sReboundsDefensivePercentage'];
-    $playerWrapper->field_blocks                 = $datas[$i]['sBlocks'];
-    $playerWrapper->field_two_pointer_made       = $datas[$i]['sTwoPointersMade'];
-    $playerWrapper->field_three_pointer_made     = $datas[$i]['sThreePointersMade'];
-    $playerWrapper->field_fouls_personal         = $datas[$i]['sFoulsPersonal'];
-    $playerWrapper->field_steals_average         = $datas[$i]['sStealsAverage'];
-    $playerWrapper->field_efficiency             = $datas[$i]['sEfficiency'];
-    $playerWrapper->field_blocks_average         = $datas[$i]['sBlocksAverage'];
-    $playerWrapper->field_turnovers              = $datas[$i]['sTurnovers'];
-    
-    $playerWrapper->field_team->set( _load_teams($datas[$i]['teamId']) );
-    
-    if ( !empty($datas[$i]['images']['photo']['L1']['url']) ){
-      $playerWrapper->field_image->file->set( _images_save($datas[$i]['personId'], $datas[$i]['images']['photo']['L1']['url']) );
-    }
-    
-    $playerWrapper->save();
-    
-  }
-  
-}
-
-
-function ligadtv_update_teams(){
-  
-  $teams = getStandingData();
-  $datas = $teams['response']['data'];
-  $user  = user_load( '1' );
-  
-  for( $i=0; $i<count($datas); $i++ ){
-    
-    $teamWrapper = _load_teams( $datas[$i]['teamId'] );
-    
-    $teamWrapper->author               = $user;
-    $teamWrapper->title                = $datas[$i]['teamName'];
-    $teamWrapper->field_team_id        = $datas[$i]['teamId'];
-    $teamWrapper->field_played         = $datas[$i]['played'];
-    $teamWrapper->field_scored_for     = $datas[$i]['scoredFor'];
-    $teamWrapper->field_won            = $datas[$i]['won'];
-    $teamWrapper->field_lost           = $datas[$i]['lost'];
-    $teamWrapper->field_scored_against = $datas[$i]['scoredAgainst'];
-    $teamWrapper->field_point_diff     = $datas[$i]['pointDiff'];
-    $teamWrapper->field_last_5         = $datas[$i]['last5'];
-    $teamWrapper->field_points         = $datas[$i]['standingPoints'];
-    
-    $teamWrapper->save();
-    
-  }
-  
-}
-
-
-function ligadtv_update_matchs(){
-  
-  $matchs = _list_matchs();
-  $datas  = $matchs['response']['data'];
-  $user   = user_load( '1' );
- 
-  for( $i=0; $i<count($datas); $i++ ){
-
-    $team1        = _load_teams( $datas[$i]['competitors'][0]['teamId'] );
-    $team2        = _load_teams(  $datas[$i]['competitors'][1]['teamId']  );
-    $matchWrapper = _load_matchs( $datas[$i]['matchId'] );   
-
-    $matchWrapper->author = $user;
-    $matchWrapper->title                = sprintf( '%s vs %s - %s', $datas[$i]['competitors'][0]['teamNickname'], 
-        $datas[$i]['competitors'][1]['teamNickname'], $datas[$i]['matchTime'] );
-    $matchWrapper->field_match_time     = strtotime($datas[$i]['matchTime']);
-    $matchWrapper->field_match_number   = $datas[$i]['matchNumber'];
-    $matchWrapper->field_competition_id = $datas[$i]['competitionId'];
-    $matchWrapper->field_match_id       = $datas[$i]['matchId'];
-    $matchWrapper->field_round          = $datas[$i]['roundNumber'];
-    $matchWrapper->field_venue_name     = $datas[$i]['venue']['venueName'];
-    $matchWrapper->field_team_1         = $team1;
-    $matchWrapper->field_points_team_1  = $datas[$i]['competitors'][0]['scoreString'];
-    $matchWrapper->field_team_id_1      = $datas[$i]['competitors'][0]['teamId'];
-    $matchWrapper->field_team_2         = $team2;
-    $matchWrapper->field_points_team_2  = $datas[$i]['competitors'][1]['scoreString'];
-    $matchWrapper->field_team_id_2      = $datas[$i]['competitors'][1]['teamId'];
-
-    $matchWrapper->save();
-
-  }
-  
-}
-
-
-function _load_player( $personId ){
-  
-  $query = db_select( 'field_data_field_personal_id', 'p' )
-      ->fields( 'p', array('entity_id') )
-      ->condition('p.field_personal_id_value', $personId, '=')
-      ->execute()
-      ->fetchAll();
-  
-  $player       = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'players') );
-  $entityPlayer = entity_metadata_wrapper( 'node', $player );
-  
-  return $entityPlayer;
-  
-}
-
-
-function _load_teams( $teamId ){
-  
-  $query = db_select( 'field_data_field_team_id', 'teamid' )
-      ->fields( 'teamid', array('entity_id') )
-      ->condition('teamid.field_team_id_value', $teamId, '=')
-      ->condition('teamid.bundle', 'team', '=')
-      ->execute()
-      ->fetchAll();
-  
-  $team = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'team') );
-  $entityTeam =  entity_metadata_wrapper( 'node', $team );
-  
-  return $entityTeam;
-  
-}
-
-
-function  _load_matchs( $matchId ){
-  
-  $query = db_select( 'field_data_field_match_id', 'matchid' )
-      ->fields( 'matchid', array('entity_id') )
-      ->condition('matchid.field_match_id_value', $matchId, '=')
-      ->condition('matchid.bundle', 'matchs', '=')
-      ->execute()
-      ->fetchAll();
-  
-  $match = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'matchs') );
-  $entityMatch =  entity_metadata_wrapper( 'node', $match );
-  
-  return $entityMatch;
-  
-}
-
-
-function _images_save( $playerId, $urlImages = '' ){
-  
-  $dir  = sprintf( 'public://player_%s.jpg', $playerId );
-  $file = file_save_data( file_get_contents($urlImages), $dir );
-  
-  return $file;
-  
-}
+//function ligadtv_update_players(){
+//  
+//  $players = getLeaderPuntos();
+//  $datas   = $players['response']['data'];
+//  $user    = user_load( '1' );
+//  
+//  for( $i=0; $i<count($datas); $i++ ){
+//    
+//    $team          = _load_teams( $datas[$i]['teamId'] );
+//    $playerWrapper = _load_player( $datas[$i]['personId'] );
+//    
+//    $playerWrapper->author                       = $user;
+//    $playerWrapper->title                        = $datas[$i]['personName'];
+//    $playerWrapper->field_personal_id            = $datas[$i]['personId'];
+//    $playerWrapper->field_team_id                = $datas[$i]['teamId'];
+//    $playerWrapper->field_points                 = $datas[$i]['sPoints'];
+//    $playerWrapper->field_points_average         = $datas[$i]['sPointsAverage'];
+//    $playerWrapper->field_rebounds_total_average = $datas[$i]['sReboundsTotalAverage'];
+//    $playerWrapper->field_assists_average        = $datas[$i]['sAssistsAverage'];
+//    $playerWrapper->field_rebounds_total         = $datas[$i]['sReboundsTotal'];
+//    $playerWrapper->field_assists                = $datas[$i]['sAssists'];
+//    $playerWrapper->field_free_throws_made       = $datas[$i]['sFreeThrowsMade'];
+//    $playerWrapper->field_rebounds_offensive     = $datas[$i]['sReboundsOffensivePercentage'];
+//    $playerWrapper->field_rebounds_defensive     = $datas[$i]['sReboundsDefensivePercentage'];
+//    $playerWrapper->field_blocks                 = $datas[$i]['sBlocks'];
+//    $playerWrapper->field_two_pointer_made       = $datas[$i]['sTwoPointersMade'];
+//    $playerWrapper->field_three_pointer_made     = $datas[$i]['sThreePointersMade'];
+//    $playerWrapper->field_fouls_personal         = $datas[$i]['sFoulsPersonal'];
+//    $playerWrapper->field_steals_average         = $datas[$i]['sStealsAverage'];
+//    $playerWrapper->field_efficiency             = $datas[$i]['sEfficiency'];
+//    $playerWrapper->field_blocks_average         = $datas[$i]['sBlocksAverage'];
+//    $playerWrapper->field_turnovers              = $datas[$i]['sTurnovers'];
+//    
+//    $playerWrapper->field_team->set( _load_teams($datas[$i]['teamId']) );
+//    
+//    if ( !empty($datas[$i]['images']['photo']['L1']['url']) ){
+//      $playerWrapper->field_image->file->set( _images_save($datas[$i]['personId'], $datas[$i]['images']['photo']['L1']['url']) );
+//    }
+//    
+//    $playerWrapper->save();
+//    
+//  }
+//  
+//}
+//
+//
+//function ligadtv_update_teams(){
+//  
+//  $teams = getStandingData();
+//  $datas = $teams['response']['data'];
+//  $user  = user_load( '1' );
+//  
+//  for( $i=0; $i<count($datas); $i++ ){
+//    
+//    $teamWrapper = _load_teams( $datas[$i]['teamId'] );
+//    
+//    $teamWrapper->author               = $user;
+//    $teamWrapper->title                = $datas[$i]['teamName'];
+//    $teamWrapper->field_team_id        = $datas[$i]['teamId'];
+//    $teamWrapper->field_played         = $datas[$i]['played'];
+//    $teamWrapper->field_scored_for     = $datas[$i]['scoredFor'];
+//    $teamWrapper->field_won            = $datas[$i]['won'];
+//    $teamWrapper->field_lost           = $datas[$i]['lost'];
+//    $teamWrapper->field_scored_against = $datas[$i]['scoredAgainst'];
+//    $teamWrapper->field_point_diff     = $datas[$i]['pointDiff'];
+//    $teamWrapper->field_last_5         = $datas[$i]['last5'];
+//    $teamWrapper->field_points         = $datas[$i]['standingPoints'];
+//    
+//    $teamWrapper->save();
+//    
+//  }
+//  
+//}
+//
+//
+//function ligadtv_update_matchs(){
+//  
+//  $matchs = _list_matchs();
+//  $datas  = $matchs['response']['data'];
+//  $user   = user_load( '1' );
+// 
+//  for( $i=0; $i<count($datas); $i++ ){
+//
+//    $team1        = _load_teams( $datas[$i]['competitors'][0]['teamId'] );
+//    $team2        = _load_teams(  $datas[$i]['competitors'][1]['teamId']  );
+//    $matchWrapper = _load_matchs( $datas[$i]['matchId'] );   
+//
+//    $matchWrapper->author = $user;
+//    $matchWrapper->title                = sprintf( '%s vs %s - %s', $datas[$i]['competitors'][0]['teamNickname'], 
+//        $datas[$i]['competitors'][1]['teamNickname'], $datas[$i]['matchTime'] );
+//    $matchWrapper->field_match_time     = strtotime($datas[$i]['matchTime']);
+//    $matchWrapper->field_match_number   = $datas[$i]['matchNumber'];
+//    $matchWrapper->field_competition_id = $datas[$i]['competitionId'];
+//    $matchWrapper->field_match_id       = $datas[$i]['matchId'];
+//    $matchWrapper->field_round          = $datas[$i]['roundNumber'];
+//    $matchWrapper->field_venue_name     = $datas[$i]['venue']['venueName'];
+//    $matchWrapper->field_team_1         = $team1;
+//    $matchWrapper->field_points_team_1  = $datas[$i]['competitors'][0]['scoreString'];
+//    $matchWrapper->field_team_id_1      = $datas[$i]['competitors'][0]['teamId'];
+//    $matchWrapper->field_team_2         = $team2;
+//    $matchWrapper->field_points_team_2  = $datas[$i]['competitors'][1]['scoreString'];
+//    $matchWrapper->field_team_id_2      = $datas[$i]['competitors'][1]['teamId'];
+//
+//    $matchWrapper->save();
+//
+//  }
+//  
+//}
+//
+//
+//function _load_player( $personId ){
+//  
+//  $query = db_select( 'field_data_field_personal_id', 'p' )
+//      ->fields( 'p', array('entity_id') )
+//      ->condition('p.field_personal_id_value', $personId, '=')
+//      ->execute()
+//      ->fetchAll();
+//  
+//  $player       = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'players') );
+//  $entityPlayer = entity_metadata_wrapper( 'node', $player );
+//  
+//  return $entityPlayer;
+//  
+//}
+//
+//
+//function _load_teams( $teamId ){
+//  
+//  $query = db_select( 'field_data_field_team_id', 'teamid' )
+//      ->fields( 'teamid', array('entity_id') )
+//      ->condition('teamid.field_team_id_value', $teamId, '=')
+//      ->condition('teamid.bundle', 'team', '=')
+//      ->execute()
+//      ->fetchAll();
+//  
+//  $team = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'team') );
+//  $entityTeam =  entity_metadata_wrapper( 'node', $team );
+//  
+//  return $entityTeam;
+//  
+//}
+//
+//
+//function  _load_matchs( $matchId ){
+//  
+//  $query = db_select( 'field_data_field_match_id', 'matchid' )
+//      ->fields( 'matchid', array('entity_id') )
+//      ->condition('matchid.field_match_id_value', $matchId, '=')
+//      ->condition('matchid.bundle', 'matchs', '=')
+//      ->execute()
+//      ->fetchAll();
+//  
+//  $match = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'matchs') );
+//  $entityMatch =  entity_metadata_wrapper( 'node', $match );
+//  
+//  return $entityMatch;
+//  
+//}
+//
+//
+//function _images_save( $playerId, $urlImages = '' ){
+//  
+//  $dir  = sprintf( 'public://player_%s.jpg', $playerId );
+//  $file = file_save_data( file_get_contents($urlImages), $dir );
+//  
+//  return $file;
+//  
+//}
