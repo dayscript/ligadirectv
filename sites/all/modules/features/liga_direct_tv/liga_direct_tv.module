@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the liga direct tv feature.
+ */
+
+include_once 'liga_direct_tv.features.inc';
