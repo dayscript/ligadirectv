@@ -7,13 +7,13 @@
    * Define the values to conect with web services.
    * 
    */
-
   function module_ldtv_init(){
 
-    define('ak', '73fee4973791892d5cd9fa0f8411da51');
-    define('actual', '5');  // liga
-    define('liga', '1312');  // conmetitions
-    define('baseSp', 'https://api.wh.sportingpulseinternational.com');
+    //defined('ak') or define('ak', '73fee4973791892d5cd9fa0f8411da51');
+    defined('ak') or define('ak', '8a201a864bb075fb2682e640215d11ec');
+    defined('actual') or define('actual', '5');  // liga
+    defined('liga') or define('liga', '2128');//'1312');  // conmetitions
+    defined('baseSp') or define('baseSp', 'https://api.wh.sportingpulseinternational.com');
 
   }
 
@@ -29,11 +29,143 @@
    */
 
   function module_ldtv_cron(){
-
+  	$date = date("H:i");
+    set_time_limit(0);
+    /*if($date >= "01:58" and $date <= "04:59") */ini_set("memory_limit", "2024M");
     module_ldtv_update_teams();
-    module_ldtv_update_players();
     module_ldtv_update_matchs();
+    module_ldtv_update_players();
+    module_ldtv_update_matchs_players_stats();
 
+  }
+
+   /**
+   * 
+   * MODULE_LDTV_UPDATE_MATCHS_PLAYERS_STATS().
+   * 
+   * Create and update all stats of a player in a match of the league reading match_players_stats.json file.
+   * 
+   * @see _get_list_matchs().
+   * 
+   */
+  function module_ldtv_update_matchs_players_stats() {
+    $tmpmatchs = _get_list_matchs();
+    $matchs  = $tmpmatchs['response']['data'];
+    unset($tmpmatchs);
+    if(!empty($matchs)) :
+      foreach($matchs as $match) :
+        if(isset($match['competitors'][0]['teamId']) and isset($match['competitors'][1]['teamId'])/* and $match['matchId'] >= 91057 and $match['matchId'] <= 91092*/) :
+          $team1      = $match['competitors'][0]['teamId'];
+          $team2      = $match['competitors'][1]['teamId'];
+          
+
+          $json       = _get_team_league($match['matchId'], $team1 );
+          $json       = $json['response']['data'];
+
+          _load_player_stat( $match, $team1, $json );
+
+          $json       = _get_team_league($match['matchId'], $team2 );
+          $json       = $json['response']['data'];
+
+          _load_player_stat( $match, $team2, $json );
+          //exit("salio");
+        endif;
+      endforeach;
+    endif;
+  }
+
+  function _load_player_stat($match, $team, $json) {
+    $user   = user_load( '1' );
+    if(!empty($json)) :
+      foreach($json as $playerStats) :
+        //echo "<p>".$playerStats['personId']." - ".$team." - ".$match['matchId']."</p>";
+        $player_stats = _load_players_stats( $playerStats['personId'], $team, $match['matchId'] );
+      
+        $player = $player_stats['playerStats'];
+        $player->author                               = $user;
+        $player->title                                = sprintf(
+                                                          'Estadisticas %s, %s vs %s - %s',
+                                                          $playerStats['personName'],
+                                                          $match['competitors'][0]['teamNickname'], 
+                                                          $match['competitors'][1]['teamNickname'],
+                                                          $match['matchTime']
+                                                        );
+        $player->field_id_equipo                      = $player_stats['base']['team'];
+        $player->field_id_partido                     = $player_stats['base']['match'];
+        $player->field_id_player                      = $player_stats['base']['player'];
+        $player->field_periodnumber                   = $playerStats['periodNumber'];
+        $player->field_periodtype                     = $playerStats['periodType'];
+        $player->field_competitionid                  = $playerStats['competitionId'];
+        $player->field_externalid                     = $playerStats['externalId'];
+        $player->field_shirtnumber                    = $playerStats['shirtNumber'];
+        $player->field_playingposition                = $playerStats['playingPosition'];
+        $player->field_participated                   = $playerStats['participated'];
+        $player->field_dnpreason                      = $playerStats['DNPReason'];
+        $player->field_isplayer                       = $playerStats['isPlayer'];
+        $player->field_isteamofficial                 = $playerStats['isTeamOfficial'];
+        $player->field_isstarter                      = $playerStats['isStarter'];
+        $player->field_splus                          = $playerStats['sPlus'];
+        $player->field_spoints                        = $playerStats['sPoints'];
+        $player->field_spointssecondchance            = $playerStats['sPointsSecondChance'];
+        $player->field_sper                           = $playerStats['sPER'];
+        $player->field_smvpvotes                      = $playerStats['sMVPVotes'];
+        $player->field_sminus                         = $playerStats['sMinus'];
+        $playerStats['sMinutes'] = explode(".", $playerStats['sMinutes']);
+        $playerStats['sMinutes'][1] = ($playerStats['sMinutes'][1] / 100) * 60;
+        $playerStats['sMinutes'][1] = number_format($playerStats['sMinutes'][1], 0);
+        $player->field_sminutes                       = implode(":", $playerStats['sMinutes']);
+        $player->field_sreboundsdefensive             = $playerStats['sReboundsDefensive'];
+        $player->field_sreboundsoffensive             = $playerStats['sReboundsOffensive'];
+        $player->field_stwopointersmade               = $playerStats['sTwoPointersMade'];
+        $player->field_stwopointersattempted          = $playerStats['sTwoPointersAttempted'];
+        $player->field_sturnovers                     = $playerStats['sTurnovers'];
+        $player->field_sthreepointersmade             = $playerStats['sThreePointersMade'];
+        $player->field_ssteals                        = $playerStats['sSteals'];
+        $player->field_sthreepointersattempted        = $playerStats['sThreePointersAttempted'];
+        $player->field_sfreethrowsmade                = $playerStats['sFreeThrowsMade'];
+        $player->field_sfreethrowsattempted           = $playerStats['sFreeThrowsAttempted'];
+        $player->field_sfieldgoalsattempted           = $playerStats['sFieldGoalsAttempted'];
+        $player->field_sfieldgoalsmade                = $playerStats['sFieldGoalsMade'];
+        $player->field_sefficiencycustom              = $playerStats['sEfficiencyCustom'];
+        $player->field_sblocksreceived                = $playerStats['sBlocksReceived'];
+        $player->field_sassistsdefensive              = $playerStats['sAssistsDefensive'];
+        $player->field_sblocks                        = $playerStats['sBlocks'];
+        $player->field_sfoulscoachdisqualifying       = $playerStats['sFoulsCoachDisqualifying'];
+        $player->field_sfoulscoachtechnical           = $playerStats['sFoulsCoachTechnical'];
+        $player->field_sfoulstechnical                = $playerStats['sFoulsTechnical'];
+        $player->field_sfoulsunsportsmanlike          = $playerStats['sFoulsUnsportsmanlike'];
+        $player->field_sfoulspersonal                 = $playerStats['sFoulsPersonal'];
+        $player->field_sfoulson                       = $playerStats['sFoulsOn'];
+        $player->field_sfoulsdisqualifying            = $playerStats['sFoulsDisqualifying'];
+        $player->field_sfoulsoffensive                = $playerStats['sFoulsOffensive'];
+        $player->field_sassists                       = $playerStats['sAssists'];
+        $player->field_strueshootingattempts          = $playerStats['sTrueShootingAttempts'];
+        $player->field_sthreepointerspercentage       = ($playerStats['sThreePointersPercentage'] * 100);
+        $player->field_sstealspercentage              = ($playerStats['sStealsPercentage'] * 100);
+        $player->field_sturnoverspercentage           = ($playerStats['sTurnoversPercentage'] * 100);
+        $player->field_stwopointerspercentage         = ($playerStats['sTwoPointersPercentage'] * 100);
+        $player->field_sdefensiverating               = $playerStats['sDefensiveRating'];
+        $player->field_soffensiverating               = $playerStats['sOffensiveRating'];
+        $player->field_sreboundstotal                 = $playerStats['sReboundsTotal'];
+        $player->field_sreboundsoffensivepercenta     = ($playerStats['sReboundsOffensivePercentage'] * 100);
+        $player->field_sfieldgoalseffectivepercen     = ($playerStats['sFieldGoalsEffectivePercentage'] * 100);
+        $player->field_sefficiencygamescore           = $playerStats['sEfficiencyGameScore'];
+        $player->field_sfieldgoalspercentage          = ($playerStats['sFieldGoalsPercentage'] * 100);
+        $player->field_sfreethrowspercentage          = ($playerStats['sFreeThrowsPercentage'] * 100);
+        $player->field_sreboundsdefensivepercenta     = ($playerStats['sReboundsDefensivePercentage'] * 100);
+        $player->field_splusminuspoints               = $playerStats['sPlusMinusPoints'];
+        $player->field_sassiststurnoverratio          = $playerStats['sAssistsTurnoverRatio'];
+        $player->field_strueshootingpercentage        = ($playerStats['sTrueShootingPercentage'] * 100);
+        $player->field_sreboundspercentage            = ($playerStats['sReboundsPercentage'] * 100);
+        $player->field_sefficiency                    = $playerStats['sEfficiency'];
+
+        $player->save();
+        unset($player_stats);
+        /*echo "playerObject: <pre>";
+        print_r($player);
+        echo "</pre>";*/
+      endforeach;
+    endif;
   }
 
   /**
@@ -55,43 +187,54 @@
     $players = _get_leader_points();
     $datas   = $players['response']['data'];
     $user    = user_load( '1' );
-
+//echo "<pre>";
     for( $i=0; $i<count($datas); $i++ ){
 
       $team          = _load_teams( $datas[$i]['teamId'] );
       $playerWrapper = _load_player( $datas[$i]['personId'] );
 
-      $playerWrapper->author                       = $user;
-      $playerWrapper->title                        = $datas[$i]['personName'];
-      $playerWrapper->field_personal_id            = $datas[$i]['personId'];
-      $playerWrapper->field_team_id                = $datas[$i]['teamId'];
-      $playerWrapper->field_points                 = $datas[$i]['sPoints'];
-      $playerWrapper->field_points_average         = $datas[$i]['sPointsAverage'];
-      $playerWrapper->field_rebounds_total_average = $datas[$i]['sReboundsTotalAverage'];
-      $playerWrapper->field_assists_average        = $datas[$i]['sAssistsAverage'];
-      $playerWrapper->field_rebounds_total         = $datas[$i]['sReboundsTotal'];
-      $playerWrapper->field_assists                = $datas[$i]['sAssists'];
-      $playerWrapper->field_free_throws_made       = $datas[$i]['sFreeThrowsMade'];
-      $playerWrapper->field_rebounds_offensive     = $datas[$i]['sReboundsOffensivePercentage'];
-      $playerWrapper->field_rebounds_defensive     = $datas[$i]['sReboundsDefensivePercentage'];
-      $playerWrapper->field_blocks                 = $datas[$i]['sBlocks'];
-      $playerWrapper->field_two_pointer_made       = $datas[$i]['sTwoPointersMade'];
-      $playerWrapper->field_three_pointer_made     = $datas[$i]['sThreePointersMade'];
-      $playerWrapper->field_fouls_personal         = $datas[$i]['sFoulsPersonal'];
-      $playerWrapper->field_steals_average         = $datas[$i]['sStealsAverage'];
-      $playerWrapper->field_efficiency             = $datas[$i]['sEfficiency'];
-      $playerWrapper->field_blocks_average         = $datas[$i]['sBlocksAverage'];
-      $playerWrapper->field_turnovers              = $datas[$i]['sTurnovers'];
+      if(!empty($datas[$i]['teamId'])) :
 
-      $playerWrapper->field_team->set( _load_teams($datas[$i]['teamId']) );
+        $playerWrapper->author                       = $user;
+        $playerWrapper->title                        = $dat[$i]['personName'] = $datas[$i]['personName'];
+        $playerWrapper->field_personal_id            = $dat[$i]['personId'] = $datas[$i]['personId'];
+        $playerWrapper->field_team_id                = $dat[$i]['teamId'] = $datas[$i]['teamId'];
+        $playerWrapper->field_points                 = $dat[$i]['sPoints'] = $datas[$i]['sPoints'];
+        $playerWrapper->field_points_average         = $dat[$i]['sPointsAverage'] = $datas[$i]['sPointsAverage'];
+        $playerWrapper->field_rebounds_total_average = $dat[$i]['sReboundsTotalAverage'] = $datas[$i]['sReboundsTotalAverage'];
+        $playerWrapper->field_assists_average        = $dat[$i]['sAssistsAverage'] = $datas[$i]['sAssistsAverage'];
+        $playerWrapper->field_rebounds_total         = $dat[$i]['sReboundsTotal'] = $datas[$i]['sReboundsTotal'];
+        $playerWrapper->field_assists                = $dat[$i]['sAssists'] = $datas[$i]['sAssists'];
+        $playerWrapper->field_free_throws_made       = $dat[$i]['sFreeThrowsMade'] = $datas[$i]['sFreeThrowsMade'];
+        $playerWrapper->field_rebounds_offensive     = $dat[$i]['sReboundsOffensivePercentage'] = $datas[$i]['sReboundsOffensivePercentage'];
+        $playerWrapper->field_rebounds_defensive     = $dat[$i]['sReboundsDefensivePercentage'] = $datas[$i]['sReboundsDefensivePercentage'];
+        $playerWrapper->field_blocks                 = $dat[$i]['sBlocks'] = $datas[$i]['sBlocks'];
+        $playerWrapper->field_two_pointer_made       = $dat[$i]['sTwoPointersMade'] = $datas[$i]['sTwoPointersMade'];
+        $playerWrapper->field_three_pointer_made     = $dat[$i]['sThreePointersMade'] = $datas[$i]['sThreePointersMade'];
+        $playerWrapper->field_fouls_personal         = $dat[$i]['sFoulsPersonal'] = $datas[$i]['sFoulsPersonal'];
+        $playerWrapper->field_steals_average         = $dat[$i]['sStealsAverage'] = $datas[$i]['sStealsAverage'];
+        $playerWrapper->field_efficiency             = $dat[$i]['sEfficiency'] = $datas[$i]['sEfficiency'];
+        $playerWrapper->field_blocks_average         = $dat[$i]['sBlocksAverage'] = $datas[$i]['sBlocksAverage'];
+        $playerWrapper->field_turnovers              = $dat[$i]['sTurnovers'] = $datas[$i]['sTurnovers'];
+        $playerWrapper->field_sgamesteam             = $dat[$i]['sTurnovers'] = $datas[$i]['sGamesTeam'];
 
-      if ( !empty($datas[$i]['images']['photo']['L1']['url']) ){
-        $playerWrapper->field_image->file->set( _images_save($datas[$i]['personId'], $datas[$i]['images']['photo']['L1']['url']) );
-      }
+        $dat[$i]['field_team'] = _load_teams($datas[$i]['teamId'], true );
+        $playerWrapper->field_teamnid = $dat[$i]['field_team'];
 
-      $playerWrapper->save();
 
-    }
+        //$dat[$i]['field_team'] = $playerWrapper->field_team->set( _load_teams($datas[$i]['teamId']) );
+
+
+        if ( !empty($datas[$i]['images']['photo']['L1']['url'])/* and empty($playerWrapper->field_image) */) :
+          $playerWrapper->field_image
+                        ->file
+                        ->set( _images_save($datas[$i]['personId'], $datas[$i]['images']['photo']['L1']['url']) );
+        endif;
+        $playerWrapper->save();
+        //print_r($dat[$i]);
+      endif;
+
+    }//exit("</pre>");
 
   }
 
@@ -111,7 +254,7 @@
     $teams = _get_standing_data();
     $datas = $teams['response']['data'];
     $user  = user_load( '1' );
-
+//echo "<pre>";
     for( $i=0; $i<count($datas); $i++ ){
 
       $teamWrapper = _load_teams( $datas[$i]['teamId'] );
@@ -124,13 +267,13 @@
       $teamWrapper->field_won            = $datas[$i]['won'];
       $teamWrapper->field_lost           = $datas[$i]['lost'];
       $teamWrapper->field_scored_against = $datas[$i]['scoredAgainst'];
-      $teamWrapper->field_point_diff     = $datas[$i]['pointDiff'];
+      $teamWrapper->field_point_diff     = $datas[$i]['scoredFor'] - $datas[$i]['scoredAgainst'];
       $teamWrapper->field_last_5         = $datas[$i]['last5'];
       $teamWrapper->field_points         = $datas[$i]['standingPoints'];
-
+//print_r($dat);
       $teamWrapper->save();
 
-    }
+    }//exit;
 
   }
 
@@ -155,27 +298,36 @@
 
     for( $i=0; $i<count($datas); $i++ ){
 
-      $team1        = _load_teams( $datas[$i]['competitors'][0]['teamId'] );
-      $team2        = _load_teams(  $datas[$i]['competitors'][1]['teamId']  );
-      $matchWrapper = _load_matchs( $datas[$i]['matchId'] );   
+      if(isset($datas[$i]['competitors'][0]) and isset($datas[$i]['competitors'][1])) :
 
-      $matchWrapper->author = $user;
-      $matchWrapper->title                = sprintf( '%s vs %s - %s', $datas[$i]['competitors'][0]['teamNickname'], 
-          $datas[$i]['competitors'][1]['teamNickname'], $datas[$i]['matchTime'] );
-      $matchWrapper->field_match_time     = strtotime($datas[$i]['matchTime']);
-      $matchWrapper->field_match_number   = $datas[$i]['matchNumber'];
-      $matchWrapper->field_competition_id = $datas[$i]['competitionId'];
-      $matchWrapper->field_match_id       = $datas[$i]['matchId'];
-      $matchWrapper->field_round          = $datas[$i]['roundNumber'];
-      $matchWrapper->field_venue_name     = $datas[$i]['venue']['venueName'];
-      $matchWrapper->field_team_1         = $team1;
-      $matchWrapper->field_points_team_1  = $datas[$i]['competitors'][0]['scoreString'];
-      $matchWrapper->field_team_id_1      = $datas[$i]['competitors'][0]['teamId'];
-      $matchWrapper->field_team_2         = $team2;
-      $matchWrapper->field_points_team_2  = $datas[$i]['competitors'][1]['scoreString'];
-      $matchWrapper->field_team_id_2      = $datas[$i]['competitors'][1]['teamId'];
+        $team1        = _load_teams( $datas[$i]['competitors'][0]['teamId'] );
+        $team2        = _load_teams(  $datas[$i]['competitors'][1]['teamId']  );
+        $matchWrapper = _load_matchs( $datas[$i]['matchId'] );
 
-      $matchWrapper->save();
+        $matchWrapper->author = $user;
+        $matchWrapper->title                = sprintf( '%s vs %s - %s', 
+                                                        $datas[$i]['competitors'][0]['teamNickname'], 
+                                                        $datas[$i]['competitors'][1]['teamNickname'], 
+                                                        $datas[$i]['matchTime'] );
+        $matchWrapper->field_match_time     = strtotime($datas[$i]['matchTime']);
+        $matchWrapper->field_match_number   = $datas[$i]['matchNumber'];
+        $matchWrapper->field_competition_id = $datas[$i]['competitionId'];
+        $matchWrapper->field_match_id       = $datas[$i]['matchId'];
+        $matchWrapper->field_round          = $datas[$i]['roundNumber'];
+        $matchWrapper->field_venue_name     = (isset($datas[$i]['venue']['venueName'])) ? $datas[$i]['venue']['venueName'] : 0;
+        $matchWrapper->field_team_1         = $team1;
+        $matchWrapper->field_points_team_1  = $datas[$i]['competitors'][0]['scoreString'];
+        $matchWrapper->field_team_id_1      = $datas[$i]['competitors'][0]['teamId'];
+        $matchWrapper->field_team_2         = $team2;
+        $matchWrapper->field_points_team_2  = $datas[$i]['competitors'][1]['scoreString'];
+        $matchWrapper->field_team_id_2      = $datas[$i]['competitors'][1]['teamId'];
+
+        $matchWrapper->field_pool_number    = $datas[$i]['poolNumber'];
+        $matchWrapper->field_match_type     = $datas[$i]['matchType'];
+
+        $matchWrapper->save();
+
+      endif;
 
     }
 
@@ -217,7 +369,7 @@
    */
   
   
-  function _load_teams( $teamId ){
+  function _load_teams( $teamId, $id = false ){
 
     $query = db_select( 'field_data_field_team_id', 'teamid' )
         ->fields( 'teamid', array('entity_id') )
@@ -227,6 +379,11 @@
         ->fetchAll();
 
     $team = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'team') );
+
+    if($id === true) : return $team;
+      //exit(print_r($team));
+    endif;
+    
     $entityTeam =  entity_metadata_wrapper( 'node', $team );
 
     return $entityTeam;
@@ -261,6 +418,66 @@
 
   }
 
+   function _load_players_stats( $playerId, $teamId, $matchId ) {
+    //echo "player: ".$playerId." - team: ".$teamId." - match: ".$matchId."<br><br>";
+
+    $query = db_select( 'field_data_field_match_id', 'matchid' )
+              ->fields( 'matchid', array('entity_id') )
+              ->condition('matchid.field_match_id_value', $matchId, '=')
+              ->condition('matchid.bundle', 'matchs', '=')
+              ->execute()
+              ->fetchAll();
+
+    $match = $query[0]->entity_id;
+
+    $query = db_select( 'field_data_field_team_id', 'teamid' )
+              ->fields( 'teamid', array('entity_id') )
+              ->condition('teamid.field_team_id_value', $teamId, '=')
+              ->condition('teamid.bundle', 'team', '=')
+              ->execute()
+              ->fetchAll();
+
+    $team = $query[0]->entity_id;
+
+    $query = db_select( 'field_data_field_personal_id', 'p' )
+              ->fields( 'p', array('entity_id') )
+              ->condition('p.field_personal_id_value', $playerId, '=')
+              ->execute()
+              ->fetchAll();
+
+    $player = $query[0]->entity_id;
+
+    $query = new EntityFieldQuery();
+    $result = $query->entityCondition( 'entity_type', 'node' )
+                    ->entityCondition( 'bundle', 'players_stats' )
+                    ->propertyCondition( 'status', 1 )
+                    ->fieldCondition('field_id_player', 'target_id', $player, '=')
+                    ->fieldCondition('field_id_equipo', 'target_id', $team, '=')
+                    ->fieldCondition('field_id_partido', 'target_id', $match, '=' )
+                    ->execute();
+
+    if(isset($result['node'])) :
+      $nids = array_keys( $result[ 'node' ] );
+      $playerStats = entity_load( 'node', $nids );
+      $nids = array_keys( $result[ 'node' ] );
+      $playerStats = $nids[0];
+      //echo "<pre>";exit(var_dump($playerStats));
+    else ://echo "entro a crear el nodo.<br><br>";
+      $playerStats = entity_create( 'node', array('type' => 'players_stats') );
+    endif;
+
+    $entityPlayerStats =  entity_metadata_wrapper( 'node', $playerStats );
+
+    $response = array(
+      "base" => array("player" => $player, "team" => $team, "match" => $match),
+      "playerStats" => $entityPlayerStats
+    );
+
+    //echo "player: ".$player." - team: ".$team." - match: ".$match."<br><br>";
+    //echo "<pre>";exit(var_dump($entityPlayerStats));
+    return $response;
+  }
+
   /**
    * 
    * _IMAGES_SAVE().
@@ -276,7 +493,7 @@
   function _images_save( $playerId, $urlImages = '' ){
 
     $dir  = sprintf( 'public://player_%s.jpg', $playerId );
-    $file = file_save_data( file_get_contents($urlImages), $dir );
+    $file = file_save_data( file_get_contents($urlImages), $dir, FILE_EXISTS_RENAME );
 
     return $file;
 
@@ -353,6 +570,31 @@
     file_put_contents( $file, $json );
 
     $file= drupal_get_path('module', 'module_ldtv') . "/jsons/" . $name;
+
+    return json_decode( file_get_contents($file), true );
+
+  }
+
+    /**
+   * 
+   * _GET_TEAMS_LEAGUE().
+   * 
+   * Save and update the information of the stadistics of each player.
+   * 
+   * @return Array json_decode. 
+   * 
+   */
+
+  function _get_team_league($match, $team){
+
+    $name  = 'match'.$match.'.json';
+    $query = baseSp . '/v1/basketball/statistics/personmatch/matches/' . $match . "/teams/" . $team . '?periodNumber=0&ak=' . ak;
+    $json  = file_get_contents($query);
+    $file  = drupal_get_path('module', 'module_ldtv') . '/jsons/stats_player_match/' . $name;
+
+    file_put_contents($file, $json);
+
+    $file  = drupal_get_path('module', 'module_ldtv') . "/jsons/stats_player_match/" . $name;
 
     return json_decode( file_get_contents($file), true );
 

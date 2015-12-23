@@ -18,7 +18,7 @@
     .body.field{
       text-align: justify;
       margin-top: 18px;
-      width: 635px;
+      padding: 12px;
       color: white;
       font-family: 'futura_ltbook';
       font-size:20px!important;
@@ -38,8 +38,9 @@
       }
     }
     .twitter-username{
+      display: initial;
       a{
-        color: #FF9000;
+        color: #008CBA;
       }
     }
     .st_facebook_hcount{

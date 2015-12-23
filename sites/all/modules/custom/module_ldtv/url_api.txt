@@ -1,0 +1,17 @@
+8a201a864bb075fb2682e640215d11ec
+
+SACAR LAS ESTADISTICAS DE TODOS LOS JUGADORES DE UN EQUIPO
+/v1/{sport}/matches/{matchId}/teams/{teamId}/players
+https://api.wh.sportingpulseinternational.com/v1/basketball/matches/135170/teams/64/players?ak=73fee4973791892d5cd9fa0f8411da51
+
+JUGADORES DE UN EQUIPO EN UN PARTIDO EN UNA COMPETICION
+https://api.wh.sportingpulseinternational.com/v1/{sport}/competitions/{competitionId}/matches/{matchId}/teams/{teamId}/persons
+https://api.wh.sportingpulseinternational.com/v1/basketball/competitions/2128/matches/135170/teams/64/persons?ak=73fee4973791892d5cd9fa0f8411da51
+
+ESTADISTICAS DE UN JUGADOR POR PERIODO EN UN PARTIDO DEFINIDO
+https://api.wh.sportingpulseinternational.com/v1/{sport}/statistics/personmatch/matches/{matchId}/persons/{personId}
+https://api.wh.sportingpulseinternational.com/v1/basketball/statistics/personmatch/matches/135170/persons/1961?ak=73fee4973791892d5cd9fa0f8411da51
+
+SACAR LA ESTADISTICA DE UN JUGADOR EN UN PARTIDO
+https://api.wh.sportingpulseinternational.com/v1/{sport}/statistics/personmatch/matches/{matchId}/persons/{personId}
+https://api.wh.sportingpulseinternational.com/v1/basketball/statistics/personmatch/matches/135184/teams/9446/persons/1975/periods/0/REGULAR

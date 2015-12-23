@@ -250,3 +250,235 @@
     margin-bottom: 30px;
   }
 }
+
+.node-matchs {
+  color: white;
+  fieldset {
+    border: none;
+    padding: 0;
+  }
+  * {
+    color: white;
+  }
+  .line_vs {
+    display: none;
+  }
+  .group-equipo1, .group-equipo2, .field-name-group-vs,
+  .image, .field-name-title, .field-name-field-points-team-1, .field-name-field-points-team-2,
+  .field-name-field-team-1, .field-name-field-team-2 {
+    float: left;
+  }
+  .field-name-field-team-1, .field-name-field-team-2 {
+    .group-content {
+      min-width: 90%;
+      max-width: 90%;
+    }
+  }
+  .field-name-group-vs, .field-name-field-venue-name, .field-name-field-match-time, .text_vs, .date-display-single {
+    text-align: center;
+    color: #FF9000;
+  }
+  .field-name-field-venue-name, .field-name-field-match-time {
+    clear: both;
+  }
+  .field-name-group-vs {
+    width: 10%;
+  }
+  .group-equipo1, .group-equipo2 {
+    color: white;
+    width: 45%;
+  }
+  .field-name-field-points-team-1, .field-name-field-points-team-2 {
+    font-size: 49px;
+  }
+  .field-name-title {
+    margin-top: 12px;
+    padding: 6px;
+    width: calc(100% - 50px);
+    max-width: calc(100% - 50px);
+    h6 {
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      font-size: 21px;
+    }
+  }
+  .image {
+    margin-top: 20px;
+  }
+  .field-name-field-team-2, .field-name-field-points-team-1 {
+    float: right;
+  }
+  .text_vs {
+    font-size: 30px;
+    margin-top: 40px;
+  }
+}
+
+.block-views-estadisticas-partido-block {
+  margin-top: 20px;
+  h2 {
+    color: black;
+    background-color: #FF9000;
+    text-align: center;
+    font-size: 25px;
+  }
+  table {
+    width: 100%;
+    caption {
+      color: white;
+    }
+  }
+}
+
+.page-matchs-style {
+  .field-name-title {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    h6 {
+      width: 100%;
+    }
+  }
+  fieldset {
+    margin: 0;
+    padding: 5px;
+    border: 0px;
+    .group-content {
+      clear: both;
+    }
+  }
+  .field-name-field-team-1, .field-name-field-team-2 {
+    .group-content {
+      .field-name-title {
+        min-width: 79%;
+        max-width: 79%;
+      }
+    }
+  }
+  .field-name-group-vs {
+    clear: both;
+    width: 100%;
+    .line_vs {
+      display: inherit;
+      float: left;
+      width: 75%;
+      height: 4px;
+      margin-top: 10px;
+      border-bottom: 3px solid #fff;
+    }
+    .text_vs {
+      float: right;
+      width: 20%;
+      margin-top: -10px;
+    }
+  }
+  .group-team2 {
+    min-height: 56px;
+    max-height: 56px;
+    clear: both;
+  }
+  .view-content {
+    padding: 0;
+    .views-row {
+      width: calc(50% - 10px);
+      max-width: calc(50% - 10px);
+      height: 242px;
+      min-height: 242px;
+      max-height: 242px;
+      margin-right: 10px;
+      margin-top: 10px;
+      float: left;
+      border: solid #0068AA 1px;
+      padding:0px;
+      color: white;
+      .group-content {
+        max-width: 100%;
+        min-width: 100%;
+        .field-name-title h6 a {
+          color: white;
+        }
+        .field-name-title h6 a:hover, .field-name-title h6 a:focus {
+          color: #008CBA;
+        }
+        .field-name-title h6 {
+          height: 34px;
+          color: black;
+          text-align: center;
+          font-size: 12px;
+          background: #FF9000;
+          line-height: 34px;
+          font-family: 'futura_ltbook';
+          margin: 0;
+          overflow: hidden;
+          color: black;
+          padding: 0;
+          margin: 0;
+        }
+        .group-fecha-cancha {
+          background-color: #0068AA;
+          border-top: 2px solid #fff;
+          text-align: center;
+          * {
+            color: white;
+          }
+        }
+      }
+      .posted {
+        display: none;
+      }
+      .field-name-field-team-1, .field-name-field-team-2 {
+        margin: 0;
+        float: left;
+        width: 85%;
+        max-width: 85%;
+        .image {
+          float: left;
+          margin-top: 0;
+        }
+        .field-name-title {
+          float: left;
+          margin-top: 10px;
+          h6 {
+            font-size: 13px;
+            color: white;
+            background-color: transparent;
+          }
+        }
+        .node-unpublished {
+          background-color: transparent;
+        }
+      }
+      .field-name-field-points-team-1, .field-name-field-points-team-2 {
+        position: absolute;
+        right: 20px;
+        margin-top: 0px;
+        font-size: 35px;
+      }
+      
+      
+    }
+  }
+}
+
+.section-partidos {
+  .view-filters {
+    .views-widget-filter-field_match_type_value {
+      width: 30%;
+      label {
+        color: white;
+      }
+    }
+    .views-submit-button {
+      padding-top: 0;
+      margin-top: -0.2em;
+    }
+  }
+}
+
+.pagination-centered {
+    text-align: center;
+    clear: both;
+    padding-top: 1rem;
+}

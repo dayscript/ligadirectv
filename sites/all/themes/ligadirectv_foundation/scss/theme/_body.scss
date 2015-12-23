@@ -1,6 +1,6 @@
 body{
   background-color: #001E46;
-  background-image: url(../img/Fondo.jpg);
+  background-image: url(../img/fondo.png);
   background-repeat: no-repeat;
   background-position: center top;
   .row.l-main, .l-header{
@@ -98,7 +98,7 @@ body{
   border: 0;
   margin-left: 0;
   margin-right: 0;
-  max-width: 100%!important;
+  margin: 10px auto;
   .footer.columns{
     max-width: 1040px;
     margin: 0 auto;
@@ -154,6 +154,8 @@ body{
           color:white;
           text-align:center;
           border-top: 1px solid #0068aa;
+              font-size: 13px;
+    padding-top: 10px
         }
       }
     }
@@ -173,6 +175,90 @@ body{
           }
         }
       }
+    }
+  }
+}
+
+table {
+  width: 100%;
+  border: 1px solid #0068AA;
+  background: transparent;
+  border-top: 4px solid #0068AA;
+  border-collapse: collapse;
+  thead{
+    tr{
+      th, th a {
+        background-color: #0068AA;
+        height: 21px;
+        text-align: center;
+        color: white !important;
+        text-transform: uppercase;
+      }
+    }
+  }
+  tbody, tfoot{
+    background-color: transparent;
+    tr, tr.even, tr.odd, tr.alt, tr:nth-of-type(even) {
+      background: transparent;
+      td {
+        color: white;
+        text-align: center;
+        line-height: 21px;
+        height: 21px;
+        border: 1px solid #0068AA;
+        background:none;
+        a {
+          color: white;
+        }
+        a:hover, a:focus {
+          color: #FF9000;
+        }
+      }
+    }
+  }
+}
+.breadcrumbs {
+    display: block;
+    padding: 0.5625rem 0.875rem 0.5625rem;
+    overflow: hidden;
+    margin-left: 0;
+    list-style: none;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #001D46;
+    border-color: #001D46;
+    border-radius: 0px;
+    border: none;
+}
+.breadcrumbs>*.current a {
+    cursor: default;
+    color: #fff;
+}
+
+.large-2 {
+  width: 16.6666666667%;
+}
+
+.large-4 {
+  width: 33.3333333333%;
+}
+
+.node-type-players {
+  .group-jugador {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 20px;
+    .image, .body {
+      display: inline-block;
+      width: 49%;
+      margin: 0;
+      padding: 0;
+      float: left;
+      clear: none;
+    }
+    .body {
+      float: right;
+      text-align: justify;
     }
   }
 }

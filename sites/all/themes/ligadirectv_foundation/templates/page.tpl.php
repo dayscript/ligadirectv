@@ -12,18 +12,27 @@
       <?php if ($top_bar_classes): ?>
         <div class="<?php print $top_bar_classes; ?>">
       <?php endif; ?>
-      <nav class="top-bar" data-topbar <?php print $top_bar_options; ?>>
+      <?php if (!empty($page['top_header'])): ?>
+        <!--.l-header-region -->
+        <section class="top-header-region row">
+          <div class="large-16 columns">
+            <?php print render($page['top_header']); ?>
+          </div>
+        </section>
+        <!--/.l-header-region -->
+      <?php endif; ?>
+      <nav class="" data-topbar <?php print $top_bar_options; ?>>
         <div class="small-12 medium-4 large-9 columns namelogo">
           <?php if ($linked_logo): print $linked_logo; endif; ?>
         </div>
         <!-- Meter redes sociales con get_variable  -->
         <div class="small-12 medium-4 large-3 columns social">
-          <a href="https://twitter.com/@LigaDirectv" target="_blank"><img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter2.png'></a>
-          <a href="https://www.facebook.com/LigaDirectv" target="_blank"><img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook2.png'></a>
-          <a href="http://www.youtube.com/user/LigaDirectv" target="_blank"><img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_youtube.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_youtube2.png'></a>
+          <a href="https://twitter.com/@LigaDirectv" target="_blank"><img src="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter2.png'></a>
+          <a href="https://www.facebook.com/LigaDirectv" target="_blank"><img src="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook2.png'></a>
+          <a href="http://www.youtube.com/user/LigaDirectv" target="_blank"><img src="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_youtube.png" class="rollover" data-rollover='<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_youtube2.png'></a>
         </div>
         <!-- Meter redes sociales con get_variable  -->
-        <ul class="title-area">
+        <!--<ul class="title-area">
           <li class="name"><h1><?php print $linked_site_name; ?></h1></li>
           <li class="toggle-topbar menu-icon">
             <a href="#"><span><?php print $top_bar_menu_text; ?></span></a></li>
@@ -80,11 +89,11 @@
     <?php endif; ?>
     <!-- End title, slogan and menu -->
 
-    <?php if (!empty($page['header'])): ?>
+    <?php if (!empty($page['after_menu'])): ?>
       <!--.l-header-region -->
       <section class="l-header-region row">
         <div class="columns">
-          <?php print render($page['header']); ?>
+          <?php print render($page['after_menu']); ?>
         </div>
       </section>
       <!--/.l-header-region -->

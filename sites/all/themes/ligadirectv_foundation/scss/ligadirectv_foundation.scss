@@ -160,3 +160,11 @@
 
 // Older IE support
 // @import "vendor/ie";
+
+$small-range: 1024PX;
+$medium-range: $small-range;
+$large-range: $small-range;
+$xlarge-range: $small-range;
+$xxlarge-range: $small-range;
+.row { width:1030px !important; }
+.row .row { width:auto !important; }

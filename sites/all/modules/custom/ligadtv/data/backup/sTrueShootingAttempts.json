@@ -1,0 +1,1 @@
+{"response":{"meta":{"version":1,"code":401,"status":"failure","request":"http:\/\/api.wh.sportingpulseinternational.com\/v1\/basketball\/competitions\/2128\/leaders\/sTrueShootingAttempts?format=json&ak=73fee4973791892d5cd9fa0f8411da51&limit=6","time":1442380104,"count":1},"data":{"error":"KEY_INVALID","description":""}}}

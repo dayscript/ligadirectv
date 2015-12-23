@@ -62,7 +62,7 @@
       }
       .accordion{
         width: 32%;
-        font-family: Verdana;
+        font-family: Arial;
         /* background: #eee; */
         position: relative;
         z-index: 999;
@@ -73,7 +73,6 @@
         .header{
           padding: 8px 14px;
           font-size: 12px;
-          font-weight: bold;
           color: white;
           border: none;
           height: 57px;
@@ -82,19 +81,19 @@
           border-bottom: 2px solid #FF9000 !important;
           a{
             color:white;
-            width: 280px;
+            width: 259px;
             float: left;
             display: block;
             height: 47px;
           }
           >:after{
-            content: '>>';
+            content: "\232A";
             display: block;
             position: relative;
             color: #FF9000;
-            font-size: 20px;
-            left: 258px;
-            top: -15px;
+            font-size: 18px;
+            left: 279px;
+            top: -22px;
           }
         }
         .content{

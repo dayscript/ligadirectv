@@ -63,7 +63,7 @@ scripts[] = js/ligadtv.js
 ; You'll use this variable in page.tpl.php:
 ;   <?php print render($page['header']); ?>
 
-regions[header]              = Header
+;regions[header]              = Header
 regions[help]                = Help
 regions[highlighted]         = Highlighted
 regions[featured]            = Featured
@@ -81,6 +81,8 @@ regions[footer_secondcolumn] = Footer two
 regions[footer_thirdcolumn]  = Footer three
 regions[footer_fourthcolumn] = Footer four
 regions[footer]              = Footer
+regions[top_header]			 = Top Header
+regions[after_menu]			 = After menu
 
 ; Various page elements output by the theme can be toggled on and off. The
 ; "features" control which of these check boxes display on the

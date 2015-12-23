@@ -13,15 +13,19 @@
       <?php if ($user_picture): ?>
         <?php print $user_picture; ?>
       <?php endif; ?>
-      <?php print $submitted; ?>
       <?php $user = user_load($uid);?>
+      <span>Por: <a href="/users/<?= $user->name ?>" title="Ver perfil del usuario." class="username" xml:lang="" about="/users/liga-directv" typeof="sioc:UserAccount" property="foaf:name" datatype=""><?= $user->name ?></a></span>
+      <?php //print $submitted; ?>
       <?php if(isset($user->field_twitter_user_name)): ?>
         <div class="twitter-username">
           <a href="https://twitter.com/@<?php print render($user->field_twitter_user_name['und'][0]['twitter_username']);?>">
             @<?php print render($user->field_twitter_user_name['und'][0]['twitter_username']);?>
           </a>
         </div>
+        <div style="display:none"><?php var_dump($submitted) ?></div>
       <?php endif ?>
+       - <span><?php
+        echo ucfirst(t(date("l", $node->changed))) . " " . date("d/m/Y h:i a", $node->changed) ?></span>
     </div>
   <?php endif; ?>
   <div class="rs">

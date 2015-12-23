@@ -1,0 +1,19 @@
+.block-views-teams-block-1 {
+	.view-teams {
+		display: inline-block;
+		.views-row {
+			float: none;
+			width: auto;
+			display: inline-block;
+		}
+		.views-row.views-row-last {
+			float: none;
+		}
+	}
+}
+
+.block-search {
+	position: absolute;
+	top: 5.3rem;
+	border-right: 3rem;
+}

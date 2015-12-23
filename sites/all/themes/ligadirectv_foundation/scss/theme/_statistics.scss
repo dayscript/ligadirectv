@@ -21,7 +21,7 @@
   .ccTablePlayers{
     background-color: rgba(0, 0, 0, 0.2);
     width: 32.333333%!important;
-    .headc21 {
+    .headc21, h1, h2, h3, h4, h5, h6 {
       width: 300px;
       border-bottom: 2px solid #FF9000;
       color: white;
@@ -313,3 +313,187 @@
         margin-top: 5px;
       }
   }
+
+.stadistics-tables{
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 32.333333%!important;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color : #fff;
+  padding: 5px;
+  .block-title {
+    border-bottom: 2px solid #FF9000;
+    color: white;
+    height: auto;
+    font-family: 'futura_ltbook';
+    font-size: 21px;
+    text-transform: uppercase;
+    padding: 5px;
+  }
+  .attachment-before {
+    height: auto;
+    margin: 10px auto;
+    .views-field-title,
+    .views-field-field-teamnid,
+    .cc2Info {
+      float: left;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+    .cc2Info {
+      width: 120px;
+      height: 28px;
+      background-color: #FF9000;
+      color: white;
+      text-align: center;
+      line-height: 28px;
+      margin-top: 26px;
+    }
+    .views-field-field-image {
+      width: 80px;
+      height: 109px;
+      float: left;
+      margin-right: 8px;
+      img{
+        width: 82px;
+        height: 92px;
+        display: block;
+        float: left;
+      }
+      .titleLidder {
+        width: 82px;
+        background-color: #0068AA;
+        text-align: center;
+        height: 20px;
+        float: left;
+        color: white;
+      }
+    }
+    .views-field-field-image-1, .views-field-field-image-2 {
+      float: right;
+      margin-right: 8px;
+      margin-top: 20px;
+    }
+    .info {
+      color: white;
+      float: left;
+      margin-left: 10px;
+      width: 200px;
+      .inInfo {
+        width: 100%;
+        min-height: 84px;
+        float: left;
+        height: auto;
+        h4 {
+          font-family: 'futura_ltlight';
+          font-size: 15px;
+          text-transform: capitalize;
+          color: white;
+          font-weight: bold;
+        }
+        h5 {
+          font-family: 'futura_ltlight';
+          font-size: 15px;
+          color: white;
+          font-weight: bold;
+        }
+      }
+
+      .cc1Info {
+        width: 100%;
+        img{
+          width: 40px;
+          height: auto;
+          float: right;
+          margin-top: -10px;
+        }
+      }
+    }
+    .views-field-field-teamnid {
+      div {
+        a {
+          color: #fff;
+          font-size: 100%;
+        }
+        a:hover, a:focus a:active {
+          color: #FF9000;
+        }
+      }
+    }
+  }
+  .view-content {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 2px;
+    /*border-top: 1px solid #0068AA;*/
+    float: left;
+    margin-top: 10px;
+    table{
+      border:none;
+      background: transparent;
+      width: 98%;
+      margin-left: auto;
+      margin-right: auto;
+      thead {
+        background-color: #0068AA;
+        color: white;
+        text-align: center;
+        tr{
+          td{
+            font-size: 12px;
+            text-align: center;
+            font-family: 'futura_ltbook';
+          }
+        }
+      }
+      tbody{
+        background: transparent !important;
+        tr{
+            background-color: rgba(0,0,0,0.2);
+            border-bottom: 1px solid #0068AA;
+            height: 40px;
+            line-height: 40px;
+            color: white;
+            overflow: hidden;
+          td{
+            height: 40px;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 14px;
+            color: white;
+            font-family: 'futura_ltbook' !important;
+            padding:0;
+          }
+        }
+      }
+    }
+    table a {
+      color: white;
+      text-align: center;
+    }
+    a, table a:hover, table a:focus {
+      color: #FF9000;
+      width: 100%;
+      text-align: right;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 5px 0px;
+      display: block;
+    }
+    table a:hover, tablea:focus {
+      text-align: center;
+    }
+  }
+  .view-footer {
+    display: inline-block;
+    width: 100%;
+    p {
+      text-align: right;
+      padding: 0 10px;
+      a {
+        color: #ff9000;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

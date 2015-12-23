@@ -1,1 +1,97 @@
 // Non-modular or client styles for the .l-content region.
+
+.main {
+	color: #FFF;
+	.group-datos-equipo {
+		float: left;
+	}
+	.field-name-field-image-team {
+		float: right;
+	}
+	.group-estadisticas-equipo, .group-twitter, .group-facebook {
+		border: 0;
+	}
+	.group-datos-equipo {
+		margin: 0;
+		border: 0;
+		.field-name-field-city {
+			h2 {
+				font-size: 17px;
+			    color: white;
+			    font-weight: bold;
+			}
+		}
+		.group-twitter, .group-facebook {
+			margin: 5px 0;
+			padding: 0;
+			.field-name-field-logo-twitter, .field-name-field-logo-facebook {
+				float: left;
+				margin-right: 5px;
+			}
+		}
+	}
+	.group-estadisticas-equipo {
+		padding: 0;
+		.fieldset-wrapper {
+			.field-wrapper {
+				float: left;
+				width: 12.5%;
+				text-align: center;
+			}
+		}
+	}
+	.body {
+		clear: both;
+		padding-top: 20px;
+	}
+	.players_team_detail {
+		display: inline-block;
+		.views-row {
+			float: left;
+			width: 33%;
+			text-align: center;
+			.field-name-title {
+				h2 {
+					color: white;
+					font-size: 16px;
+					margin: 10px 0;
+				}
+			}
+		}
+	}
+	.stats_players_team_detail {
+		clear: both;
+	}
+	.stats_players_team_detail {
+		h2 {
+			color: white;
+			text-align: center;
+		}
+	}
+	.view-noticias-de-un-equipo-detalle-equipo- {
+		ul {
+			margin-left: 0;
+		}
+		img {
+			width: 100%;
+		}
+		.views-field-title, .views-field-body {
+			position: absolute;
+			background-color: rgba(0,0,0,0.7);
+		}
+		.views-field-title {
+			position: absolute;
+			bottom: 90px;
+			width: 100%;
+			padding: 5px;
+			a {
+				color: white;
+				font-size: 20px;
+			}
+		}
+		.views-field-body {
+			padding: 10px;
+			bottom: 0;
+		}
+	}
+}

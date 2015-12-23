@@ -1,4 +1,4 @@
-.page-teams, .node-type-team{
+.page-teams, .node-type-team {
   .rs{
     span{
       img{
@@ -29,101 +29,103 @@
     font-size: 20px;
     font-weight: bold;
   }
-  .small-4.columns{
-    margin: 0;
-    background-color: rgba(0, 0, 0, 0.2);
-    width: 320px;
-    height: 272px;
-    margin-top: 20px;
-    margin-left: 20px;
-    float: left;
-    img{
-      height: 200px;
-      width: 200px;
-      margin: 0 auto;
-      //margin-left: 45px;
-      text-align:center;
-    }
-    .title-team{
-      border-bottom: 2px solid #FF9000;
-      text-align:center;
-      width: 100%;
-      text-align: center;
-      font-family: 'futura_ltbook';
-      font-size: 20px;
-      color: white;
-      margin-bottom: 2px;
-    }
-    .detail-team{
-      a{
-        text-transform: uppercase;
-        background-color: #0068AA;
+  main {
+    .small-4.columns{
+      margin: 0;
+      background-color: rgba(0, 0, 0, 0.2);
+      width: 320px;
+      height: 272px;
+      margin-top: 20px;
+      margin-left: 20px;
+      float: left;
+      img{
+        height: 200px;
+        width: 200px;
+        margin: 0 auto;
+        //margin-left: 45px;
+        text-align:center;
+      }
+      .title-team{
+        border-bottom: 2px solid #FF9000;
+        text-align:center;
+        width: 100%;
+        text-align: center;
+        font-family: 'futura_ltbook';
+        font-size: 20px;
         color: white;
-        border-radius: 5px;
-        padding: 2px;
-        position: relative;
-        top: 8px;
-        left: 95px;
-        font-size: 14px;
-        padding: 3px 10px;
+        margin-bottom: 2px;
+      }
+      .detail-team{
+        a{
+          text-transform: uppercase;
+          background-color: #0068AA;
+          color: white;
+          border-radius: 5px;
+          padding: 2px;
+          position: relative;
+          top: 8px;
+          left: 95px;
+          font-size: 14px;
+          padding: 3px 10px;
+        }
       }
     }
-  }
-  .small-4.columns.left-item{
-    margin-left: 0px;
-  }
+    .small-4.columns.left-item{
+      margin-left: 0px;
+    }
 
-  .view-teams{
-    .view-content{
-      .views-row{
-        margin: 0;
-        background-color: rgba(0, 0, 0, 0.2);
-        width: 320px;
-        height: 272px;
-        margin-top: 20px;
-        margin-left: 20px;
-        float: left;
-        .views-field-field-image{
-          height: 200px;
-          width: 200px;
-          margin: 0 auto;
-          .field-content{
+    .view-teams{
+      .view-content{
+        .views-row{
+          margin: 0;
+          background-color: rgba(0, 0, 0, 0.2);
+          width: 320px;
+          height: 272px;
+          margin-top: 20px;
+          margin-left: 20px;
+          float: left;
+          .views-field-field-image{
+            height: 200px;
+            width: 200px;
+            margin: 0 auto;
+            .field-content{
+              text-align:center;
+            }
+          }
+          .views-field-title{
+            border-bottom: 2px solid #FF9000;
             text-align:center;
+            span{
+              a{
+                width: 100%;
+                text-align: center;
+                font-family: 'futura_ltbook';
+                font-size: 20px;
+                color: white;
+                margin-bottom: 2px;
+              }
+            }
           }
-        }
-        .views-field-title{
-          border-bottom: 2px solid #FF9000;
-          text-align:center;
-          span{
-            a{
-              width: 100%;
-              text-align: center;
-              font-family: 'futura_ltbook';
-              font-size: 20px;
-              color: white;
-              margin-bottom: 2px;
+          .views-field-nid{
+            span{
+              a {
+                text-transform: uppercase;
+                background-color: #0068AA;
+                color: white;
+                border-radius: 5px;
+                padding: 2px;
+                position: relative;
+                top: 8px;
+                left: 108px;
+                font-size: 14px;
+                padding: 3px 10px;
+              }
             }
           }
         }
-        .views-field-nid{
-          span{
-            a {
-              text-transform: uppercase;
-              background-color: #0068AA;
-              color: white;
-              border-radius: 5px;
-              padding: 2px;
-              position: relative;
-              top: 8px;
-              left: 108px;
-              font-size: 14px;
-              padding: 3px 10px;
-            }
-          }
+        .views-row-1,.views-row-4,.views-row-7,.views-row-10{
+          margin-left: 0px;
         }
-      }
-      .views-row-1,.views-row-4,.views-row-7,.views-row-10{
-        margin-left: 0px;
       }
     }
   }
@@ -383,6 +385,122 @@
     }
   }
 }
-.news_team_detail{
-margin-bottom: 20px;
+.block-title{
+    padding: 5px;
+    border-bottom: 2px solid #FF9000;
+    border-top: 2px solid #FF9000;
+    color: white;
+    height: auto;
+    font-size: 40px;
+    font-family: 'futura_ltbook';
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.node-type-players {
+  .field_image {
+    .bx-wrapper {
+      margin-bottom: 10px !important;
+    }
+  }
+  .group-estadisticas {
+    .field {
+      float: left;
+      width: 200px;
+      border: 1px solid #0068aa;
+      height: 56px;
+      padding: 3px 0 5px 10px;
+    }
+  }
+  .field-name-field-teamnid {
+    margin-bottom: 10px;
+    text-align: center;
+    /*.image, .field-name-title {
+      float: left;
+    }*/
+  }
+}
+
+/**
+ * Reescritura de estilos de la página de detalle de equipo
+ * Author: Felipe camacho;
+ */
+
+.section-equipos{
+  .group-detalle {
+    display: block;
+    overflow: hidden;
+    .group-datos-generales, .body.field {
+      display: inline-block;
+      float: left;
+      width: calc(50% - 0.5rem);
+      clear: none;
+    }
+    .body.field p {
+      text-align: justify !important;
+      padding-left: 0.5rem;
+    }
+    .group-datos-generales {
+      padding-right: 0.5rem;
+      margin-top: 1em;
+      .image {
+        float: left;
+      }
+      .group-redes {
+        margin-left: 200px;
+        .field-name-field-city {
+          .field-label {
+            color: white;
+            font-size: 14px;
+          }
+        }
+        .field {
+          display: table;
+          width: 100%;
+        }
+        .field-name-field-twitter, .field-name-field-facebook {
+          padding: 1px 0 1px 32px;
+          height: 30px;
+          background-repeat: no-repeat;
+          background-position: left;
+        }
+        .field-name-field-twitter {
+          background-image: url('/sites/default/files/default_images/btn_twitter.png');
+        }
+        .field-name-field-facebook {
+          background-image: url('/sites/default/files/default_images/btn_facebook.png');
+        }
+      }
+      .field-name-field-image-team {
+        margin-top: 1rem;
+      }
+    }
+  }
+  #quicktabs-detalle_equipo ul.quicktabs-tabs {
+    background-color: #0068AA !important;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0;
+    display: inline-block;
+    width: 100%;
+    li {
+      display: block;
+      float: left;
+      width: 33.33%;
+      margin: 0;
+      text-align: center;
+      a {
+        color: white;
+        display: block;
+      }
+    }
+    li:hover, li:focus, li.active {
+      background-color: #FF9000;
+    }
+  }
 }

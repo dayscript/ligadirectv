@@ -19,11 +19,11 @@
     </div>
     <div class="medium-12 columns rs">
       <span >
-        <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter.png" class="rollover" data-rollover="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter2.png">
+        <img src="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter.png" class="rollover" data-rollover="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_twitter2.png">
         <?php print render($content['field_twitter']);?>
       </span>
       <span>
-        <img src="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook.png" class="rollover" data-rollover="/<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook2.png">
+        <img src="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook.png" class="rollover" data-rollover="<?php print drupal_get_path('module', 'ligadtv');?>/img/btn_facebook2.png">
         <?php print render($content['field_facebook']);?>
       </span>
     </div>

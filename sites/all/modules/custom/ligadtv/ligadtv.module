@@ -6,15 +6,15 @@
  * @var liga
  * @var baseSp
  */
-$ak     = variable_get('ak');//'73fee4973791892d5cd9fa0f8411da51';
+$ak     = "8a201a864bb075fb2682e640215d11ec";//variable_get('ak');//'73fee4973791892d5cd9fa0f8411da51';
 $actual = variable_get('actual'); //'5';
 $liga   = variable_get('liga');//'1312';
 $nextExecute = variable_get('nextExecute');
 $baseSp   = 'https://api.wh.sportingpulseinternational.com';
-define("ak", $ak);
+/*define("ak", $ak);
 define("actual",$actual);  // liga
 define("liga",$liga);  // conmetitions
-define("baseSp", $baseSp);
+define("baseSp", $baseSp);*/
 $query= baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=600&ak='. ak .'';
 /**
  * Implementation of hook_menu().
@@ -29,7 +29,7 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_NORMAL_ITEM,
   );
-  
+
   $menu['admin/config/ligadtv/video-home'] = array(
     'title'            => t('Video Home'),
     'description'      => t('Form config video home'),
@@ -39,15 +39,15 @@ function ligadtv_menu(){
     'type'             => MENU_NORMAL_ITEM,
   );
 
-  $menu['matchs']= array(
+  /*$menu['matchs']= array(
     'title'            => t('Matchs'),
     'description'      => t('Matchs'),
     'page callback'    => '_matchs',
     'access arguments' => array('access content'),
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
-  );
-  
+  );*/
+
   $menu['matchs/%']= array(
     'title'            => t('Matchs detail'),
     'description'      => t('Matchs'),
@@ -57,16 +57,16 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
   );
-  
-  $menu['statistics']= array(
+
+  /*$menu['statistics']= array(
     'title'            => t('statistics'),
     'description'      => t('statistics'),
     'page callback'    => '_statistics',
     'access arguments' => array('access content'),
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
-  );
-  
+  );*/
+
   $menu['statistics/%/%']= array(
     'title'            => t('Statistics'),
     'description'      => t('Statistics Table'),
@@ -76,7 +76,7 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
   );
-  
+
   $menu['player/%']= array(
     'title'            => t('Team detail'),
     'description'      => t('Teams detail'),
@@ -86,16 +86,16 @@ function ligadtv_menu(){
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
   );
-  
-  $menu['positions']= array(
+
+  /*$menu['positions']= array(
     'title'            => t('Positions'),
     'description'      => t('Positions'),
     'page callback'    => '_positions',
     'access arguments' => array('access content'),
     'file'             => 'ligadtv.pages.inc',
     'type'             => MENU_CALLBACK,
-  );
-  
+  );*/
+
   return $menu;
 }
 
@@ -111,18 +111,18 @@ function ligadtv_block_info() {
     'info'  => t('slidorion home'),
     'cache' => DRUPAL_NO_CACHE,
     );
-  $blocks['table_positions'] = array(
+  /*$blocks['table_positions'] = array(
     'info'  => t('Table positions'),
     'cache' => DRUPAL_NO_CACHE,
-  );
+  );*/
   $blocks['next_macth'] = array(
     'info'  => t('Next macth'),
     'cache' => DRUPAL_NO_CACHE,
   );
-  $blocks['latest_results'] = array(
+  /*$blocks['latest_results'] = array(
     'info'  => t('Latest result'),
     'cache' => DRUPAL_NO_CACHE,
-  );
+  );*/
   $blocks['fb_widget'] = array(
     'info'  => t('Facebook widget'),
     'cache' => DRUPAL_NO_CACHE,
@@ -135,7 +135,7 @@ function ligadtv_block_info() {
     'info'  => t('Video Home'),
     'cache' => DRUPAL_NO_CACHE,
   );
-  $blocks['points_media'] = array(
+  /*$blocks['points_media'] = array(
     'info'  => t('Points media'),
     'cache' => DRUPAL_NO_CACHE,
   );
@@ -158,7 +158,7 @@ function ligadtv_block_info() {
   $blocks['tl_porcentaje'] = array(
     'info'  => t('TL Porcentaje'),
     'cache' => DRUPAL_NO_CACHE,
-  );
+  );*/
   $blocks['sponsors_home'] = array(
     'info'  => t('Sponsors Home'),
     'cache' => DRUPAL_NO_CACHE,
@@ -203,10 +203,10 @@ function ligadtv_block_info() {
     'info' => t('PAUTA CONTACTO'),
     'cache'=> DRUPAL_NO_CACHE,
   );
-  $blocks['contacto_partidos'] = array(
+  /*$blocks['contacto_partidos'] = array(
     'info' => t('PAUTA PARTIDOS'),
     'cache'=> DRUPAL_NO_CACHE,
-  );
+  );*/
   return $blocks;
 }
 /**
@@ -228,7 +228,7 @@ function ligadtv_block_view($delta = '') {
                   '#items' => array($items),
                   );
       break;
-      case 'table_positions':
+      /*case 'table_positions':
         $block['title'] = '<none>';
         $maxRound = 0;
         $data    = getStanding();
@@ -255,7 +255,7 @@ function ligadtv_block_view($delta = '') {
                   '#theme' => 'latest_result',
                   '#items' => array($data),
                   );
-      break;
+      break;*/
       case 'fb_widget':
         $block['content'] = array(
                   '#theme' => 'fb',
@@ -274,7 +274,7 @@ function ligadtv_block_view($delta = '') {
                   '#items' => array(),
           );
       break;
-      case 'points_media':
+      /*case 'points_media':
         $points = getLeaderPoints();
         $items = drawLeader($points,$players,$teams,'sPointsAverage','MP');
         $block['content'] = array(
@@ -305,7 +305,7 @@ function ligadtv_block_view($delta = '') {
                           '#theme' => 'rebounds_offensive',
                           '#items' => $items,
                 );
-        
+
       case 'rebounds_defensive':
         $points= getLeaderReboundsDevensive();
         $items =drawLeader($points,$players,$teams,'sReboundsDefensive','RD');
@@ -321,8 +321,8 @@ function ligadtv_block_view($delta = '') {
                           '#theme' => 'tl_porcentaje',
                           '#items' => $items,
                 );
-      break;
-    
+      break;*/
+
       case 'sponsors_home':
         $block['content'] = array(
                           '#theme' => 'sponsors_home',
@@ -419,24 +419,24 @@ function ligadtv_theme(){
                 'items' => array(),
           )
         ),
-  'table_positions' => array(
+  /*'table_positions' => array(
             'template' => 'theme/table_positions',
             'variables' => array(
                 'items' => array(),
           )
-        ),
+        ),*/
   'next_macth' => array(
             'template' => 'theme/next_macth',
             'variables' => array(
                 'items' => array(),
           )
         ),
-  'latest_result' => array(
+  /*'latest_result' => array(
             'template' => 'theme/latest_result',
             'variables' => array(
                 'items' => array(),
           )
-        ),
+        ),*/
   'fb'            => array(
             'template'  => 'theme/fb',
             'variables' => array(
@@ -467,7 +467,7 @@ function ligadtv_theme(){
                 'items' => array(),
               ),
         ),
-  'points_media'     => array(
+  /*'points_media'     => array(
             'template'  => 'theme/points_media',
             'variables' => array(
                 'items' => array(),
@@ -496,7 +496,7 @@ function ligadtv_theme(){
             'variables' => array(
                 'items' => array(),
               ),
-        ),
+        ),*/
   'sponsors_home'     => array(
             'template'  => 'theme/sponsors_home',
             'variables' => array(
@@ -515,13 +515,13 @@ function ligadtv_theme(){
                 'items' => array(),
               ),
         ),
-  'matchs'             => array(
+  /*'matchs'             => array(
             'template'  => 'theme/matchs',
             'variables' => array(
                 'items' => array(),
               ),
-        ),
-  'statistics'         => array(
+        ),*/
+  /*'statistics'         => array(
             'template'  => 'theme/statistics',
             'variables' => array(
                 'items' => array(),
@@ -538,7 +538,7 @@ function ligadtv_theme(){
             'variables' => array(
                 'items' => array(),
               ),
-        ),
+        ),*/
   'detail_teams'      => array(
             'template'  => 'theme/detail_teams',
             'variables' => array(
@@ -551,12 +551,12 @@ function ligadtv_theme(){
                 'items' => array(),
               ),
         ),
-  'positions'=> array(
+  /*'positions'=> array(
             'template'  => 'theme/positions',
             'variables' => array(
                 'items' => array(),
               ),
-        ),
+        ),*/
   'payroll' => array(
             'template'  => 'theme/payroll',
             'variables' => array(
@@ -623,12 +623,12 @@ function ligadtv_theme(){
 function ligadtv_cron(){
    // Default to an hourly interval. Of course, cron has to be running at least
   // hourly for this to work.
-  
+
   $cron_last = variable_get('cron_last');
-  
-  ligadtv_update_teams();
+
+  /*ligadtv_update_teams();
   ligadtv_update_players();
-  ligadtv_update_matchs();
+  ligadtv_update_matchs();*/
   // We usually don't want to act every time cron runs (which could be every
   // minute) so keep a time for the next run in a variable.
   if (date('ymd', $cron_last) != date('ymd', time())) {
@@ -673,7 +673,7 @@ function ligadtv_cron(){
         }
       }
     }*/
-    
+
     /*variable_set('cron_last', date('ymd', time()));
     variable_set('nextExecute',date('Y-m-d'));
     getRes();
@@ -701,7 +701,7 @@ function ligadtv_cron(){
     getLeaderBallFouls();
     variable_set('nextExecute', date('Y-m-d', strtotime('+1 day')));
     watchdog('cron_ligadtv', 'cron_ligadtv ran');*/
-    
+
   }
 }
 /**
@@ -744,12 +744,12 @@ function _get_content_custom($type, $quantity){
  * Functions obtain INFO TEAMS
  * @return [JSON]
  */
-function _get_teams(){
+/*function _get_teams(){
   $uri  = baseSp . '/v1/basketball/competitions/' . liga . '/standings?latest=1&format=json&limit=6&ak=' . ak;
   $json = file_get_contents($uri);
   $data = json_decode($json, TRUE);
   return $data;
-}
+}*/
 /**
  * Function obtain detail team
  * @param  [type] $name [description]
@@ -848,9 +848,9 @@ function getCal(){
   $data    = getCalData();
   $data    = $data['response']['data'];
   $dataTemp= $data;
-  
+
   //dpm($data[0]);
-  
+
   foreach ($data as $key => $value) {
     $dateEnd = explode(' ',$value['matchTime']);
     $dateEnd = strtotime($dateEnd[0]);
@@ -862,7 +862,7 @@ function getCal(){
         'team-2'=>array('name'=> $value['competitors'][1]['teamNickname'], 'logo'=>$value['competitors'][1]['logo']['M1']['url']));
       $matchsTime[] = array($value['matchTime']);
     }
-    
+
   }
   $data = array('venue'=> $venue, 'teams'=>$teams, 'matchs-time'=>$matchsTime);
   return $data;
@@ -1558,16 +1558,16 @@ function _matchs_competition($matchsId){
 
 
 //function ligadtv_update_players(){
-//  
+//
 //  $players = getLeaderPuntos();
 //  $datas   = $players['response']['data'];
 //  $user    = user_load( '1' );
-//  
+//
 //  for( $i=0; $i<count($datas); $i++ ){
-//    
+//
 //    $team          = _load_teams( $datas[$i]['teamId'] );
 //    $playerWrapper = _load_player( $datas[$i]['personId'] );
-//    
+//
 //    $playerWrapper->author                       = $user;
 //    $playerWrapper->title                        = $datas[$i]['personName'];
 //    $playerWrapper->field_personal_id            = $datas[$i]['personId'];
@@ -1589,30 +1589,30 @@ function _matchs_competition($matchsId){
 //    $playerWrapper->field_efficiency             = $datas[$i]['sEfficiency'];
 //    $playerWrapper->field_blocks_average         = $datas[$i]['sBlocksAverage'];
 //    $playerWrapper->field_turnovers              = $datas[$i]['sTurnovers'];
-//    
+//
 //    $playerWrapper->field_team->set( _load_teams($datas[$i]['teamId']) );
-//    
+//
 //    if ( !empty($datas[$i]['images']['photo']['L1']['url']) ){
 //      $playerWrapper->field_image->file->set( _images_save($datas[$i]['personId'], $datas[$i]['images']['photo']['L1']['url']) );
 //    }
-//    
+//
 //    $playerWrapper->save();
-//    
+//
 //  }
-//  
+//
 //}
 //
 //
 //function ligadtv_update_teams(){
-//  
+//
 //  $teams = getStandingData();
 //  $datas = $teams['response']['data'];
 //  $user  = user_load( '1' );
-//  
+//
 //  for( $i=0; $i<count($datas); $i++ ){
-//    
+//
 //    $teamWrapper = _load_teams( $datas[$i]['teamId'] );
-//    
+//
 //    $teamWrapper->author               = $user;
 //    $teamWrapper->title                = $datas[$i]['teamName'];
 //    $teamWrapper->field_team_id        = $datas[$i]['teamId'];
@@ -1624,28 +1624,28 @@ function _matchs_competition($matchsId){
 //    $teamWrapper->field_point_diff     = $datas[$i]['pointDiff'];
 //    $teamWrapper->field_last_5         = $datas[$i]['last5'];
 //    $teamWrapper->field_points         = $datas[$i]['standingPoints'];
-//    
+//
 //    $teamWrapper->save();
-//    
+//
 //  }
-//  
+//
 //}
 //
 //
 //function ligadtv_update_matchs(){
-//  
+//
 //  $matchs = _list_matchs();
 //  $datas  = $matchs['response']['data'];
 //  $user   = user_load( '1' );
-// 
+//
 //  for( $i=0; $i<count($datas); $i++ ){
 //
 //    $team1        = _load_teams( $datas[$i]['competitors'][0]['teamId'] );
 //    $team2        = _load_teams(  $datas[$i]['competitors'][1]['teamId']  );
-//    $matchWrapper = _load_matchs( $datas[$i]['matchId'] );   
+//    $matchWrapper = _load_matchs( $datas[$i]['matchId'] );
 //
 //    $matchWrapper->author = $user;
-//    $matchWrapper->title                = sprintf( '%s vs %s - %s', $datas[$i]['competitors'][0]['teamNickname'], 
+//    $matchWrapper->title                = sprintf( '%s vs %s - %s', $datas[$i]['competitors'][0]['teamNickname'],
 //        $datas[$i]['competitors'][1]['teamNickname'], $datas[$i]['matchTime'] );
 //    $matchWrapper->field_match_time     = strtotime($datas[$i]['matchTime']);
 //    $matchWrapper->field_match_number   = $datas[$i]['matchNumber'];
@@ -1663,65 +1663,73 @@ function _matchs_competition($matchsId){
 //    $matchWrapper->save();
 //
 //  }
-//  
+//
 //}
 //
 //
 //function _load_player( $personId ){
-//  
+//
 //  $query = db_select( 'field_data_field_personal_id', 'p' )
 //      ->fields( 'p', array('entity_id') )
 //      ->condition('p.field_personal_id_value', $personId, '=')
 //      ->execute()
 //      ->fetchAll();
-//  
+//
 //  $player       = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'players') );
 //  $entityPlayer = entity_metadata_wrapper( 'node', $player );
-//  
+//
 //  return $entityPlayer;
-//  
+//
 //}
 //
 //
 //function _load_teams( $teamId ){
-//  
+//
 //  $query = db_select( 'field_data_field_team_id', 'teamid' )
 //      ->fields( 'teamid', array('entity_id') )
 //      ->condition('teamid.field_team_id_value', $teamId, '=')
 //      ->condition('teamid.bundle', 'team', '=')
 //      ->execute()
 //      ->fetchAll();
-//  
+//
 //  $team = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'team') );
 //  $entityTeam =  entity_metadata_wrapper( 'node', $team );
-//  
+//
 //  return $entityTeam;
-//  
+//
 //}
 //
 //
 //function  _load_matchs( $matchId ){
-//  
+//
 //  $query = db_select( 'field_data_field_match_id', 'matchid' )
 //      ->fields( 'matchid', array('entity_id') )
 //      ->condition('matchid.field_match_id_value', $matchId, '=')
 //      ->condition('matchid.bundle', 'matchs', '=')
 //      ->execute()
 //      ->fetchAll();
-//  
+//
 //  $match = !empty($query) ? $query[0]->entity_id : entity_create( 'node', array('type' => 'matchs') );
 //  $entityMatch =  entity_metadata_wrapper( 'node', $match );
-//  
+//
 //  return $entityMatch;
-//  
+//
 //}
 //
 //
 //function _images_save( $playerId, $urlImages = '' ){
-//  
+//
 //  $dir  = sprintf( 'public://player_%s.jpg', $playerId );
 //  $file = file_save_data( file_get_contents($urlImages), $dir );
-//  
+//
 //  return $file;
-//  
+//
 //}
+
+function ligadtv_node_view($node, $view_mode, $langcode) {
+  //$node->content['field_facebook']['#title'] ="Arueasdsa";
+  if(isset($node->content['field_facebook'])) :
+    $node->content['field_facebook'][0]['#markup'] = "<a href='http://www.facebook.com/" . $node->content['field_facebook'][0]['#markup'] . "'>" . $node->content['field_facebook'][0]['#markup'] . "</a>";
+  endif;
+  //dpm($node);
+}

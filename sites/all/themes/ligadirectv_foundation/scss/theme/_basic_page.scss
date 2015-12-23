@@ -1,16 +1,18 @@
+#page-title{
+  text-align: center;
+  line-height: 35px;
+  font-family: 'futura_ltbook';
+  font-size: 20px;
+  width: 1000px;
+  //margin: 0 auto;
+  background-color: #FF9000;
+  color: black;
+  height: 35px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
 .node-type-page{
-  #page-title{
-    text-align: center;
-    line-height: 35px;
-    font-family: 'futura_ltbook';
-    font-size: 20px;
-    width: 1000px;
-    //margin: 0 auto;
-    background-color: #FF9000;
-    color: black;
-    height: 35px;
-    text-align: center;
-  }
   .medium-9 {
     width: 70% !important;
   }
@@ -128,4 +130,93 @@
       }
     }
   }
+}
+
+.block-views-teams-block-1 {
+  margin-bottom: 1rem;
+  position: absolute;
+  top: 9.5rem;
+  .view-teams {
+    .view-content {
+      display: inline-block;
+      width: 100%;
+      margin-top: 1rem;
+      text-align: center;
+      .views-row {
+        float: none;
+        width: auto;
+        display: inline-block;
+      }
+      .views-row.views-row-last {
+        float: none;
+      }
+    }
+  }
+}
+
+.block-search {
+  position: absolute;
+  top: 5.5rem;
+  right: 8rem;
+  z-index: 1;
+  width: 300px;
+  .small-4 {
+    display: none;
+  }
+  .small-8 {
+    width: 100%;
+    input {
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      background-image: url('../img/search.png');
+      background-position: right;
+      background-position-x: 95%;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+.page-search-node {
+  h2 {
+    color: white;
+  }
+  form {
+    label {
+      color: white;
+    }
+  }
+}
+
+.block-system-main-menu {
+    display: inline-block;
+    color: white;
+    border-top: 2px solid #FF9000;
+    border-bottom: 2px solid #FF9000;
+    padding: 0;
+    ul {
+      background-color: #0068AA;
+      height: 38px;
+      width: 100%;
+      margin: 2px 0;
+      padding-top: 10px;
+      padding-bottom: 30px;
+      li {
+        display: inline;
+        border-right: 2px solid #FFFFFF;
+        color: #FFFFFF;
+        float: left;
+        font-family: 'futura_ltbook';
+        font-size: 17px;
+        line-height: 23px;
+        padding: 0 15px;
+        a {
+          color: white;
+          text-transform: uppercase;
+        }
+        a:hover, a:focus, a:active, a.active {
+          background-color: #FF9000;
+        }
+      }
+    }
 }
