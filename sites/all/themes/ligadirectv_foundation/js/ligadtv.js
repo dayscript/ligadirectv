@@ -59,8 +59,9 @@
         }
 
         if($(".view-estadisticas-partido").length > 0) {
-          var celdas = [1, 4, 5, 8, 9, 10, 11, 12, 14, 17, 18];
-          var per = [2, 3, 6, 13, 15, 16, 19];
+          var celdas = [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18];
+          var per = [2, 3, 6, 15, 16];
+          var sum = [13, 19];
           $(".view-estadisticas-partido table").each(function(x) {
             var total = [];
             total[0] = "";
@@ -96,9 +97,10 @@
                 else {
                   var celdaValor = $(this).text();//alert(celdaValor);
                   celdaValor = $.trim(celdaValor);
+                  console.log("indexof: " + celdaValor.indexOf("%"));
                   if(celdaValor.indexOf("%") > 0) {
-                    var l = celdaValor.length;
-                    var celdaValor = celdaValor.substring(0, (l - 2));
+                    /*var l = celdaValor.length;
+                    var celdaValor = celdaValor.substring(0, (l - 2));*/
                     celdaValor = eval(celdaValor);
                     parseInt(celdaValor);
                     if(total[index2] == "undefinded" || isNaN(total[index2])) {
@@ -127,23 +129,31 @@
                     console.log("total[index2] undefinded: " + min[0] + ":" + min[1]);
                   }
                   else {
-                    total[index2] = '';
+                    total[index2] = "";
                   }
                 }
               });
             });
             var text = '<tfoot><tr>';
             jQuery.each(total, function(i, val) {
-              if( i > 0  && jQuery.inArray( i, celdas ) >= 0 ) {
+              if( i > 0 && jQuery.inArray( i, sum ) >= 0 ) {
+                var num1 = eval("i - 1");
+                var num2 = eval("i - 2");
+                var dec = eval("total[num1] / total[num2]");
+                dec = eval("dec * 100");
+                dec = parseFloat(dec).toFixed(2);
+                text += '<td>' + dec + ' %</td>';
+              }
+              else if( i > 0 && jQuery.inArray( i, per ) >= 0 ) {
+                var t = eval("val / tcel");
+                text += '<td>' + t + ' %</td>';
+              }
+              else if( i > 0  && jQuery.inArray( i, celdas ) >= 0 ) {
                 if (!/^-?\d+$/.test(val)) {
                   val = parseFloat(val).toFixed(2);
                   //console.log("toFixed: " + val);
                 }
                 text += '<td>' + val + '</td>';
-              }
-              else if( i > 0 && jQuery.inArray( i, per ) >= 0 ) {
-                var t = eval("val / tcel");
-                text += '<td>' + t + ' %</td>';
               }
               else if(i == 0) {
                 text += '<td>TOTAL</td>';
